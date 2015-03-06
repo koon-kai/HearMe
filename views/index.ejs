@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Secret</title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel="stylesheet" href="/components/bootstrap/dist/css/bootstrap.css" />
+    <script src="/socket.io/socket.io.js"></script> 
+    <script src="/components/jquery/dist/jquery.js"></script>
+    <script src="/components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script>
+        //var socket = io.connect('http://localhost:3000');
+    </script>
+  </head>
+  <body>
+    
+    <div class="container">
+        <div class="page-header">
+            <h2>Think</h2>
+        </div>
+        <div id="main">
+            <% for(var i=0; i<content.length; i++) { %>
+                 <p><%= content[i] %></p>
+            <% } %>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="input-area">
+                <div class="col-sm-10">
+
+                <input type="text" name="content" id="content" class="form-control">
+                </div>
+                <div class="col-sm-2">
+                <button class="btn btn-default" id="sendBtn">Send</button>
+                </div>
+            </div>
+        </div>
+    </footer>
+   <!--
+ 
+    <input type="text" name="content" id="content">
+    <button id="sendBtn">Send</button>
+
+    -->
+    <script>
+        $(function(){ 
+            var socket = io();
+
+            $('#sendBtn').bind("click", function(){
+                submitContent();
+            })
+
+            function submitContent() {
+                var content = $('#content');
+                if (!content.val()) {
+                    return;
+                }
+                var data = {"content":content.val()};
+                socket.emit('new content', data);
+                content.val('');
+            }
+
+            function addContent(data) {
+                var main = $('#main');
+                //console.log(data)
+                var content = $('<p>').text(data['content']);
+                main.append(content);
+            }
+
+            $(window).keydown(function (event) {
+                // Auto-focus the current input when a key is typed
+                if (!(event.ctrlKey || event.metaKey || event.altKey)) {
+                    $('#content').focus();
+                }
+                // When the client hits ENTER on their keyboard
+                if (event.which === 13) {
+                    submitContent();
+                }
+            });
+
+            socket.on('add content', function(data){
+                addContent(data);
+            })
+        })
+    </script>
+  </body>
+
+</html>
