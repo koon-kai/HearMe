@@ -5,17 +5,23 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var multer = require('multer');
 
 var routes = require('./routes/index');
 var weixin = require('./routes/weixin');
+var comment = require('./routes/comment');
+var signin = require('./routes/signin');
+var post = require('./routes/post');
 
 var http = require('http');
 var app = express();
-var server = http.createServer(app);
+// var server = http.createServer(app);
 
-var io = require('socket.io')(server);
+// var io = require('socket.io')(server);
 
-var redis = require('./db.js');
+// var mongoDB = require('./db.js').mongoDB;
+
+var partials = require('express-partials');
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -28,10 +34,15 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(partials());
+app.use(multer({dest: 'public/uploads/', inMemory: true}));
 //app.use('/bower_components',  express.static(__dirname + '/bower_components'));
 
 app.use('/', routes);
+app.use('/', post);
 app.use('/weixin', weixin);
+app.use('/comment', comment);
+app.use('/', signin);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -65,76 +76,25 @@ app.use(function(err, req, res, next) {
 });
 
 
-io.on('connection', function (socket) {
+// io.on('connection', function (socket) {
  
-    socket.on('new content', function(data){
-        //console.log(data);
-        redis.sadd('think', JSON.stringify(data));
+//     socket.on('new content', function(data){
+//         //console.log(data);
+//         var content = mongoDB.collection('content');
+//         //console.log(content);
+//         data['updateTime'] = new Date()
+//         content.insert(data, function(err, result){
+//             //console.log(result);
+//             io.sockets.emit('add content', data);
+//         }); 
 
-
-        //socket.emit('add content' ,{content:data})
-        //socket.broadcast.emit('add content', {content:data});
-        io.sockets.emit('add content', data);
-    })
-});
-
-
-
-
-
+//         //socket.emit('add content' ,{content:data})
+//         //socket.broadcast.emit('add content', {content:data});
+        
+//     })
+// });
 
 var debug = require('debug')('secret:server');
 
-/**
- * Get port from environment and store in Express.
- */
 
-var port = parseInt(process.env.PORT, 10) || 8000;
-app.set('port', port);
-
-/**
- * Create HTTP server.
- */
-
-
-/**
- * Listen on provided port, on all network interfaces.
- */
-
-server.listen(port);
-server.on('error', onError);
-server.on('listening', onListening);
-
-/**
- * Event listener for HTTP server "error" event.
- */
-
-function onError(error) {
-  if (error.syscall !== 'listen') {
-    throw error;
-  }
-
-  // handle specific listen errors with friendly messages
-  switch (error.code) {
-    case 'EACCES':
-      console.error('Port ' + port + ' requires elevated privileges');
-      process.exit(1);
-      break;
-    case 'EADDRINUSE':
-      console.error('Port ' + port + ' is already in use');
-      process.exit(1);
-      break;
-    default:
-      throw error;
-  }
-}
-
-/**
- * Event listener for HTTP server "listening" event.
- */
-
-function onListening() {
-  debug('Listening on port ' + server.address().port);
-  console.log('Listening on port ' + server.address().port)
-}
-//module.exports = app;
+module.exports = app;

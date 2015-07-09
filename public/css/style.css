@@ -1,0 +1,202 @@
+@charset "UTF-8";
+-------------------------------------------------- */
+html {
+	position: relative;
+	min-height: 100%;
+}
+body {
+	/* Margin bottom by footer height */
+	/*margin-bottom: 60px;*/
+	font-family: roboto,'Hiragino Sans GB','Microsoft YaHei',微软雅黑,STHeiti,'WenQuanYi Micro Hei',Helvetica,Arial,sans-serif;
+	/*font-family: Arial, Helvetica, sans-serif;*/
+	background-color: #F8F8F8;
+	font-size: 14px;
+    line-height: 16px;
+    font-weight: normal;
+    /*background-color: #FFFFFF;*/
+    /*padding: 0px 180px;*/
+}
+
+
+.container {
+	width: auto;
+	max-width: 960px;
+	padding: 0 15px;
+}
+
+header, footer, nav, section, article {
+    display: block;
+}
+
+.page-divider {
+    border-bottom: 1px solid #ddd;
+}
+
+/* header style setting */
+header {
+    position: relative;
+    max-width: 910px;
+    height: 100px;
+    margin: 0 auto;
+}
+
+header nav {
+    float: right;
+    margin-top: 54px;
+    color: #dde1e4;
+}
+
+header nav a {
+	/*text-decoration: none;*/
+    float: left;
+    display: block;
+    margin: 0 10px 0 10px;
+    font-size: 16px;
+    color: #373737;
+    font-family: 'FuturaStdBookTrRegular';
+    
+}
+
+header nav span {
+    float: left;
+    display: block;
+    font-family: 'FuturaStdLightTrRegular';
+    font-size: 24px;
+}
+
+header .logo {
+    float: left;
+    margin-top: 24px;
+    width: 221px;
+}
+
+header .logo h1 {
+    float: left;
+    font-family: 'FuturaStdMediumTrItalic';
+    font-size: 34px;
+    color: #656565;
+    font-weight: normal;
+    line-height: 38px;
+}
+/* header style end */
+
+/* new style */
+#new {
+    margin-top: 20px;
+}
+
+#new form {
+    padding: 0 10px;
+}
+/* new style end*/
+
+/* footer style setting */
+footer { 
+    margin: 50px auto;
+}
+/* footer style end */
+
+
+/* signin style setting */
+.signin-box {
+
+	width: 384px;
+	margin: 100px auto;
+	box-shadow: 0 0 5px 0 rgb(238, 238, 238);
+	border: 1px solid #DFDFDF;
+	background: #fff;
+	padding: 35px 0 30px;
+}
+
+.signin-box .box {
+	margin: 0 auto;
+	width: 77%;
+}
+
+.signin-box .box .name {
+	text-align: center;
+	margin: 0 0 40px 0;
+}
+
+.signin-box .box .name span {
+	font-size: 20px;
+	font-weight: bold;
+}
+
+.signin-box .box .division {
+	margin: 0 auto 18px;
+	float: none;
+	overflow: hidden;
+	width: 100%;
+	position: relative;
+	text-align: center;
+}
+
+
+.signin-box .box .division .line {
+	border: 1px solid #DFDFDF;
+	width: 34%;
+	top: 10px;
+	position: absolute; 
+}
+
+.signin-box .box .division .line.l {
+	left: 0;
+}
+
+.signin-box .box .division .line.r {
+	right: 0;
+}
+
+.signin-box .box .division span {
+	font-size: 17px;
+	color: rgb(66, 66, 66);
+	/*font-weight: bold;*/
+}
+
+.signin-box .box form {
+	margin: 20px 0 20px 0;
+}
+
+.signin-box .box form input[type="email"],
+.signin-box .box form input[type="text"],
+.signin-box .box form input[type="password"]{
+	height: 37px;
+}
+
+.signin-box .box form .checkbox {
+	display: inline-block;
+}
+
+.signin-box .box form .forget {
+	/*text-decoration: none;*/
+	color: #959595;
+	float: right;
+	font-size: 14px;
+}
+
+.signin-box .box form .w120{
+	width: 120px;
+}
+
+/* signin style end */
+
+.upload .image-url{
+    margin-top:20px;
+    white-space: pre-line;
+    word-wrap: break-word;
+}
+
+.post-list {
+    margin-top: 20px;
+    padding: 20px;
+}
+
+.post-list .post {
+    margin: 20px 0;
+}
+
+.post-list .post .post-title {
+    font-size: 20px;
+    margin-bottom: 10px;
+}
