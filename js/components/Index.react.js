@@ -1,22 +1,20 @@
 
-var Route = ReactRouter.Route;
-var RouteHandler = ReactRouter.RouterHandler;
-
-
-
+var React = require('react');
+var Router = require('react-router');
+var Link = Router.Link;
 
 var Post = React.createClass({
-
     render: function() {
-        var postUrl = "/post/" + this.props.post._id;
+        var postUrl = "/post/" + this.props.data._id;
+        // console.log('post:'+this.props.data._id);
         
         return (
             <div className="post">
                 <div className="post-title">
-                    <a href={postUrl}>{this.props.post.title}</a>
+                    <Link to="post" params={{id:this.props.data._id}}>{this.props.data.title}</Link>
                 </div>
                 <div className="post-date">
-                    {this.props.post.createAt}
+                    {this.props.data.createAt}
                 </div>
             </div>
         );
@@ -26,9 +24,9 @@ var Post = React.createClass({
 
 var PostList = React.createClass({
     render: function() {
-        var posts = this.props.data.map(function(post){
+        var posts = this.props.data.map(function(post,i){
             return (
-                <Post post={post}></Post>
+                <Post data={post} key={i}/>
             );
         });
         return (
@@ -45,13 +43,13 @@ var Index = React.createClass({
     },
     loadPostsFromServer: function() {
         $.ajax({
-            url: this.props.url,
+            url: "/posts",
             dataType: 'json',
             success: function(data) {
                 this.setState({data:data});
             }.bind(this),
             error: function(xhr, status, err) {
-                console.error(this.props.url, status, err.toString());
+                console.error("/posts", status, err.toString());
             }.bind(this)
         });
     },
@@ -66,7 +64,4 @@ var Index = React.createClass({
 });
 
 
-
-React.render(
-    <Index url="/posts" />, document.getElementById('index')
-);
+module.exports = Index;

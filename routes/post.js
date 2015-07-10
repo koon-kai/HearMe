@@ -13,9 +13,7 @@ router.get('/posts', function(req, res) {
         // docs = [{title: "title1"},{title:"ttitle2"},{title:"title3"}]
         res.end(JSON.stringify(docs));  
     });
-    
 });
-
 
 router.post('/post', function(req, res) {
 
@@ -26,7 +24,6 @@ router.post('/post', function(req, res) {
         // res.render('index', {layout:'base'});
         res.redirect('/');
     })
-
 });
 
 router.get('/post/:id', function(req, res) {
@@ -34,9 +31,9 @@ router.get('/post/:id', function(req, res) {
     var _id = req.params.id;
     Post.find({'_id':_id}, function(err, doc) {
         console.log(doc);
-        res.render('post',{layout:'base', post:doc});
+        //res.render('post',{layout:'base', post:doc});
+        res.end(JSON.stringify(doc));
     })
 });
-
 
 module.exports = router;

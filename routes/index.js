@@ -3,7 +3,7 @@ var router = express.Router();
 // var mongoose = require('../lib/db.js').mongoose;
 var Image = require('../lib/model.js').Image;
 var qiniu = require('../lib/qiniu.js');
-var config = require('../config.js');
+var setting = require('../setting.js');
 
 /* GET home page. */
 router.get('/', function(req, res) {
@@ -21,7 +21,7 @@ router.post('/upload', function(req, res) {
     image = req.files.imageFile;
 
     qiniu.uploadBuffer(image.buffer, image.name);
-    var imageUrl = config.QINIU_DOMAIN + image.name;
+    var imageUrl = setting.QINIU_DOMAIN + image.name;
 
     Image.create({ cdnUrl: imageUrl}, function(err, doc) {
         if (err) {}

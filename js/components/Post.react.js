@@ -1,14 +1,18 @@
 
+var React = require('react');
+
 
 var Post = React.createClass({
+    componentDidMount: function() {
+        var id = this.props.params.id;
+        console.log(id);
+    },
 
     render: function() {
-
-        var post = this.props.data;
-        console.log(post);
         return (
             <div className="post">
                 <div className="post-title">
+                    <h1>Test</h1>
                 </div>
                 <div className="post-content">
                 </div>
@@ -17,7 +21,5 @@ var Post = React.createClass({
     }
 });
 
+module.exports = Post;
 
-React.render(
-    <Post data={post} />, document.getElementById('post')
-)
