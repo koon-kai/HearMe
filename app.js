@@ -19,8 +19,6 @@ var app = express();
 
 // var io = require('socket.io')(server);
 
-// var mongoDB = require('./db.js').mongoDB;
-
 var partials = require('express-partials');
 
 // view engine setup

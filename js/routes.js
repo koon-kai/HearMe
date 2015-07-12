@@ -7,10 +7,12 @@ var Route = Router.Route;
 var HearMeApp = require('./components/HearMeApp.react');
 var Index = require('./components/Index.react');
 var Post = require('./components/Post.react');
+var AddPost = require('./components/AddPost.react');
 
 var routes = (
     <Route handler={HearMeApp}>
-        <Route path="/" handler={Index} />
+        <Route name="index" path="/" handler={Index} />
+        <Route name="addPost" path="/post/add" handler={AddPost} />
         <Route name="post" path="/post/:id" handler={Post} />
     </Route>
 );

@@ -20926,9 +20926,6 @@
 	
 	var Post = React.createClass({displayName: "Post",
 	    render: function() {
-	        var postUrl = "/post/" + this.props.data._id;
-	        // console.log('post:'+this.props.data._id);
-	        
 	        return (
 	            React.createElement("div", {className: "post"}, 
 	                React.createElement("div", {className: "post-title"}, 
@@ -20999,12 +20996,15 @@
 	var Router = __webpack_require__(/*! react-router */ 160);
 	// var Route = Router.Route;
 	var RouteHandler = Router.RouteHandler;
-	
+	var Header = __webpack_require__(/*! ./Header.react */ 201);
 	
 	var HearMeApp = React.createClass({displayName: "HearMeApp",
 	    render: function() {
 	        return (
-	            React.createElement(RouteHandler, null)
+	            React.createElement("div", null, 
+	                React.createElement(Header, null), 
+	                React.createElement(RouteHandler, null)
+	            )
 	        )
 	    }
 	});
@@ -24256,10 +24256,12 @@
 	var HearMeApp = __webpack_require__(/*! ./components/HearMeApp.react */ 159);
 	var Index = __webpack_require__(/*! ./components/Index.react */ 158);
 	var Post = __webpack_require__(/*! ./components/Post.react */ 200);
+	var AddPost = __webpack_require__(/*! ./components/AddPost.react */ 202);
 	
 	var routes = (
 	    React.createElement(Route, {handler: HearMeApp}, 
-	        React.createElement(Route, {path: "/", handler: Index}), 
+	        React.createElement(Route, {name: "index", path: "/", handler: Index}), 
+	        React.createElement(Route, {name: "addPost", path: "/post/add", handler: AddPost}), 
 	        React.createElement(Route, {name: "post", path: "/post/:id", handler: Post})
 	    )
 	);
@@ -24279,18 +24281,34 @@
 	
 	
 	var Post = React.createClass({displayName: "Post",
+	    getInitialState: function() {
+	        return {post:{}};
+	    },
+	    loadPostById: function(id) {
+	        $.ajax({
+	            type: "get",
+	            url: "/post/" + id,
+	            dataType: 'json',
+	            success: function(data) {
+	                this.setState({post:data});
+	            }.bind(this),
+	            error: function(xhr, status, err) {
+	                console.error("/post", status, err.toString());
+	            }.bind(this)
+	        });
+	    },
 	    componentDidMount: function() {
 	        var id = this.props.params.id;
-	        console.log(id);
+	        this.loadPostById(id);
 	    },
-	
 	    render: function() {
 	        return (
-	            React.createElement("div", {className: "post"}, 
+	            React.createElement("div", {id: "post"}, 
 	                React.createElement("div", {className: "post-title"}, 
-	                    React.createElement("h1", null, "Test")
+	                    React.createElement("h3", null, this.state.post.title)
 	                ), 
-	                React.createElement("div", {className: "post-content"}
+	                React.createElement("div", {className: "post-content"}, 
+	                    React.createElement("span", {dangerouslySetInnerHTML: {__html: this.state.post.content}})
 	                )
 	            )
 	        )
@@ -24300,6 +24318,172 @@
 	module.exports = Post;
 	
 
+
+/***/ },
+/* 201 */
+/*!***************************************!*\
+  !*** ./js/components/Header.react.js ***!
+  \***************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	
+	var React = __webpack_require__(/*! react */ 2);
+	var Router = __webpack_require__(/*! react-router */ 160);
+	var Link = Router.Link;
+	var Navigation = Router.Navigation;
+	
+	var Header = React.createClass({displayName: "Header",
+	    render: function() {
+	        return (
+	            React.createElement("div", null, 
+	                React.createElement("header", null, 
+	                    React.createElement("div", {className: "logo"}, 
+	                        React.createElement(Link, {to: "index"}, React.createElement("h1", null, "HearMe"))
+	                    ), 
+	                    React.createElement("nav", null, 
+	                        React.createElement("a", {href: "#services"}, "Blog"), 
+	                        React.createElement("span", null, "|"), 
+	                        React.createElement("a", {href: "#services"}, "Record"), 
+	                        React.createElement("span", null, "|"), 
+	                        React.createElement("a", {href: "#services"}, "Word"), 
+	                        React.createElement("span", null, "|"), 
+	                        React.createElement("a", {href: "#services"}, "Photo"), 
+	                        React.createElement("span", null, "|"), 
+	                        React.createElement("a", {href: "#services"}, "Note"), 
+	                        React.createElement("span", null, "|"), 
+	                        React.createElement(Link, {to: "addPost"}, "Add Post")
+	                    )
+	                ), 
+	                React.createElement("div", {className: "page-divider"})
+	            )
+	        )
+	    }
+	})
+	
+	
+	module.exports = Header;
+	
+
+
+/***/ },
+/* 202 */
+/*!****************************************!*\
+  !*** ./js/components/AddPost.react.js ***!
+  \****************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	
+	var React = __webpack_require__(/*! react */ 2);
+	
+	var NewForm = React.createClass({displayName: "NewForm",
+	    handleSubmit: function(e) {
+	        e.preventDefault();
+	        var title = React.findDOMNode(this.refs.title).value.trim();
+	        var content = React.findDOMNode(this.refs.content).value.trim();
+	        if (!title || !content) {
+	            return;
+	        }
+	        this.props.onPostSubmit({title: title, content: content});
+	    },
+	    render: function() {
+	        return (
+	            React.createElement("form", {onSubmit: this.handleSubmit}, 
+	                React.createElement("div", {className: "form-group"}, 
+	                    React.createElement("input", {type: "text", className: "form-control", placeholder: "title", ref: "title"})
+	                ), 
+	                React.createElement("div", {className: "form-group"}, 
+	                    React.createElement("textarea", {className: "form-control", rows: "20", placeholder: "Write your content (support markdown)", ref: "content"}
+	                    )
+	                ), 
+	                React.createElement("button", {type: "submit", className: "btn btn-default"}, "Submit")
+	            )
+	        );
+	    }
+	});
+	
+	var UploadImage = React.createClass({displayName: "UploadImage",
+	    openSelectWindow: function() {
+	        $('#upload_image').click();
+	        return false;
+	    },
+	    uploadImage: function() {
+	        console.log('change');
+	
+	        var data = new FormData();
+	        $.each($('#upload_image')[0].files, function(i, file) {
+	            data.append('imageFile', file);
+	            console.log(i);
+	            console.log(file.type);
+	            console.log(file.name);
+	        });
+	
+	        $.ajax({
+	            url: '/upload',
+	            type: 'POST',
+	            data: data,
+	            cache: false,
+	            contentType: false,
+	            processData: false,
+	            dataType: 'json',
+	            success: function(res) {
+	                console.log(res);
+	                this.setState({imageUrl:res.data.imageUrl});
+	            }.bind(this),
+	            error: function() {
+	                alert('upload error!');
+	            }.bind(this)
+	        });
+	    },
+	    getInitialState: function() {
+	        return {imageUrl: ''};
+	    },
+	    render: function() {
+	        var url = this.state.imageUrl;
+	        if (url!='') {
+	            url = url + '?imageView2/1/w/285/q/100/interlace/1';
+	        }
+	        return (    
+	            React.createElement("div", {className: "upload"}, 
+	                React.createElement("button", {className: "btn btn-info", onClick: this.openSelectWindow}, "Upload Image"), 
+	                React.createElement("input", {type: "file", className: "hide", id: "upload_image", onChange: this.uploadImage}), 
+	                React.createElement("div", {className: "alert alert-warning image-url"}, 
+	                    React.createElement("span", null, this.state.imageUrl)
+	                ), 
+	                React.createElement("img", {src: url})
+	            )
+	        );
+	    }
+	});
+	
+	var AddPost = React.createClass({displayName: "AddPost",
+	
+	    handleFormSubmit: function(post) {
+	        console.log(post);
+	        $.post('/post', post).then(function(res){
+	            console.log(res);
+	        }, function(err){
+	            console.log(err);
+	        })
+	    },
+	
+	    render: function() {
+	        return (
+	            React.createElement("div", {id: "add-post"}, 
+	                React.createElement("div", {className: "row"}, 
+	                    React.createElement("div", {className: "col-lg-8"}, 
+	                        React.createElement(NewForm, {onPostSubmit: this.handleFormSubmit})
+	                    ), 
+	                    React.createElement("div", {className: "col-lg-4"}, 
+	                        React.createElement(UploadImage, null)
+	                    )
+	                )
+	            )
+	        );
+	    }
+	});
+	
+	
+	module.exports = AddPost;
 
 /***/ }
 /******/ ]);

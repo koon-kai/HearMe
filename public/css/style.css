@@ -80,12 +80,12 @@ header .logo h1 {
 }
 /* header style end */
 
-/* new style */
-#new {
+/* Add post style */
+#add-post {
     margin-top: 20px;
 }
 
-#new form {
+#add-post form {
     padding: 0 10px;
 }
 /* new style end*/
@@ -192,6 +192,15 @@ footer {
     padding: 20px;
 }
 
+.post-list a {
+    text-decoration: none;
+    color: #333;
+}
+
+.post-list .post .post-date {
+    /*color: #eee;*/
+}
+
 .post-list .post {
     margin: 20px 0;
 }
@@ -199,4 +208,9 @@ footer {
 .post-list .post .post-title {
     font-size: 20px;
     margin-bottom: 10px;
+}
+
+#post {
+    margin-top: 20px;
+    padding: 20px;
 }

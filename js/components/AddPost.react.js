@@ -1,23 +1,24 @@
 
+var React = require('react');
 
 var NewForm = React.createClass({
-    // handleSubmit: function(e) {
-    //     e.preventDefault();
-    //     var title = React.findDOMNode(this.refs.title).value.trim();
-    //     var content = React.findDOMNode(this.refs.content).value.trim();
-    //     if (!title || !content) {
-    //         return;
-    //     }
-    //     this.props.onCommentSubmit({title: title, content: content});
-    // },
+    handleSubmit: function(e) {
+        e.preventDefault();
+        var title = React.findDOMNode(this.refs.title).value.trim();
+        var content = React.findDOMNode(this.refs.content).value.trim();
+        if (!title || !content) {
+            return;
+        }
+        this.props.onPostSubmit({title: title, content: content});
+    },
     render: function() {
         return (
-            <form action='/post' method='post'>
+            <form onSubmit={this.handleSubmit}>
                 <div className="form-group">
-                    <input type="text" className="form-control" placeholder="title" name="title"/>
+                    <input type="text" className="form-control" placeholder="title" ref="title"/>
                 </div>
                 <div className="form-group">
-                    <textarea className="form-control" rows="20" placeholder="Write your content (support markdown)" name="content">
+                    <textarea className="form-control" rows="20" placeholder="Write your content (support markdown)" ref="content">
                     </textarea>
                 </div>
                 <button type="submit" className="btn btn-default">Submit</button>
@@ -43,7 +44,7 @@ var UploadImage = React.createClass({
         });
 
         $.ajax({
-            url: 'upload',
+            url: '/upload',
             type: 'POST',
             data: data,
             cache: false,
@@ -80,25 +81,27 @@ var UploadImage = React.createClass({
     }
 });
 
-var NewBox = React.createClass({
+var AddPost = React.createClass({
 
-    // handleFormSubmit: function(post) {
-    //     console.log(post);
-    //     $.post('/post', post).then(function(res){
-    //         console.log(res);
-    //     }, function(err){
-    //         console.log(err);
-    //     })
-    // },
+    handleFormSubmit: function(post) {
+        console.log(post);
+        $.post('/post', post).then(function(res){
+            console.log(res);
+        }, function(err){
+            console.log(err);
+        })
+    },
 
     render: function() {
         return (
-            <div className="row">
-                <div className="col-lg-8">
-                    <NewForm />
-                </div>
-                <div className="col-lg-4">
-                    <UploadImage />
+            <div id="add-post">
+                <div className="row">
+                    <div className="col-lg-8">
+                        <NewForm onPostSubmit={this.handleFormSubmit}/>
+                    </div>
+                    <div className="col-lg-4">
+                        <UploadImage />
+                    </div>
                 </div>
             </div>
         );
@@ -106,6 +109,4 @@ var NewBox = React.createClass({
 });
 
 
-React.render(
-    <NewBox />, document.getElementById('new')
-);
+module.exports = AddPost;

@@ -5,9 +5,6 @@ var Link = Router.Link;
 
 var Post = React.createClass({
     render: function() {
-        var postUrl = "/post/" + this.props.data._id;
-        // console.log('post:'+this.props.data._id);
-        
         return (
             <div className="post">
                 <div className="post-title">
