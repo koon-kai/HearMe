@@ -1,39 +1,38 @@
 
 var React = require('react');
+var PostStore = require('../stores/PostStore');
+var PostActionCreators = require('../actions/PostActionCreators');
 
 
 var Post = React.createClass({
     getInitialState: function() {
-        return {post:{}};
+        return PostStore.getPost();
     },
     loadPostById: function(id) {
-        $.ajax({
-            type: "get",
-            url: "/post/" + id,
-            dataType: 'json',
-            success: function(data) {
-                this.setState({post:data});
-            }.bind(this),
-            error: function(xhr, status, err) {
-                console.error("/post", status, err.toString());
-            }.bind(this)
-        });
+        PostActionCreators.getPost(id);
     },
     componentDidMount: function() {
-        var id = this.props.params.id;
-        this.loadPostById(id);
+        this.loadPostById(this.props.params.id);
+        PostStore.addChangeListener(this._onChange);
+    },
+    componentWillUnmount: function() {
+        PostStore.removeChangeListener(this._onChange);
     },
     render: function() {
         return (
             <div id="post">
                 <div className="post-title">
-                    <h3>{this.state.post.title}</h3>
+                    <h3>{this.state.data.title}</h3>
                 </div>
                 <div className="post-content">
-                    <span dangerouslySetInnerHTML={{__html: this.state.post.content}} />
+                    <span dangerouslySetInnerHTML={{__html: this.state.data.content}} />
                 </div>
             </div>
         )
+    },
+    _onChange: function() { 
+        console.log('_onChange');
+        this.setState(PostStore.getPost());
     }
 });
 

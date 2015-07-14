@@ -1,5 +1,9 @@
 
 var React = require('react');
+var Router = require('react-router');
+var Navigation = Router.Navigation;
+var PostStore = require('../stores/PostStore');
+var PostActionCreators = require('../actions/PostActionCreators');
 
 var NewForm = React.createClass({
     handleSubmit: function(e) {
@@ -28,13 +32,12 @@ var NewForm = React.createClass({
 });
 
 var UploadImage = React.createClass({
-    openSelectWindow: function() {
+    openSelectWindow: function(e) {
+        e.preventDefault();
         $('#upload_image').click();
-        return false;
     },
     uploadImage: function() {
-        console.log('change');
-
+ 
         var data = new FormData();
         $.each($('#upload_image')[0].files, function(i, file) {
             data.append('imageFile', file);
@@ -44,7 +47,7 @@ var UploadImage = React.createClass({
         });
 
         $.ajax({
-            url: '/upload',
+            url: '/photo/upload',
             type: 'POST',
             data: data,
             cache: false,
@@ -82,16 +85,17 @@ var UploadImage = React.createClass({
 });
 
 var AddPost = React.createClass({
+    mixins: [Navigation],
 
     handleFormSubmit: function(post) {
-        console.log(post);
-        $.post('/post', post).then(function(res){
-            console.log(res);
-        }, function(err){
-            console.log(err);
-        })
+        PostActionCreators.addPost(post);
     },
-
+    componentDidMount: function() {
+        PostStore.addChangeListener(this._onChange);
+    },
+    componentWillUnmount: function() {
+        PostStore.removeChangeListener(this._onChange);
+    },
     render: function() {
         return (
             <div id="add-post">
@@ -105,6 +109,9 @@ var AddPost = React.createClass({
                 </div>
             </div>
         );
+    },
+    _onChange: function() {
+        this.transitionTo('post',{id:PostStore.getPostId()});
     }
 });
 

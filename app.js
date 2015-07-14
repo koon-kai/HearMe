@@ -7,18 +7,10 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var multer = require('multer');
 
-var routes = require('./routes/index');
-var weixin = require('./routes/weixin');
-var comment = require('./routes/comment');
-var signin = require('./routes/signin');
-var post = require('./routes/post');
-
 var http = require('http');
 var app = express();
 // var server = http.createServer(app);
-
 // var io = require('socket.io')(server);
-
 var partials = require('express-partials');
 
 // view engine setup
@@ -36,11 +28,33 @@ app.use(partials());
 app.use(multer({dest: 'public/uploads/', inMemory: true}));
 //app.use('/bower_components',  express.static(__dirname + '/bower_components'));
 
-app.use('/', routes);
-app.use('/', post);
-app.use('/weixin', weixin);
-app.use('/comment', comment);
-app.use('/', signin);
+var router = express.Router()
+var fs = require('fs');
+
+var recursiveRoutes = function(folderName, router) {
+    fs.readdirSync(folderName).forEach(function(file){
+
+        var fullName, stat, ext, mod;
+        fullName = path.join(folderName, file);
+        stat = fs.lstatSync(fullName);
+
+        if (stat.isDirectory()) {
+            return recursiveRoutes(fullName, router);
+        } else {
+            ext = file.toLowerCase().split('.').pop();
+            if (ext == 'js') {
+                mod = require('./' + fullName);
+                if (mod instanceof Function) {
+                    console.log("require " +fullName);
+                    // return mod(router);
+                    app.use('/', mod);
+                }
+            }
+        }
+    })
+}
+
+recursiveRoutes('./routes', router);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

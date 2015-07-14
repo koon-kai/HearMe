@@ -12,7 +12,16 @@ module.exports = {
     },
     module: {
         loaders:[
-            { test: /\.js$/, loaders: ['jsx?harmony'] }
-        ]
+//          { test: /\.js$/, loaders: ['jsx?harmony'] }
+            { test: /\.js$/, loaders: ['babel-loader'] }
+        ],
+
+        // preLoaders: [
+        //     {
+        //         test: /\.js$/,
+        //         exclude: /node_modules/,
+        //         loader: 'jshint-loader'
+        //     }
+        // ],
     }
 }

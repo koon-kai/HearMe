@@ -3,6 +3,10 @@ var React = require('react');
 var Router = require('react-router');
 var Link = Router.Link;
 
+var PostStore = require('../stores/PostStore');
+var PostActionCreators = require('../actions/PostActionCreators');
+
+
 var Post = React.createClass({
     render: function() {
         return (
@@ -36,27 +40,26 @@ var PostList = React.createClass({
 
 var Index = React.createClass({
     getInitialState: function() {
-        return {data:[]};
+        return PostStore.getPosts();
     },
     loadPostsFromServer: function() {
-        $.ajax({
-            url: "/posts",
-            dataType: 'json',
-            success: function(data) {
-                this.setState({data:data});
-            }.bind(this),
-            error: function(xhr, status, err) {
-                console.error("/posts", status, err.toString());
-            }.bind(this)
-        });
+        PostActionCreators.getPosts();
     },
     componentDidMount: function() {
         this.loadPostsFromServer();
+        PostStore.addChangeListener(this._onChange);
+    },
+    componentWillUnmount: function() {
+        PostStore.removeChangeListener(this._onChange);
     },
     render: function() {
         return (
             <PostList data={this.state.data} />
         )
+    },
+    _onChange: function() { 
+        console.log('_onChange');
+        this.setState(PostStore.getPosts());
     }
 });
 
