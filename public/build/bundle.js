@@ -23221,7 +23221,7 @@
 	                    React.createElement(
 	                        'a',
 	                        { href: '#services' },
-	                        'Note'
+	                        'Chat'
 	                    ),
 	                    React.createElement(
 	                        'span',

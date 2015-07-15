@@ -21,7 +21,7 @@ var Header = React.createClass({
                         <span>|</span>
                         <a href="#services" >About</a>
                         <span>|</span>
-                        <a href="#services" >Note</a>
+                        <a href="#services" >Chat</a>
                         <span>|</span>
                         <Link to="addPost">Add Post</Link>
                     </nav>
