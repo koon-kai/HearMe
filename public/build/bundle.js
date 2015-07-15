@@ -47,14 +47,14 @@
   \******************/
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(/*! ./js/main.js */1);
+	module.exports = __webpack_require__(/*! ./app/main.js */1);
 
 
 /***/ },
 /* 1 */
-/*!********************!*\
-  !*** ./js/main.js ***!
-  \********************/
+/*!*********************!*\
+  !*** ./app/main.js ***!
+  \*********************/
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -21998,9 +21998,9 @@
 
 /***/ },
 /* 197 */
-/*!**********************!*\
-  !*** ./js/routes.js ***!
-  \**********************/
+/*!***********************!*\
+  !*** ./app/routes.js ***!
+  \***********************/
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -22008,28 +22008,34 @@
 	var React = __webpack_require__(/*! react */ 2);
 	var Router = __webpack_require__(/*! react-router */ 158);
 	var Route = Router.Route;
+	var DefaultRoute = Router.DefaultRoute;
+	var NotFoundRoute = Router.NotFoundRoute;
 	
 	//custom react component
-	var HearMeApp = __webpack_require__(/*! ./components/HearMeApp.react */ 208);
+	var HearMeApp = __webpack_require__(/*! ./components/HearMeApp.react */ 210);
 	var Index = __webpack_require__(/*! ./components/Index.react */ 198);
-	var Post = __webpack_require__(/*! ./components/Post.react */ 210);
-	var AddPost = __webpack_require__(/*! ./components/AddPost.react */ 211);
+	var Post = __webpack_require__(/*! ./components/Post.react */ 212);
+	var AddPost = __webpack_require__(/*! ./components/AddPost.react */ 213);
+	var NotFoundPage = __webpack_require__(/*! ./components/NotFoundPage.react */ 214);
 	
 	var routes = React.createElement(
 	    Route,
 	    { handler: HearMeApp },
+	    React.createElement(DefaultRoute, { handler: Index }),
 	    React.createElement(Route, { name: 'index', path: '/', handler: Index }),
 	    React.createElement(Route, { name: 'addPost', path: '/post/add', handler: AddPost }),
-	    React.createElement(Route, { name: 'post', path: '/post/:id', handler: Post })
+	    React.createElement(Route, { name: 'post', path: '/post/:id', handler: Post }),
+	    React.createElement(Route, { name: '404', handler: NotFoundPage }),
+	    React.createElement(NotFoundRoute, { handler: NotFoundPage })
 	);
 	
 	module.exports = routes;
 
 /***/ },
 /* 198 */
-/*!**************************************!*\
-  !*** ./js/components/Index.react.js ***!
-  \**************************************/
+/*!***************************************!*\
+  !*** ./app/components/Index.react.js ***!
+  \***************************************/
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -22039,7 +22045,7 @@
 	var Link = Router.Link;
 	
 	var PostStore = __webpack_require__(/*! ../stores/PostStore */ 199);
-	var PostActionCreators = __webpack_require__(/*! ../actions/PostActionCreators */ 213);
+	var PostActionCreators = __webpack_require__(/*! ../actions/PostActionCreators */ 208);
 	
 	var Post = React.createClass({
 	    displayName: 'Post',
@@ -22101,7 +22107,7 @@
 	        return React.createElement(PostList, { data: this.state.data });
 	    },
 	    _onChange: function _onChange() {
-	        console.log('_onChange');
+	        // console.log('_onChange');
 	        this.setState(PostStore.getPosts());
 	    }
 	});
@@ -22110,9 +22116,9 @@
 
 /***/ },
 /* 199 */
-/*!********************************!*\
-  !*** ./js/stores/PostStore.js ***!
-  \********************************/
+/*!*********************************!*\
+  !*** ./app/stores/PostStore.js ***!
+  \*********************************/
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -22137,7 +22143,7 @@
 	    },
 	
 	    getPost: function getPost() {
-	        return { data: _post };
+	        return _post;
 	    },
 	
 	    getPosts: function getPosts() {
@@ -22159,33 +22165,35 @@
 	
 	PostStore.dispatchToken = HearMeAppDispatcher.register(function (action) {
 	
-	    console.log(action);
+	    // console.log(action);
 	    switch (action.type) {
 	        case ActionTypes.ADD_POST:
-	            console.log('add post');
+	            // console.log('add post');
 	            _post = action.data;
+	            PostStore.emitChange();
 	            break;
 	        case ActionTypes.GET_POST:
-	            console.log('get post');
+	            // console.log('get post');
 	            _post = action.data;
+	            PostStore.emitChange();
 	            break;
 	        case ActionTypes.GET_POSTS:
-	            console.log('get posts');
+	            // console.log('get posts');
 	            _posts = action.data;
+	            PostStore.emitChange();
 	            break;
 	        default:
 	            console.log('else');
 	    }
-	    PostStore.emitChange();
 	});
 	
 	module.exports = PostStore;
 
 /***/ },
 /* 200 */
-/*!**********************************************!*\
-  !*** ./js/dispatcher/HearMeAppDispatcher.js ***!
-  \**********************************************/
+/*!***********************************************!*\
+  !*** ./app/dispatcher/HearMeAppDispatcher.js ***!
+  \***********************************************/
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -22781,9 +22789,9 @@
 
 /***/ },
 /* 205 */
-/*!***********************************!*\
-  !*** ./js/constants/Constants.js ***!
-  \***********************************/
+/*!************************************!*\
+  !*** ./app/constants/Constants.js ***!
+  \************************************/
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -22909,9 +22917,195 @@
 
 /***/ },
 /* 208 */
-/*!******************************************!*\
-  !*** ./js/components/HearMeApp.react.js ***!
-  \******************************************/
+/*!*******************************************!*\
+  !*** ./app/actions/PostActionCreators.js ***!
+  \*******************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+	
+	var _utilsWebAPIUtils = __webpack_require__(/*! ../utils/WebAPIUtils */ 209);
+	
+	var _utilsWebAPIUtils2 = _interopRequireDefault(_utilsWebAPIUtils);
+	
+	var HearMeAppDispatcher = __webpack_require__(/*! ../dispatcher/HearMeAppDispatcher */ 200);
+	var Constants = __webpack_require__(/*! ../constants/Constants */ 205);
+	var ActionTypes = Constants.ActionTypes;
+	
+	module.exports = {
+	
+	    getPosts: function getPosts() {
+	        // console.log('actions');
+	        _utilsWebAPIUtils2['default'].getPosts().then(function (data) {
+	            HearMeAppDispatcher.dispatch({
+	                type: ActionTypes.GET_POSTS,
+	                data: data
+	            });
+	        }, function (err) {
+	            console.log(err);
+	        });
+	    },
+	
+	    getPost: function getPost(id) {
+	        _utilsWebAPIUtils2['default'].getPost(id).then(function (data) {
+	            // console.log(data);
+	            if (data.success == true) {
+	                data = data.data;
+	            } else {
+	                data = null;
+	            }
+	            HearMeAppDispatcher.dispatch({
+	                type: ActionTypes.GET_POST,
+	                data: data
+	            });
+	        }, function (err) {
+	            console.log(err);
+	        });
+	    },
+	
+	    addPost: function addPost(post) {
+	        _utilsWebAPIUtils2['default'].addPost(post).then(function (data) {
+	            HearMeAppDispatcher.dispatch({
+	                type: ActionTypes.ADD_POST,
+	                data: data
+	            });
+	        }, function (err) {
+	            console.log(err);
+	        });
+	    }
+	};
+
+/***/ },
+/* 209 */
+/*!**********************************!*\
+  !*** ./app/utils/WebAPIUtils.js ***!
+  \**********************************/
+/***/ function(module, exports) {
+
+	"use strict";
+	
+	var API_URL = "/api/v2";
+	var TIMEOUT = 10000;
+	
+	var _pendingRequests = {};
+	
+	function abortPendingRequests(key) {
+	    if (_pendingRequests[key]) {
+	        _pendingRequests[key]._callback = function () {};
+	        _pendingRequests[key].abort();
+	        _pendingRequests[key] = null;
+	    }
+	}
+	
+	function token() {
+	    return UserStore.getState().token;
+	}
+	
+	function makeUrl(part) {
+	    return API_URL + part;
+	}
+	
+	function dispatch(key, response, params) {
+	    var payload = { actionType: key, response: response };
+	    if (params) {
+	        payload.queryParams = params;
+	    }
+	    AppDispatcher.handleRequestAction(payload);
+	}
+	
+	// return successful response, else return request Constants
+	function makeDigestFun(key, params) {
+	    return function (err, res) {
+	        if (err && err.timeout === TIMEOUT) {
+	            dispatch(key, Constants.request.TIMEOUT, params);
+	        } else if (res.status === 400) {
+	            UserActions.logout();
+	        } else if (!res.ok) {
+	            dispatch(key, Constants.request.ERROR, params);
+	        } else {
+	            dispatch(key, res, params);
+	        }
+	    };
+	}
+	
+	// a get request with an authtoken param
+	function get(url) {
+	    return request.get(url).timeout(TIMEOUT).query({ authtoken: token() });
+	}
+	
+	var Api = {
+	    getEntityData: function getEntityData(entityId) {
+	        var url = makeUrl("/entities/" + entityId);
+	        var key = Constants.api.GET_ENTITY_DATA;
+	        var params = { entityId: entityId };
+	        abortPendingRequests(key);
+	        dispatch(key, Constants.request.PENDING, params);
+	        _pendingRequests[key] = get(url).end(makeDigestFun(key, params));
+	    },
+	
+	    getPosts: function getPosts() {
+	        var promise = new Promise(function (resolve, reject) {
+	            $.ajax({
+	                url: "/api/posts",
+	                dataType: "json",
+	                success: (function (data) {
+	                    resolve(data);
+	                }).bind(this),
+	                error: (function (xhr, status, err) {
+	                    reject(err);
+	                    console.error("/posts", status, err.toString());
+	                }).bind(this)
+	            });
+	        });
+	        return promise;
+	    },
+	
+	    getPost: function getPost(id) {
+	        var promise = new Promise(function (resolve, reject) {
+	            $.ajax({
+	                type: "get",
+	                url: "/api/post/" + id,
+	                dataType: "json",
+	                success: (function (data) {
+	                    resolve(data);
+	                }).bind(this),
+	                error: (function (err) {
+	                    reject(err);
+	                    // console.error("/post", status, err.toString());
+	                }).bind(this)
+	            });
+	        });
+	        return promise;
+	    },
+	
+	    addPost: function addPost(post) {
+	        var promise = new Promise(function (resolve, reject) {
+	            $.ajax({
+	                type: "post",
+	                url: "/api/post",
+	                data: post,
+	                dataType: "json",
+	                success: (function (data) {
+	                    resolve(data);
+	                }).bind(this),
+	                error: (function (err) {
+	                    reject(err);
+	                }).bind(this)
+	            });
+	        });
+	        return promise;
+	    }
+	};
+	
+	module.exports = Api;
+
+/***/ },
+/* 210 */
+/*!*******************************************!*\
+  !*** ./app/components/HearMeApp.react.js ***!
+  \*******************************************/
 /***/ function(module, exports, __webpack_require__) {
 
 	
@@ -22927,7 +23121,7 @@
 	var Router = __webpack_require__(/*! react-router */ 158);
 	// var Route = Router.Route;
 	var RouteHandler = Router.RouteHandler;
-	var Header = __webpack_require__(/*! ./Header.react */ 209);
+	var Header = __webpack_require__(/*! ./Header.react */ 211);
 	
 	var HearMeApp = _react2['default'].createClass({
 	    displayName: 'HearMeApp',
@@ -22945,10 +23139,10 @@
 	module.exports = HearMeApp;
 
 /***/ },
-/* 209 */
-/*!***************************************!*\
-  !*** ./js/components/Header.react.js ***!
-  \***************************************/
+/* 211 */
+/*!****************************************!*\
+  !*** ./app/components/Header.react.js ***!
+  \****************************************/
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -23049,23 +23243,27 @@
 	module.exports = Header;
 
 /***/ },
-/* 210 */
-/*!*************************************!*\
-  !*** ./js/components/Post.react.js ***!
-  \*************************************/
+/* 212 */
+/*!**************************************!*\
+  !*** ./app/components/Post.react.js ***!
+  \**************************************/
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
 	var React = __webpack_require__(/*! react */ 2);
 	var PostStore = __webpack_require__(/*! ../stores/PostStore */ 199);
-	var PostActionCreators = __webpack_require__(/*! ../actions/PostActionCreators */ 213);
+	var PostActionCreators = __webpack_require__(/*! ../actions/PostActionCreators */ 208);
+	var Router = __webpack_require__(/*! react-router */ 158);
+	var Navigation = Router.Navigation;
 	
 	var Post = React.createClass({
 	    displayName: 'Post',
 	
+	    mixins: [Navigation],
+	
 	    getInitialState: function getInitialState() {
-	        return PostStore.getPost();
+	        return { data: PostStore.getPost() };
 	    },
 	    loadPostById: function loadPostById(id) {
 	        PostActionCreators.getPost(id);
@@ -23078,6 +23276,9 @@
 	        PostStore.removeChangeListener(this._onChange);
 	    },
 	    render: function render() {
+	        var title = this.state.data.title == undefined ? '' : this.state.data.title;
+	        var content = this.state.data.content == undefined ? '' : this.state.data.content;
+	
 	        return React.createElement(
 	            'div',
 	            { id: 'post' },
@@ -23087,29 +23288,34 @@
 	                React.createElement(
 	                    'h3',
 	                    null,
-	                    this.state.data.title
+	                    title
 	                )
 	            ),
 	            React.createElement(
 	                'div',
 	                { className: 'post-content' },
-	                React.createElement('span', { dangerouslySetInnerHTML: { __html: this.state.data.content } })
+	                React.createElement('span', { dangerouslySetInnerHTML: { __html: content } })
 	            )
 	        );
 	    },
 	    _onChange: function _onChange() {
-	        console.log('_onChange');
-	        this.setState(PostStore.getPost());
+	        // console.log('_onChange');
+	        var data = PostStore.getPost();
+	        if (data) {
+	            this.setState({ data: data });
+	        } else {
+	            this.transitionTo('404');
+	        }
 	    }
 	});
 	
 	module.exports = Post;
 
 /***/ },
-/* 211 */
-/*!****************************************!*\
-  !*** ./js/components/AddPost.react.js ***!
-  \****************************************/
+/* 213 */
+/*!*****************************************!*\
+  !*** ./app/components/AddPost.react.js ***!
+  \*****************************************/
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -23118,7 +23324,7 @@
 	var Router = __webpack_require__(/*! react-router */ 158);
 	var Navigation = Router.Navigation;
 	var PostStore = __webpack_require__(/*! ../stores/PostStore */ 199);
-	var PostActionCreators = __webpack_require__(/*! ../actions/PostActionCreators */ 213);
+	var PostActionCreators = __webpack_require__(/*! ../actions/PostActionCreators */ 208);
 	
 	var NewForm = React.createClass({
 	    displayName: 'NewForm',
@@ -23262,185 +23468,33 @@
 	module.exports = AddPost;
 
 /***/ },
-/* 212 */,
-/* 213 */
-/*!******************************************!*\
-  !*** ./js/actions/PostActionCreators.js ***!
-  \******************************************/
+/* 214 */
+/*!**********************************************!*\
+  !*** ./app/components/NotFoundPage.react.js ***!
+  \**********************************************/
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 	
-	var _utilsWebAPIUtils = __webpack_require__(/*! ../utils/WebAPIUtils */ 214);
+	var _react = __webpack_require__(/*! react */ 2);
 	
-	var _utilsWebAPIUtils2 = _interopRequireDefault(_utilsWebAPIUtils);
+	var _react2 = _interopRequireDefault(_react);
 	
-	var HearMeAppDispatcher = __webpack_require__(/*! ../dispatcher/HearMeAppDispatcher */ 200);
-	var Constants = __webpack_require__(/*! ../constants/Constants */ 205);
-	var ActionTypes = Constants.ActionTypes;
+	var NotFoundPage = _react2['default'].createClass({
+	    displayName: 'NotFoundPage',
 	
-	module.exports = {
-	
-	    getPosts: function getPosts() {
-	        console.log('actions');
-	        _utilsWebAPIUtils2['default'].getPosts().then(function (data) {
-	            HearMeAppDispatcher.dispatch({
-	                type: ActionTypes.GET_POSTS,
-	                data: data
-	            });
-	        }, function (err) {
-	            console.log(err);
-	        });
-	    },
-	
-	    getPost: function getPost(id) {
-	        _utilsWebAPIUtils2['default'].getPost(id).then(function (data) {
-	            HearMeAppDispatcher.dispatch({
-	                type: ActionTypes.GET_POST,
-	                data: data
-	            });
-	        }, function (err) {
-	            console.log(err);
-	        });
-	    },
-	
-	    addPost: function addPost(post) {
-	        _utilsWebAPIUtils2['default'].addPost(post).then(function (data) {
-	            HearMeAppDispatcher.dispatch({
-	                type: ActionTypes.ADD_POST,
-	                data: data
-	            });
-	        }, function (err) {
-	            console.log(err);
-	        });
+	    render: function render() {
+	        return _react2['default'].createElement(
+	            'h1',
+	            null,
+	            '404 Not Found.'
+	        );
 	    }
-	};
-
-/***/ },
-/* 214 */
-/*!*********************************!*\
-  !*** ./js/utils/WebAPIUtils.js ***!
-  \*********************************/
-/***/ function(module, exports) {
-
-	"use strict";
+	});
 	
-	var API_URL = "/api/v2";
-	var TIMEOUT = 10000;
-	
-	var _pendingRequests = {};
-	
-	function abortPendingRequests(key) {
-	    if (_pendingRequests[key]) {
-	        _pendingRequests[key]._callback = function () {};
-	        _pendingRequests[key].abort();
-	        _pendingRequests[key] = null;
-	    }
-	}
-	
-	function token() {
-	    return UserStore.getState().token;
-	}
-	
-	function makeUrl(part) {
-	    return API_URL + part;
-	}
-	
-	function dispatch(key, response, params) {
-	    var payload = { actionType: key, response: response };
-	    if (params) {
-	        payload.queryParams = params;
-	    }
-	    AppDispatcher.handleRequestAction(payload);
-	}
-	
-	// return successful response, else return request Constants
-	function makeDigestFun(key, params) {
-	    return function (err, res) {
-	        if (err && err.timeout === TIMEOUT) {
-	            dispatch(key, Constants.request.TIMEOUT, params);
-	        } else if (res.status === 400) {
-	            UserActions.logout();
-	        } else if (!res.ok) {
-	            dispatch(key, Constants.request.ERROR, params);
-	        } else {
-	            dispatch(key, res, params);
-	        }
-	    };
-	}
-	
-	// a get request with an authtoken param
-	function get(url) {
-	    return request.get(url).timeout(TIMEOUT).query({ authtoken: token() });
-	}
-	
-	var Api = {
-	    getEntityData: function getEntityData(entityId) {
-	        var url = makeUrl("/entities/" + entityId);
-	        var key = Constants.api.GET_ENTITY_DATA;
-	        var params = { entityId: entityId };
-	        abortPendingRequests(key);
-	        dispatch(key, Constants.request.PENDING, params);
-	        _pendingRequests[key] = get(url).end(makeDigestFun(key, params));
-	    },
-	
-	    getPosts: function getPosts() {
-	        var promise = new Promise(function (resolve, reject) {
-	            $.ajax({
-	                url: "/posts",
-	                dataType: "json",
-	                success: (function (data) {
-	                    resolve(data);
-	                }).bind(this),
-	                error: (function (xhr, status, err) {
-	                    reject(err);
-	                    console.error("/posts", status, err.toString());
-	                }).bind(this)
-	            });
-	        });
-	        return promise;
-	    },
-	
-	    getPost: function getPost(id) {
-	        var promise = new Promise(function (resolve, reject) {
-	            $.ajax({
-	                type: "get",
-	                url: "/post/" + id,
-	                dataType: "json",
-	                success: (function (data) {
-	                    resolve(data);
-	                }).bind(this),
-	                error: (function (xhr, status, err) {
-	                    reject(err);
-	                    console.error("/post", status, err.toString());
-	                }).bind(this)
-	            });
-	        });
-	        return promise;
-	    },
-	
-	    addPost: function addPost(post) {
-	        var promise = new Promise(function (resolve, reject) {
-	            $.ajax({
-	                type: "post",
-	                url: "/post",
-	                data: post,
-	                dataType: "json",
-	                success: (function (data) {
-	                    resolve(data);
-	                }).bind(this),
-	                error: (function (err) {
-	                    reject(err);
-	                }).bind(this)
-	            });
-	        });
-	        return promise;
-	    }
-	};
-	
-	module.exports = Api;
+	module.exports = NotFoundPage;
 
 /***/ }
 /******/ ]);

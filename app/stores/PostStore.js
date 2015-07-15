@@ -22,7 +22,7 @@ var PostStore = assign({}, EventEmitter.prototype, {
     },
 
     getPost: function() {
-        return {data: _post};
+        return _post;
     },
 
     getPosts: function() {
@@ -45,24 +45,27 @@ var PostStore = assign({}, EventEmitter.prototype, {
 
 PostStore.dispatchToken = HearMeAppDispatcher.register(function(action){
 
-    console.log(action);
+    // console.log(action);
     switch(action.type) {
         case ActionTypes.ADD_POST:
-            console.log('add post');
+            // console.log('add post');
             _post = action.data;
+            PostStore.emitChange();
             break;
         case ActionTypes.GET_POST:
-            console.log('get post');
+            // console.log('get post');
             _post = action.data;
+            PostStore.emitChange();
             break;
         case ActionTypes.GET_POSTS:
-            console.log('get posts');
+            // console.log('get posts');
             _posts = action.data;
+            PostStore.emitChange();
             break;
         default:
             console.log('else');
     }
-    PostStore.emitChange();
+    
 });
 
 

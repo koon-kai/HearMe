@@ -1,11 +1,13 @@
 module.exports = {
     entry:[
-        './js/main.js'
+        './app/main.js'
+        //post: './post.js'
     ],
     output: {
-        path: __dirname + '/public/js/',
+        path: __dirname + '/public/build/',
         publicPath: '/public/',
         filename: 'bundle.js'
+        //filename: '[name].js'
     },
     resolve: {
         extensions:['','.js','.jsx']

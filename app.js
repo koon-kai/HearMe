@@ -13,6 +13,7 @@ var app = express();
 // var io = require('socket.io')(server);
 var partials = require('express-partials');
 
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
@@ -28,12 +29,13 @@ app.use(partials());
 app.use(multer({dest: 'public/uploads/', inMemory: true}));
 //app.use('/bower_components',  express.static(__dirname + '/bower_components'));
 
+
+
 var router = express.Router()
 var fs = require('fs');
 
 var recursiveRoutes = function(folderName, router) {
     fs.readdirSync(folderName).forEach(function(file){
-
         var fullName, stat, ext, mod;
         fullName = path.join(folderName, file);
         stat = fs.lstatSync(fullName);
@@ -55,6 +57,11 @@ var recursiveRoutes = function(folderName, router) {
 }
 
 recursiveRoutes('./routes', router);
+
+
+app.use('*', function(req, res) {
+    res.render('index');
+});
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

@@ -68,7 +68,7 @@ var Api = {
     getPosts: function() {
         var promise = new Promise(function(resolve, reject) {
             $.ajax({
-                url: "/posts",
+                url: "/api/posts",
                 dataType: 'json',
                 success: function(data) {
                      resolve(data);
@@ -86,14 +86,14 @@ var Api = {
         var promise = new Promise(function(resolve, reject) {
             $.ajax({
                 type: "get",
-                url: "/post/" + id,
+                url: "/api/post/" + id,
                 dataType: 'json',
                 success: function(data) {
                     resolve(data);
                 }.bind(this),
-                error: function(xhr, status, err) {
+                error: function(err) {
                     reject(err);
-                    console.error("/post", status, err.toString());
+                    // console.error("/post", status, err.toString());
                 }.bind(this)
             });
         });
@@ -104,7 +104,7 @@ var Api = {
         var promise = new Promise(function(resolve, reject) {
             $.ajax({
                 type: "post",
-                url: "/post",
+                url: "/api/post",
                 data: post,
                 dataType: 'json',
                 success: function(data) {

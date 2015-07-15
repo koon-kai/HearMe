@@ -2,11 +2,14 @@
 var React = require('react');
 var PostStore = require('../stores/PostStore');
 var PostActionCreators = require('../actions/PostActionCreators');
-
+var Router = require('react-router');
+var Navigation = Router.Navigation;
 
 var Post = React.createClass({
+    mixins: [Navigation],
+
     getInitialState: function() {
-        return PostStore.getPost();
+        return {data: PostStore.getPost()};
     },
     loadPostById: function(id) {
         PostActionCreators.getPost(id);
@@ -19,20 +22,28 @@ var Post = React.createClass({
         PostStore.removeChangeListener(this._onChange);
     },
     render: function() {
+        var title = this.state.data.title == undefined ? '' : this.state.data.title ;
+        var content = this.state.data.content == undefined ? '' : this.state.data.content ;
+
         return (
             <div id="post">
                 <div className="post-title">
-                    <h3>{this.state.data.title}</h3>
+                    <h3>{title}</h3>
                 </div>
                 <div className="post-content">
-                    <span dangerouslySetInnerHTML={{__html: this.state.data.content}} />
+                    <span dangerouslySetInnerHTML={{__html: content}} />
                 </div>
             </div>
         )
     },
     _onChange: function() { 
-        console.log('_onChange');
-        this.setState(PostStore.getPost());
+        // console.log('_onChange');
+        var data = PostStore.getPost();
+        if (data) {
+            this.setState({data:data});
+        } else {
+            this.transitionTo('404');
+        }
     }
 });
 

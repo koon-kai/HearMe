@@ -9,7 +9,7 @@ import Api from '../utils/WebAPIUtils';
 module.exports = {
 
     getPosts: function() {
-        console.log('actions');
+        // console.log('actions');
         Api.getPosts().then(function(data){
             HearMeAppDispatcher.dispatch({
                 type: ActionTypes.GET_POSTS,
@@ -22,6 +22,12 @@ module.exports = {
 
     getPost:function(id) {
         Api.getPost(id).then(function(data){
+            // console.log(data);
+            if (data.success == true) {
+                data = data.data;
+            } else {
+                data = null;
+            }
             HearMeAppDispatcher.dispatch({
                 type: ActionTypes.GET_POST,
                 data: data,

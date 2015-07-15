@@ -7,7 +7,7 @@ var Photo = require('../lib/model.js').Photo;
 var qiniu = require('../lib/qiniu.js');
 var setting = require('../setting.js');
 
-router.get('/posts', function(req, res) {
+router.get('/api/posts', function(req, res) {
 
     Post.find({}).sort({createAt:-1}).exec(function(err,docs) {
         if (err) console.log(err);
@@ -16,7 +16,7 @@ router.get('/posts', function(req, res) {
     });
 });
 
-router.post('/post', function(req, res) {
+router.post('/api/post', function(req, res) {
 
     var post = req.body;
     console.log(post);
@@ -27,14 +27,21 @@ router.post('/post', function(req, res) {
     })
 });
 
-router.get('/post/:id', function(req, res) {
+router.get('/api/post/:id', function(req, res) {
     
     var _id = req.params.id;
     Post.find({'_id':_id}, function(err, doc) {
         console.log(doc);
-       
-        var post = doc[0];
-        res.end(JSON.stringify(post));
+        var result = {};
+        if (doc) {
+            result['success'] = true;
+            result['data'] = doc[0]; 
+        } else {
+            result['success'] = false;
+            result['data'] = {};
+        }
+        console.log(result);
+        res.end(JSON.stringify(result));
     })
 });
 

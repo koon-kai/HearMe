@@ -58,7 +58,7 @@ var Index = React.createClass({
         )
     },
     _onChange: function() { 
-        console.log('_onChange');
+        // console.log('_onChange');
         this.setState(PostStore.getPosts());
     }
 });
