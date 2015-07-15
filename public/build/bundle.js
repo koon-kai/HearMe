@@ -22052,7 +22052,7 @@
 	
 	    render: function render() {
 	        return React.createElement(
-	            'div',
+	            'section',
 	            { className: 'post' },
 	            React.createElement(
 	                'div',
@@ -23191,7 +23191,7 @@
 	                    React.createElement(
 	                        'a',
 	                        { href: '#services' },
-	                        'Record'
+	                        'Photo'
 	                    ),
 	                    React.createElement(
 	                        'span',
@@ -23211,7 +23211,7 @@
 	                    React.createElement(
 	                        'a',
 	                        { href: '#services' },
-	                        'Photo'
+	                        'About'
 	                    ),
 	                    React.createElement(
 	                        'span',
@@ -23280,7 +23280,7 @@
 	        var content = this.state.data.content == undefined ? '' : this.state.data.content;
 	
 	        return React.createElement(
-	            'div',
+	            'article',
 	            { id: 'post' },
 	            React.createElement(
 	                'div',

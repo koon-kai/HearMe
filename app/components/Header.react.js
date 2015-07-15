@@ -15,11 +15,11 @@ var Header = React.createClass({
                     <nav>
                         <a href="#services" >Blog</a>
                         <span>|</span>
-                        <a href="#services" >Record</a>
+                        <a href="#services" >Photo</a>
                         <span>|</span>
                         <a href="#services" >Word</a>
                         <span>|</span>
-                        <a href="#services" >Photo</a>
+                        <a href="#services" >About</a>
                         <span>|</span>
                         <a href="#services" >Note</a>
                         <span>|</span>

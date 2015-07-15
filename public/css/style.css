@@ -7,8 +7,9 @@ html {
 body {
 	/* Margin bottom by footer height */
 	/*margin-bottom: 60px;*/
-	font-family: roboto,'Hiragino Sans GB','Microsoft YaHei',微软雅黑,STHeiti,'WenQuanYi Micro Hei',Helvetica,Arial,sans-serif;
+	/*font-family: roboto,'Hiragino Sans GB','Microsoft YaHei',微软雅黑,STHeiti,'WenQuanYi Micro Hei',Helvetica,Arial,sans-serif;*/
 	/*font-family: Arial, Helvetica, sans-serif;*/
+    font-family: "Open Sans","Helvetica Neue",Arial,sans-serif !important;
 	/*background-color: #F8F8F8;*/
 	font-size: 14px;
     line-height: 16px;
@@ -21,10 +22,11 @@ body {
 .container {
 	width: auto;
 	max-width: 960px;
-	padding: 0 15px;
+	padding: 0 60px;
+    margin: 0 auto;
 }
 
-header, footer, nav, section, article {
+header, footer, section, article {
     display: block;
 }
 
@@ -34,20 +36,36 @@ header, footer, nav, section, article {
 
 /* header style setting */
 header {
-    position: relative;
-    max-width: 910px;
-    height: 100px;
-    margin: 0 auto;
+    text-align: center;
+}
+
+header .logo {
+    margin: 38px 0;
+}
+
+header .logo a {
+    text-decoration: none;
+}
+
+header .logo h1 {
+    /*float: left;*/
+    font-family: 'FuturaStdMediumTrItalic';
+    font-size: 34px;
+    /*color: #656565;*/
+    color: #DBD4D4;
+    font-weight: normal;
+    line-height: 38px;
 }
 
 header nav {
-    float: right;
-    margin-top: 54px;
+    margin-bottom: 20px;
+    display: inline-block;
     color: #dde1e4;
+    
 }
 
 header nav a {
-	/*text-decoration: none;*/
+	text-decoration: none;
     float: left;
     display: block;
     margin: 0 10px 0 10px;
@@ -65,21 +83,7 @@ header nav span {
     font-size: 24px;
 }
 
-header .logo {
-    float: left;
-    margin-top: 24px;
-    width: 221px;
-}
 
-header .logo h1 {
-    float: left;
-    font-family: 'FuturaStdMediumTrItalic';
-    font-size: 34px;
-    /*color: #656565;*/
-    color: #aaa;
-    font-weight: normal;
-    line-height: 38px;
-}
 /* header style end */
 
 /* Add post style */
@@ -190,23 +194,26 @@ footer {
 }
 
 .post-list {
-    margin-top: 20px;
-    padding: 20px;
+    margin-top: 50px;
+    /*padding: 0 30px;*/
 }
 
-.post-list a {
+.post-list .post-title a {
     /*text-decoration: none;*/
     color: #444;
+    /*font-family: normal;*/
 }
 
-.po
 
 .post-list .post .post-date {
     color: #999;
+    margin: 5px 0 ;
 }
 
 .post-list .post {
     margin: 30px 0;
+    border-bottom: 1px #eee dashed;
+
 }
 
 .post-list .post .post-title {
@@ -215,6 +222,11 @@ footer {
 }
 
 #post {
-    margin-top: 20px;
-    padding: 20px;
+    margin-top: 40px;
+    /*padding: 20px;*/
+}
+
+#post .post-content {
+    line-height: 28px;
+    font-size: 16px;
 }

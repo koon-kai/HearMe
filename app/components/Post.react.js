@@ -26,14 +26,14 @@ var Post = React.createClass({
         var content = this.state.data.content == undefined ? '' : this.state.data.content ;
 
         return (
-            <div id="post">
+            <article id="post">
                 <div className="post-title">
                     <h3>{title}</h3>
                 </div>
                 <div className="post-content">
                     <span dangerouslySetInnerHTML={{__html: content}} />
                 </div>
-            </div>
+            </article>
         )
     },
     _onChange: function() { 

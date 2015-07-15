@@ -10,14 +10,14 @@ var PostActionCreators = require('../actions/PostActionCreators');
 var Post = React.createClass({
     render: function() {
         return (
-            <div className="post">
+            <section className="post">
                 <div className="post-title">
                     <Link to="post" params={{id:this.props.data._id}}>{this.props.data.title}</Link>
                 </div>
                 <div className="post-date">
                     {this.props.data.createAt}
                 </div>
-            </div>
+            </section>
         );
     }
 });
