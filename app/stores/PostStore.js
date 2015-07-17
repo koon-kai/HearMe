@@ -53,7 +53,7 @@ PostStore.dispatchToken = AppDispatcher.register(function(action){
     switch(action.type) {
         case ActionTypes.ADD_POST:
             Api.addPost(action.data).then(function(data){
-                _post = action.data;
+                _post = data;
                 PostStore.emitChange();
             }, errHandler);
             break;

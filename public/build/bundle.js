@@ -22469,7 +22469,7 @@
 	    switch (action.type) {
 	        case ActionTypes.ADD_POST:
 	            _utilsWebAPIUtils2['default'].addPost(action.data).then(function (data) {
-	                _post = action.data;
+	                _post = data;
 	                PostStore.emitChange();
 	            }, errHandler);
 	            break;
