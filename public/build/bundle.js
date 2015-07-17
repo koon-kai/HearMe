@@ -22012,11 +22012,11 @@
 	var NotFoundRoute = Router.NotFoundRoute;
 	
 	//custom react component
-	var HearMeApp = __webpack_require__(/*! ./components/HearMeApp.react */ 210);
-	var Index = __webpack_require__(/*! ./components/Index.react */ 198);
-	var Post = __webpack_require__(/*! ./components/Post.react */ 212);
-	var AddPost = __webpack_require__(/*! ./components/AddPost.react */ 213);
-	var NotFoundPage = __webpack_require__(/*! ./components/NotFoundPage.react */ 214);
+	var HearMeApp = __webpack_require__(/*! ./components/HearMeApp.react */ 198);
+	var Index = __webpack_require__(/*! ./components/Index.react */ 200);
+	var Post = __webpack_require__(/*! ./components/Post.react */ 201);
+	var AddPost = __webpack_require__(/*! ./components/AddPost.react */ 216);
+	var NotFoundPage = __webpack_require__(/*! ./components/NotFoundPage.react */ 217);
 	
 	var routes = React.createElement(
 	    Route,
@@ -22033,9 +22033,46 @@
 
 /***/ },
 /* 198 */
-/*!***************************************!*\
-  !*** ./app/components/Index.react.js ***!
-  \***************************************/
+/*!*******************************************!*\
+  !*** ./app/components/HearMeApp.react.js ***!
+  \*******************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	
+	// var React = require('react');
+	'use strict';
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+	
+	var _react = __webpack_require__(/*! react */ 2);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var Router = __webpack_require__(/*! react-router */ 158);
+	// var Route = Router.Route;
+	var RouteHandler = Router.RouteHandler;
+	var Header = __webpack_require__(/*! ./Header.react */ 199);
+	
+	var HearMeApp = _react2['default'].createClass({
+	    displayName: 'HearMeApp',
+	
+	    render: function render() {
+	        return _react2['default'].createElement(
+	            'div',
+	            null,
+	            _react2['default'].createElement(Header, null),
+	            _react2['default'].createElement(RouteHandler, null)
+	        );
+	    }
+	});
+	
+	module.exports = HearMeApp;
+
+/***/ },
+/* 199 */
+/*!****************************************!*\
+  !*** ./app/components/Header.react.js ***!
+  \****************************************/
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -22043,9 +22080,119 @@
 	var React = __webpack_require__(/*! react */ 2);
 	var Router = __webpack_require__(/*! react-router */ 158);
 	var Link = Router.Link;
+	var Navigation = Router.Navigation;
 	
-	var PostStore = __webpack_require__(/*! ../stores/PostStore */ 199);
-	var PostActionCreators = __webpack_require__(/*! ../actions/PostActionCreators */ 208);
+	var Header = React.createClass({
+	    displayName: 'Header',
+	
+	    render: function render() {
+	        return React.createElement(
+	            'div',
+	            null,
+	            React.createElement(
+	                'header',
+	                null,
+	                React.createElement(
+	                    'div',
+	                    { className: 'logo' },
+	                    React.createElement(
+	                        Link,
+	                        { to: 'index' },
+	                        React.createElement(
+	                            'h1',
+	                            null,
+	                            'HearMe'
+	                        )
+	                    )
+	                ),
+	                React.createElement(
+	                    'nav',
+	                    null,
+	                    React.createElement(
+	                        'a',
+	                        { href: '#services' },
+	                        'Blog'
+	                    ),
+	                    React.createElement(
+	                        'span',
+	                        null,
+	                        '|'
+	                    ),
+	                    React.createElement(
+	                        'a',
+	                        { href: '#services' },
+	                        'Photo'
+	                    ),
+	                    React.createElement(
+	                        'span',
+	                        null,
+	                        '|'
+	                    ),
+	                    React.createElement(
+	                        'a',
+	                        { href: '#services' },
+	                        'Word'
+	                    ),
+	                    React.createElement(
+	                        'span',
+	                        null,
+	                        '|'
+	                    ),
+	                    React.createElement(
+	                        'a',
+	                        { href: '#services' },
+	                        'About'
+	                    ),
+	                    React.createElement(
+	                        'span',
+	                        null,
+	                        '|'
+	                    ),
+	                    React.createElement(
+	                        'a',
+	                        { href: '#services' },
+	                        'Chat'
+	                    ),
+	                    React.createElement(
+	                        'span',
+	                        null,
+	                        '|'
+	                    ),
+	                    React.createElement(
+	                        Link,
+	                        { to: 'addPost' },
+	                        'Add Post'
+	                    )
+	                )
+	            ),
+	            React.createElement('div', { className: 'page-divider' })
+	        );
+	    }
+	});
+	
+	module.exports = Header;
+
+/***/ },
+/* 200 */
+/*!***************************************!*\
+  !*** ./app/components/Index.react.js ***!
+  \***************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+	
+	var _reactLoading = __webpack_require__(/*! react-loading */ 214);
+	
+	var _reactLoading2 = _interopRequireDefault(_reactLoading);
+	
+	var React = __webpack_require__(/*! react */ 2);
+	var Router = __webpack_require__(/*! react-router */ 158);
+	var Link = Router.Link;
+	
+	var PostStore = __webpack_require__(/*! ../stores/PostStore */ 202);
+	var PostActionCreators = __webpack_require__(/*! ../actions/PostActionCreators */ 215);
 	
 	var Post = React.createClass({
 	    displayName: 'Post',
@@ -22091,16 +22238,29 @@
 	    displayName: 'Index',
 	
 	    getInitialState: function getInitialState() {
-	        return PostStore.getPosts();
+	        return {
+	            data: PostStore.getPosts()
+	        };
 	    },
 	    loadPostsFromServer: function loadPostsFromServer() {
-	        PostActionCreators.getPosts();
+	        PostActionCreators.getPosts(this.state.page);
+	    },
+	    loadData: function loadData() {
+	        // console.log('load data...');
+	        var totalHeight = 0;
+	        totalHeight = parseFloat($(window).height()) + parseFloat($(window).scrollTop());
+	
+	        if ($(document).height() <= totalHeight) {
+	            console.log('bottom');
+	        }
 	    },
 	    componentDidMount: function componentDidMount() {
 	        this.loadPostsFromServer();
+	        window.addEventListener('scroll', this.loadData);
 	        PostStore.addChangeListener(this._onChange);
 	    },
 	    componentWillUnmount: function componentWillUnmount() {
+	        window.removeEventListener('scroll', this.loadData);
 	        PostStore.removeChangeListener(this._onChange);
 	    },
 	    render: function render() {
@@ -22108,14 +22268,141 @@
 	    },
 	    _onChange: function _onChange() {
 	        // console.log('_onChange');
-	        this.setState(PostStore.getPosts());
+	        this.setState({
+	            data: PostStore.getPosts()
+	        });
 	    }
 	});
 	
 	module.exports = Index;
 
 /***/ },
-/* 199 */
+/* 201 */
+/*!**************************************!*\
+  !*** ./app/components/Post.react.js ***!
+  \**************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+	
+	var _reactDisqusThread = __webpack_require__(/*! react-disqus-thread */ 212);
+	
+	var _reactDisqusThread2 = _interopRequireDefault(_reactDisqusThread);
+	
+	var _reactLoading = __webpack_require__(/*! react-loading */ 214);
+	
+	var _reactLoading2 = _interopRequireDefault(_reactLoading);
+	
+	var React = __webpack_require__(/*! react */ 2);
+	var PostStore = __webpack_require__(/*! ../stores/PostStore */ 202);
+	var PostActionCreators = __webpack_require__(/*! ../actions/PostActionCreators */ 215);
+	var Router = __webpack_require__(/*! react-router */ 158);
+	var Navigation = Router.Navigation;
+	
+	var Post = React.createClass({
+	    displayName: 'Post',
+	
+	    mixins: [Navigation],
+	
+	    getInitialState: function getInitialState() {
+	        return {
+	            data: PostStore.getPost(),
+	            isLoading: true
+	        };
+	    },
+	    loadPostById: function loadPostById(id) {
+	        PostActionCreators.getPost(id);
+	    },
+	    componentDidMount: function componentDidMount() {
+	        this.loadPostById(this.props.params.id);
+	        PostStore.addChangeListener(this._onChange);
+	    },
+	    componentWillUnmount: function componentWillUnmount() {
+	        PostStore.removeChangeListener(this._onChange);
+	    },
+	    render: function render() {
+	        var title = this.state.data.title == undefined ? '' : this.state.data.title;
+	        var content = this.state.data.content == undefined ? '' : this.state.data.content;
+	        var id = this.state.data._id == undefined ? '' : this.state.data._id;
+	        console.log(window.location.href);
+	        var url = 'http://localhost:8888/post/' + id;
+	
+	        var dom = this.state.isLoading ? React.createElement(
+	            'div',
+	            { className: 'loading' },
+	            React.createElement(_reactLoading2['default'], { type: 'spin', color: '#e3e3e3' })
+	        ) : React.createElement(
+	            'article',
+	            { id: 'post' },
+	            React.createElement(
+	                'div',
+	                { className: 'post-title' },
+	                React.createElement(
+	                    'h3',
+	                    null,
+	                    title
+	                )
+	            ),
+	            React.createElement('hr', null),
+	            React.createElement(
+	                'div',
+	                { className: 'post-content' },
+	                React.createElement('span', { dangerouslySetInnerHTML: { __html: content } })
+	            ),
+	            React.createElement(_reactDisqusThread2['default'], {
+	                shortname: 'koonkaisite',
+	                identifier: id,
+	                title: title,
+	                url: url,
+	                categoryId: id })
+	        );
+	
+	        return React.createElement(
+	            'article',
+	            { id: 'post' },
+	            React.createElement(
+	                'div',
+	                { className: 'post-title' },
+	                React.createElement(
+	                    'h3',
+	                    null,
+	                    title
+	                )
+	            ),
+	            React.createElement('hr', null),
+	            React.createElement(
+	                'div',
+	                { className: 'post-content' },
+	                React.createElement('span', { dangerouslySetInnerHTML: { __html: content } })
+	            ),
+	            React.createElement(_reactDisqusThread2['default'], {
+	                shortname: 'koonkaisite',
+	                identifier: id,
+	                title: title,
+	                url: url,
+	                categoryId: id })
+	        );
+	    },
+	    _onChange: function _onChange() {
+	        // console.log('_onChange');
+	        var data = PostStore.getPost();
+	        if (data) {
+	            this.setState({
+	                data: data,
+	                isLoading: false
+	            });
+	        } else {
+	            this.transitionTo('404');
+	        }
+	    }
+	});
+	
+	module.exports = Post;
+
+/***/ },
+/* 202 */
 /*!*********************************!*\
   !*** ./app/stores/PostStore.js ***!
   \*********************************/
@@ -22123,10 +22410,16 @@
 
 	'use strict';
 	
-	var HearMeAppDispatcher = __webpack_require__(/*! ../dispatcher/HearMeAppDispatcher */ 200);
-	var EventEmitter = __webpack_require__(/*! events */ 204).EventEmitter;
-	var Constants = __webpack_require__(/*! ../constants/Constants */ 205);
-	var assign = __webpack_require__(/*! object-assign */ 207);
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+	
+	var _utilsWebAPIUtils = __webpack_require__(/*! ../utils/WebAPIUtils */ 203);
+	
+	var _utilsWebAPIUtils2 = _interopRequireDefault(_utilsWebAPIUtils);
+	
+	var AppDispatcher = __webpack_require__(/*! ../dispatcher/AppDispatcher */ 204);
+	var EventEmitter = __webpack_require__(/*! events */ 208).EventEmitter;
+	var Constants = __webpack_require__(/*! ../constants/Constants */ 209);
+	var assign = __webpack_require__(/*! object-assign */ 211);
 	
 	var ActionTypes = Constants.ActionTypes;
 	var CHANGE_EVENT = 'change';
@@ -22147,7 +22440,7 @@
 	    },
 	
 	    getPosts: function getPosts() {
-	        return { data: _posts };
+	        return _posts;
 	    },
 	
 	    emitChange: function emitChange() {
@@ -22163,47 +22456,183 @@
 	    }
 	});
 	
-	PostStore.dispatchToken = HearMeAppDispatcher.register(function (action) {
+	var errHandler = function errHandler(err) {
+	    console.log(err);
+	};
 	
-	    // console.log(action);
+	PostStore.dispatchToken = AppDispatcher.register(function (action) {
+	
 	    switch (action.type) {
 	        case ActionTypes.ADD_POST:
-	            // console.log('add post');
-	            _post = action.data;
-	            PostStore.emitChange();
+	            _utilsWebAPIUtils2['default'].addPost(action.data).then(function (data) {
+	                _post = action.data;
+	                PostStore.emitChange();
+	            }, errHandler);
 	            break;
+	
 	        case ActionTypes.GET_POST:
-	            // console.log('get post');
-	            _post = action.data;
-	            PostStore.emitChange();
+	            _utilsWebAPIUtils2['default'].getPost(action.id).then(function (data) {
+	                if (data.success == true) {
+	                    _post = data.data;
+	                } else {
+	                    _post = null;
+	                }
+	                PostStore.emitChange();
+	            }, errHandler);
 	            break;
+	
 	        case ActionTypes.GET_POSTS:
-	            // console.log('get posts');
-	            _posts = action.data;
-	            PostStore.emitChange();
+	            _utilsWebAPIUtils2['default'].getPosts().then(function (data) {
+	                _posts = data;
+	                PostStore.emitChange();
+	            }, errHandler);
 	            break;
+	
 	        default:
-	            console.log('else');
+	        // do something common
 	    }
 	});
 	
 	module.exports = PostStore;
 
 /***/ },
-/* 200 */
-/*!***********************************************!*\
-  !*** ./app/dispatcher/HearMeAppDispatcher.js ***!
-  \***********************************************/
+/* 203 */
+/*!**********************************!*\
+  !*** ./app/utils/WebAPIUtils.js ***!
+  \**********************************/
+/***/ function(module, exports) {
+
+	"use strict";
+	
+	var API_URL = "/api/v2";
+	var TIMEOUT = 10000;
+	
+	var _pendingRequests = {};
+	
+	function abortPendingRequests(key) {
+	    if (_pendingRequests[key]) {
+	        _pendingRequests[key]._callback = function () {};
+	        _pendingRequests[key].abort();
+	        _pendingRequests[key] = null;
+	    }
+	}
+	
+	function token() {
+	    return UserStore.getState().token;
+	}
+	
+	function makeUrl(part) {
+	    return API_URL + part;
+	}
+	
+	function dispatch(key, response, params) {
+	    var payload = { actionType: key, response: response };
+	    if (params) {
+	        payload.queryParams = params;
+	    }
+	    AppDispatcher.handleRequestAction(payload);
+	}
+	
+	// return successful response, else return request Constants
+	function makeDigestFun(key, params) {
+	    return function (err, res) {
+	        if (err && err.timeout === TIMEOUT) {
+	            dispatch(key, Constants.request.TIMEOUT, params);
+	        } else if (res.status === 400) {
+	            UserActions.logout();
+	        } else if (!res.ok) {
+	            dispatch(key, Constants.request.ERROR, params);
+	        } else {
+	            dispatch(key, res, params);
+	        }
+	    };
+	}
+	
+	// a get request with an authtoken param
+	function get(url) {
+	    return request.get(url).timeout(TIMEOUT).query({ authtoken: token() });
+	}
+	
+	var Api = {
+	    getEntityData: function getEntityData(entityId) {
+	        var url = makeUrl("/entities/" + entityId);
+	        var key = Constants.api.GET_ENTITY_DATA;
+	        var params = { entityId: entityId };
+	        abortPendingRequests(key);
+	        dispatch(key, Constants.request.PENDING, params);
+	        _pendingRequests[key] = get(url).end(makeDigestFun(key, params));
+	    },
+	
+	    getPosts: function getPosts() {
+	        var promise = new Promise(function (resolve, reject) {
+	            $.ajax({
+	                url: "/api/posts",
+	                dataType: "json",
+	                success: (function (data) {
+	                    resolve(data);
+	                }).bind(this),
+	                error: (function (xhr, status, err) {
+	                    reject(err);
+	                }).bind(this)
+	            });
+	        });
+	        return promise;
+	    },
+	
+	    getPost: function getPost(id) {
+	        var promise = new Promise(function (resolve, reject) {
+	            $.ajax({
+	                type: "get",
+	                url: "/api/post/" + id,
+	                dataType: "json",
+	                success: (function (data) {
+	                    resolve(data);
+	                }).bind(this),
+	                error: (function (err) {
+	                    reject(err);
+	                    // console.error("/post", status, err.toString());
+	                }).bind(this)
+	            });
+	        });
+	        return promise;
+	    },
+	
+	    addPost: function addPost(post) {
+	        var promise = new Promise(function (resolve, reject) {
+	            $.ajax({
+	                type: "post",
+	                url: "/api/post",
+	                data: post,
+	                dataType: "json",
+	                success: (function (data) {
+	                    resolve(data);
+	                }).bind(this),
+	                error: (function (err) {
+	                    reject(err);
+	                }).bind(this)
+	            });
+	        });
+	        return promise;
+	    }
+	};
+	
+	module.exports = Api;
+
+/***/ },
+/* 204 */
+/*!*****************************************!*\
+  !*** ./app/dispatcher/AppDispatcher.js ***!
+  \*****************************************/
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var Dispatcher = __webpack_require__(/*! flux */ 201).Dispatcher;
+	var Dispatcher = __webpack_require__(/*! flux */ 205).Dispatcher;
 	
 	module.exports = new Dispatcher();
 
 /***/ },
-/* 201 */
+/* 205 */
 /*!*************************!*\
   !*** ./~/flux/index.js ***!
   \*************************/
@@ -22220,10 +22649,10 @@
 	
 	'use strict';
 	
-	module.exports.Dispatcher = __webpack_require__(/*! ./lib/Dispatcher */ 202);
+	module.exports.Dispatcher = __webpack_require__(/*! ./lib/Dispatcher */ 206);
 
 /***/ },
-/* 202 */
+/* 206 */
 /*!**********************************!*\
   !*** ./~/flux/lib/Dispatcher.js ***!
   \**********************************/
@@ -22243,7 +22672,7 @@
 	
 	'use strict';
 	
-	var invariant = __webpack_require__(/*! ./invariant */ 203);
+	var invariant = __webpack_require__(/*! ./invariant */ 207);
 	
 	var _lastID = 1;
 	var _prefix = 'ID_';
@@ -22461,7 +22890,7 @@
 	module.exports = Dispatcher;
 
 /***/ },
-/* 203 */
+/* 207 */
 /*!*********************************!*\
   !*** ./~/flux/lib/invariant.js ***!
   \*********************************/
@@ -22518,7 +22947,7 @@
 	module.exports = invariant;
 
 /***/ },
-/* 204 */
+/* 208 */
 /*!************************************************!*\
   !*** ./~/node-libs-browser/~/events/events.js ***!
   \************************************************/
@@ -22788,7 +23217,7 @@
 	}
 
 /***/ },
-/* 205 */
+/* 209 */
 /*!************************************!*\
   !*** ./app/constants/Constants.js ***!
   \************************************/
@@ -22796,7 +23225,7 @@
 
 	'use strict';
 	
-	var keyMirror = __webpack_require__(/*! keymirror */ 206);
+	var keyMirror = __webpack_require__(/*! keymirror */ 210);
 	
 	module.exports = {
 	
@@ -22808,7 +23237,7 @@
 	};
 
 /***/ },
-/* 206 */
+/* 210 */
 /*!******************************!*\
   !*** ./~/keymirror/index.js ***!
   \******************************/
@@ -22869,7 +23298,7 @@
 	module.exports = keyMirror;
 
 /***/ },
-/* 207 */
+/* 211 */
 /*!**********************************!*\
   !*** ./~/object-assign/index.js ***!
   \**********************************/
@@ -22916,7 +23345,462 @@
 	};
 
 /***/ },
-/* 208 */
+/* 212 */
+/*!****************************************!*\
+  !*** ./~/react-disqus-thread/index.js ***!
+  \****************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	module.exports = __webpack_require__(/*! ./lib/disqus-thread */ 213);
+
+/***/ },
+/* 213 */
+/*!****************************************************!*\
+  !*** ./~/react-disqus-thread/lib/disqus-thread.js ***!
+  \****************************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var React = __webpack_require__(/*! react */ 2);
+	var DOM = React.DOM;
+	var DISQUS_CONFIG = ['shortname', 'identifier', 'title', 'url', 'category_id'];
+	
+	// Convert underscore to camelCase
+	function camelCase(str) {
+	  return str.replace(/(_.{1})/g, function (match) {
+	    return match[1].toUpperCase();
+	  });
+	}
+	
+	module.exports = React.createClass({
+	  displayName: 'DisqusThread',
+	
+	  propTypes: {
+	    /**
+	     * `shortname` tells the Disqus service your forum's shortname,
+	     * which is the unique identifier for your website as registered
+	     * on Disqus. If undefined , the Disqus embed will not load.
+	     */
+	    shortname: React.PropTypes.string.isRequired,
+	
+	    /**
+	     * `identifier` tells the Disqus service how to identify the
+	     * current page. When the Disqus embed is loaded, the identifier
+	     * is used to look up the correct thread. If disqus_identifier
+	     * is undefined, the page's URL will be used. The URL can be
+	     * unreliable, such as when renaming an article slug or changing
+	     * domains, so we recommend using your own unique way of
+	     * identifying a thread.
+	     */
+	    identifier: React.PropTypes.string,
+	
+	    /**
+	     * `title` tells the Disqus service the title of the current page.
+	     * This is used when creating the thread on Disqus for the first time.
+	     * If undefined, Disqus will use the <title> attribute of the page.
+	     * If that attribute could not be used, Disqus will use the URL of the page.
+	     */
+	    title: React.PropTypes.string,
+	
+	    /**
+	     * `url` tells the Disqus service the URL of the current page.
+	     * If undefined, Disqus will take the window.location.href.
+	     * This URL is used to look up or create a thread if disqus_identifier
+	     * is undefined. In addition, this URL is always saved when a thread is
+	     * being created so that Disqus knows what page a thread belongs to.
+	     */
+	    url: React.PropTypes.string,
+	
+	    /**
+	     * `categoryId` tells the Disqus service the category to be used for
+	     * the current page. This is used when creating the thread on Disqus
+	     * for the first time.
+	     */
+	    categoryId: React.PropTypes.string
+	  },
+	
+	  getDefaultProps: function getDefaultProps() {
+	    return {
+	      shortname: null,
+	      identifier: null,
+	      title: null,
+	      url: null,
+	      category_id: null
+	    };
+	  },
+	
+	  addDisqusScript: function addDisqusScript() {
+	    var child = this.disqus = document.createElement('script');
+	    var parent = document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0];
+	
+	    child.async = true;
+	    child.type = 'text/javascript';
+	    child.src = '//' + this.props.shortname + '.disqus.com/embed.js';
+	
+	    parent.appendChild(child);
+	  },
+	
+	  removeDisqusScript: function removeDisqusScript() {
+	    if (this.disqus && this.disqus.parentNode) {
+	      this.disqus.parentNode.removeChild(this.disqus);
+	      this.disqus = null;
+	    }
+	  },
+	
+	  componentDidMount: function componentDidMount() {
+	    DISQUS_CONFIG.filter(function (prop) {
+	      return !!this.props[camelCase(prop)];
+	    }, this).forEach(function (prop) {
+	      window['disqus_' + prop] = this.props[camelCase(prop)];
+	    }, this);
+	
+	    if (typeof DISQUS !== 'undefined') {
+	      DISQUS.reset({ reload: true });
+	    } else {
+	      this.addDisqusScript();
+	    }
+	  },
+	
+	  componentWillUnmount: function componentWillUnmount() {
+	    this.removeDisqusScript();
+	  },
+	
+	  render: function render() {
+	    return DOM.div(this.props, DOM.div({ id: 'disqus_thread' }), DOM.noscript(null, DOM.span(null, 'Please enable JavaScript to view the ', DOM.a({ href: 'http://disqus.com/?ref_noscript' }, 'comments powered by Disqus.'))), DOM.a({
+	      href: 'http://disqus.com',
+	      className: 'dsq-brlink'
+	    }, 'blog comments powered by ', DOM.span({ className: 'logo-disqus' }, 'Disqus')));
+	  }
+	});
+
+/***/ },
+/* 214 */
+/*!***********************************************!*\
+  !*** ./~/react-loading/dist/react-loading.js ***!
+  \***********************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	(function webpackUniversalModuleDefinition(root, factory) {
+		if (true) module.exports = factory(__webpack_require__(/*! react */ 2));else if (typeof define === 'function' && define.amd) define(['react'], factory);else if (typeof exports === 'object') exports['Loading'] = factory(require('react'));else root['Loading'] = factory(root['React']);
+	})(undefined, function (__WEBPACK_EXTERNAL_MODULE_1__) {
+		return ( /******/(function (modules) {
+				// webpackBootstrap
+				/******/ // The module cache
+				/******/var installedModules = {};
+	
+				/******/ // The require function
+				/******/function __webpack_require__(moduleId) {
+	
+					/******/ // Check if module is in cache
+					/******/if (installedModules[moduleId])
+						/******/return installedModules[moduleId].exports;
+	
+					/******/ // Create a new module (and put it into the cache)
+					/******/var module = installedModules[moduleId] = {
+						/******/exports: {},
+						/******/id: moduleId,
+						/******/loaded: false
+						/******/ };
+	
+					/******/ // Execute the module function
+					/******/modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
+	
+					/******/ // Flag the module as loaded
+					/******/module.loaded = true;
+	
+					/******/ // Return the exports of the module
+					/******/return module.exports;
+					/******/
+				}
+	
+				/******/ // expose the modules object (__webpack_modules__)
+				/******/__webpack_require__.m = modules;
+	
+				/******/ // expose the module cache
+				/******/__webpack_require__.c = installedModules;
+	
+				/******/ // __webpack_public_path__
+				/******/__webpack_require__.p = '';
+	
+				/******/ // Load entry module and return exports
+				/******/return __webpack_require__(0);
+				/******/
+			})([
+			/* 0 */
+			/***/function (module, exports, __webpack_require__) {
+	
+				'use strict';
+	
+				Object.defineProperty(exports, '__esModule', {
+					value: true
+				});
+	
+				var _createClass = (function () {
+					function defineProperties(target, props) {
+						for (var i = 0; i < props.length; i++) {
+							var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ('value' in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);
+						}
+					}return function (Constructor, protoProps, staticProps) {
+						if (protoProps) defineProperties(Constructor.prototype, protoProps);if (staticProps) defineProperties(Constructor, staticProps);return Constructor;
+					};
+				})();
+	
+				var _get = function get(_x, _x2, _x3) {
+					var _again = true;_function: while (_again) {
+						var object = _x,
+						    property = _x2,
+						    receiver = _x3;desc = parent = getter = undefined;_again = false;if (object === null) object = Function.prototype;var desc = Object.getOwnPropertyDescriptor(object, property);if (desc === undefined) {
+							var parent = Object.getPrototypeOf(object);if (parent === null) {
+								return undefined;
+							} else {
+								_x = parent;_x2 = property;_x3 = receiver;_again = true;continue _function;
+							}
+						} else if ('value' in desc) {
+							return desc.value;
+						} else {
+							var getter = desc.get;if (getter === undefined) {
+								return undefined;
+							}return getter.call(receiver);
+						}
+					}
+				};
+	
+				function _interopRequireWildcard(obj) {
+					if (obj && obj.__esModule) {
+						return obj;
+					} else {
+						var newObj = {};if (obj != null) {
+							for (var key in obj) {
+								if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key];
+							}
+						}newObj['default'] = obj;return newObj;
+					}
+				}
+	
+				function _interopRequireDefault(obj) {
+					return obj && obj.__esModule ? obj : { 'default': obj };
+				}
+	
+				function _classCallCheck(instance, Constructor) {
+					if (!(instance instanceof Constructor)) {
+						throw new TypeError('Cannot call a class as a function');
+					}
+				}
+	
+				function _inherits(subClass, superClass) {
+					if (typeof superClass !== 'function' && superClass !== null) {
+						throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass);
+					}subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } });if (superClass) subClass.__proto__ = superClass;
+				}
+	
+				var _react = __webpack_require__(1);
+	
+				var _react2 = _interopRequireDefault(_react);
+	
+				var _svg = __webpack_require__(2);
+	
+				var svgSources = _interopRequireWildcard(_svg);
+	
+				var Loading = (function (_Component) {
+					function Loading() {
+						_classCallCheck(this, Loading);
+	
+						_get(Object.getPrototypeOf(Loading.prototype), 'constructor', this).call(this);
+						this.state = {
+							delayed: false
+						};
+					}
+	
+					_inherits(Loading, _Component);
+	
+					_createClass(Loading, [{
+						key: 'componentWillMount',
+						value: function componentWillMount() {
+							var _this = this;
+	
+							var delayed = this.props.delay > 0;
+	
+							if (delayed) {
+								this.setState({ delayed: true });
+								setTimeout(function () {
+									_this.setState({ delayed: false });
+								}, this.props.delay);
+							}
+						}
+					}, {
+						key: 'render',
+						value: function render() {
+							var type = this.state.delayed ? 'blank' : this.props.type;
+							var svg = svgSources[type];
+							var svgStyle = {
+								fill: this.props.color,
+								height: this.props.height,
+								width: this.props.width
+							};
+	
+							return _react2['default'].createElement('img', { style: svgStyle, src: 'data:image/svg+xml;utf8,' + svg });
+						}
+					}]);
+	
+					return Loading;
+				})(_react.Component);
+	
+				exports['default'] = Loading;
+	
+				Loading.propTypes = {
+					color: _react.PropTypes.string,
+					delay: _react.PropTypes.number,
+					height: _react.PropTypes.oneOfType([_react.PropTypes.number, _react.PropTypes.string]),
+					type: _react.PropTypes.string,
+					width: _react.PropTypes.oneOfType([_react.PropTypes.number, _react.PropTypes.string])
+				};
+				Loading.defaultProps = {
+					color: '#fff',
+					delay: 1000,
+					height: 64,
+					type: 'balls',
+					width: 64
+				};
+				module.exports = exports['default'];
+	
+				/***/
+			},
+			/* 1 */
+			/***/function (module, exports) {
+	
+				module.exports = __WEBPACK_EXTERNAL_MODULE_1__;
+	
+				/***/
+			},
+			/* 2 */
+			/***/function (module, exports, __webpack_require__) {
+	
+				'use strict';
+	
+				Object.defineProperty(exports, '__esModule', {
+					value: true
+				});
+	
+				function _interopRequire(obj) {
+					return obj && obj.__esModule ? obj['default'] : obj;
+				}
+	
+				var _blankSvg = __webpack_require__(11);
+	
+				exports.blank = _interopRequire(_blankSvg);
+	
+				var _loadingBallsSvg = __webpack_require__(4);
+	
+				exports.balls = _interopRequire(_loadingBallsSvg);
+	
+				var _loadingBarsSvg = __webpack_require__(5);
+	
+				exports.bars = _interopRequire(_loadingBarsSvg);
+	
+				var _loadingBubblesSvg = __webpack_require__(6);
+	
+				exports.bubbles = _interopRequire(_loadingBubblesSvg);
+	
+				var _loadingCubesSvg = __webpack_require__(7);
+	
+				exports.cubes = _interopRequire(_loadingCubesSvg);
+	
+				var _loadingCylonSvg = __webpack_require__(3);
+	
+				exports.cylon = _interopRequire(_loadingCylonSvg);
+	
+				var _loadingSpinSvg = __webpack_require__(8);
+	
+				exports.spin = _interopRequire(_loadingSpinSvg);
+	
+				var _loadingSpinningBubblesSvg = __webpack_require__(9);
+	
+				exports.spinningBubbles = _interopRequire(_loadingSpinningBubblesSvg);
+	
+				var _loadingSpokesSvg = __webpack_require__(10);
+	
+				exports.spokes = _interopRequire(_loadingSpokesSvg);
+	
+				/***/
+			},
+			/* 3 */
+			/***/function (module, exports) {
+	
+				module.exports = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">\n  <path transform="translate(0 0)" d="M0 12 V20 H4 V12z">\n    <animateTransform attributeName="transform" type="translate" values="0 0; 28 0; 0 0; 0 0" dur="1.5s" begin="0" repeatCount="indefinite" keytimes="0;0.3;0.6;1" keySplines="0.2 0.2 0.4 0.8;0.2 0.2 0.4 0.8;0.2 0.2 0.4 0.8" calcMode="spline" />\n  </path>\n  <path opacity="0.5" transform="translate(0 0)" d="M0 12 V20 H4 V12z">\n    <animateTransform attributeName="transform" type="translate" values="0 0; 28 0; 0 0; 0 0" dur="1.5s" begin="0.1s" repeatCount="indefinite" keytimes="0;0.3;0.6;1" keySplines="0.2 0.2 0.4 0.8;0.2 0.2 0.4 0.8;0.2 0.2 0.4 0.8" calcMode="spline" />\n  </path>\n  <path opacity="0.25" transform="translate(0 0)" d="M0 12 V20 H4 V12z">\n    <animateTransform attributeName="transform" type="translate" values="0 0; 28 0; 0 0; 0 0" dur="1.5s" begin="0.2s" repeatCount="indefinite" keytimes="0;0.3;0.6;1" keySplines="0.2 0.2 0.4 0.8;0.2 0.2 0.4 0.8;0.2 0.2 0.4 0.8" calcMode="spline" />\n  </path>\n</svg>\n'
+	
+				/***/;
+			},
+			/* 4 */
+			/***/function (module, exports) {
+	
+				module.exports = '<svg class="icon-loading" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">\n  <path transform="translate(-8 0)" d="M4 12 A4 4 0 0 0 4 20 A4 4 0 0 0 4 12"> \n    <animateTransform attributeName="transform" type="translate" values="-8 0; 2 0; 2 0;" dur="0.8s" repeatCount="indefinite" begin="0" keytimes="0;.25;1" keySplines="0.2 0.2 0.4 0.8;0.2 0.6 0.4 0.8" calcMode="spline"  />\n  </path>\n  <path transform="translate(2 0)" d="M4 12 A4 4 0 0 0 4 20 A4 4 0 0 0 4 12"> \n    <animateTransform attributeName="transform" type="translate" values="2 0; 12 0; 12 0;" dur="0.8s" repeatCount="indefinite" begin="0" keytimes="0;.35;1" keySplines="0.2 0.2 0.4 0.8;0.2 0.6 0.4 0.8" calcMode="spline"  />\n  </path>\n  <path transform="translate(12 0)" d="M4 12 A4 4 0 0 0 4 20 A4 4 0 0 0 4 12"> \n    <animateTransform attributeName="transform" type="translate" values="12 0; 22 0; 22 0;" dur="0.8s" repeatCount="indefinite" begin="0" keytimes="0;.45;1" keySplines="0.2 0.2 0.4 0.8;0.2 0.6 0.4 0.8" calcMode="spline"  />\n  </path>\n  <path transform="translate(24 0)" d="M4 12 A4 4 0 0 0 4 20 A4 4 0 0 0 4 12"> \n    <animateTransform attributeName="transform" type="translate" values="22 0; 32 0; 32 0;" dur="0.8s" repeatCount="indefinite" begin="0" keytimes="0;.55;1" keySplines="0.2 0.2 0.4 0.8;0.2 0.6 0.4 0.8" calcMode="spline"  />\n  </path>\n</svg>\n'
+	
+				/***/;
+			},
+			/* 5 */
+			/***/function (module, exports) {
+	
+				module.exports = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">\n  <path transform="translate(2)" d="M0 12 V20 H4 V12z"> \n    <animate attributeName="d" values="M0 12 V20 H4 V12z; M0 4 V28 H4 V4z; M0 12 V20 H4 V12z; M0 12 V20 H4 V12z" dur="1.2s" repeatCount="indefinite" begin="0" keytimes="0;.2;.5;1" keySplines="0.2 0.2 0.4 0.8;0.2 0.6 0.4 0.8;0.2 0.8 0.4 0.8" calcMode="spline"  />\n  </path>\n  <path transform="translate(8)" d="M0 12 V20 H4 V12z">\n    <animate attributeName="d" values="M0 12 V20 H4 V12z; M0 4 V28 H4 V4z; M0 12 V20 H4 V12z; M0 12 V20 H4 V12z" dur="1.2s" repeatCount="indefinite" begin="0.2" keytimes="0;.2;.5;1" keySplines="0.2 0.2 0.4 0.8;0.2 0.6 0.4 0.8;0.2 0.8 0.4 0.8" calcMode="spline"  />\n  </path>\n  <path transform="translate(14)" d="M0 12 V20 H4 V12z">\n    <animate attributeName="d" values="M0 12 V20 H4 V12z; M0 4 V28 H4 V4z; M0 12 V20 H4 V12z; M0 12 V20 H4 V12z" dur="1.2s" repeatCount="indefinite" begin="0.4" keytimes="0;.2;.5;1" keySplines="0.2 0.2 0.4 0.8;0.2 0.6 0.4 0.8;0.2 0.8 0.4 0.8" calcMode="spline" />\n  </path>\n  <path transform="translate(20)" d="M0 12 V20 H4 V12z">\n    <animate attributeName="d" values="M0 12 V20 H4 V12z; M0 4 V28 H4 V4z; M0 12 V20 H4 V12z; M0 12 V20 H4 V12z" dur="1.2s" repeatCount="indefinite" begin="0.6" keytimes="0;.2;.5;1" keySplines="0.2 0.2 0.4 0.8;0.2 0.6 0.4 0.8;0.2 0.8 0.4 0.8" calcMode="spline" />\n  </path>\n  <path transform="translate(26)" d="M0 12 V20 H4 V12z">\n    <animate attributeName="d" values="M0 12 V20 H4 V12z; M0 4 V28 H4 V4z; M0 12 V20 H4 V12z; M0 12 V20 H4 V12z" dur="1.2s" repeatCount="indefinite" begin="0.8" keytimes="0;.2;.5;1" keySplines="0.2 0.2 0.4 0.8;0.2 0.6 0.4 0.8;0.2 0.8 0.4 0.8" calcMode="spline" />\n  </path>\n</svg>\n'
+	
+				/***/;
+			},
+			/* 6 */
+			/***/function (module, exports) {
+	
+				module.exports = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">\n  <circle transform="translate(8 0)" cx="0" cy="16" r="0"> \n    <animate attributeName="r" values="0; 4; 0; 0" dur="1.2s" repeatCount="indefinite" begin="0"\n      keytimes="0;0.2;0.7;1" keySplines="0.2 0.2 0.4 0.8;0.2 0.6 0.4 0.8;0.2 0.6 0.4 0.8" calcMode="spline" />\n  </circle>\n  <circle transform="translate(16 0)" cx="0" cy="16" r="0"> \n    <animate attributeName="r" values="0; 4; 0; 0" dur="1.2s" repeatCount="indefinite" begin="0.3"\n      keytimes="0;0.2;0.7;1" keySplines="0.2 0.2 0.4 0.8;0.2 0.6 0.4 0.8;0.2 0.6 0.4 0.8" calcMode="spline" />\n  </circle>\n  <circle transform="translate(24 0)" cx="0" cy="16" r="0"> \n    <animate attributeName="r" values="0; 4; 0; 0" dur="1.2s" repeatCount="indefinite" begin="0.6"\n      keytimes="0;0.2;0.7;1" keySplines="0.2 0.2 0.4 0.8;0.2 0.6 0.4 0.8;0.2 0.6 0.4 0.8" calcMode="spline" />\n  </circle>\n</svg>\n'
+	
+				/***/;
+			},
+			/* 7 */
+			/***/function (module, exports) {
+	
+				module.exports = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">\n  <path transform="translate(-8 0)" d="M0 12 V20 H8 V12z"> \n    <animateTransform attributeName="transform" type="translate" values="-8 0; 2 0; 2 0;" dur="0.8s" repeatCount="indefinite" begin="0" keytimes="0;.25;1" keySplines="0.2 0.2 0.4 0.8;0.2 0.6 0.4 0.8" calcMode="spline"  />\n  </path>\n  <path transform="translate(2 0)" d="M0 12 V20 H8 V12z"> \n    <animateTransform attributeName="transform" type="translate" values="2 0; 12 0; 12 0;" dur="0.8s" repeatCount="indefinite" begin="0" keytimes="0;.35;1" keySplines="0.2 0.2 0.4 0.8;0.2 0.6 0.4 0.8" calcMode="spline"  />\n  </path>\n  <path transform="translate(12 0)" d="M0 12 V20 H8 V12z"> \n    <animateTransform attributeName="transform" type="translate" values="12 0; 22 0; 22 0;" dur="0.8s" repeatCount="indefinite" begin="0" keytimes="0;.45;1" keySplines="0.2 0.2 0.4 0.8;0.2 0.6 0.4 0.8" calcMode="spline"  />\n  </path>\n  <path transform="translate(24 0)" d="M0 12 V20 H8 V12z"> \n    <animateTransform attributeName="transform" type="translate" values="22 0; 32 0; 32 0;" dur="0.8s" repeatCount="indefinite" begin="0" keytimes="0;.55;1" keySplines="0.2 0.2 0.4 0.8;0.2 0.6 0.4 0.8" calcMode="spline"  />\n  </path>\n</svg>\n'
+	
+				/***/;
+			},
+			/* 8 */
+			/***/function (module, exports) {
+	
+				module.exports = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">\n  <path opacity=".25" d="M16 0 A16 16 0 0 0 16 32 A16 16 0 0 0 16 0 M16 4 A12 12 0 0 1 16 28 A12 12 0 0 1 16 4"/>\n  <path d="M16 0 A16 16 0 0 1 32 16 L28 16 A12 12 0 0 0 16 4z">\n    <animateTransform attributeName="transform" type="rotate" from="0 16 16" to="360 16 16" dur="0.8s" repeatCount="indefinite" />\n  </path>\n</svg>\n'
+	
+				/***/;
+			},
+			/* 9 */
+			/***/function (module, exports) {
+	
+				module.exports = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">\n  <circle cx="16" cy="3" r="0">\n    <animate attributeName="r" values="0;3;0;0" dur="1s" repeatCount="indefinite" begin="0" keySplines="0.2 0.2 0.4 0.8;0.2 0.2 0.4 0.8;0.2 0.2 0.4 0.8" calcMode="spline" />\n  </circle>\n  <circle transform="rotate(45 16 16)" cx="16" cy="3" r="0">\n    <animate attributeName="r" values="0;3;0;0" dur="1s" repeatCount="indefinite" begin="0.125s" keySplines="0.2 0.2 0.4 0.8;0.2 0.2 0.4 0.8;0.2 0.2 0.4 0.8" calcMode="spline" />\n  </circle>\n  <circle transform="rotate(90 16 16)" cx="16" cy="3" r="0">\n    <animate attributeName="r" values="0;3;0;0" dur="1s" repeatCount="indefinite" begin="0.25s" keySplines="0.2 0.2 0.4 0.8;0.2 0.2 0.4 0.8;0.2 0.2 0.4 0.8" calcMode="spline" />\n  </circle>\n  <circle transform="rotate(135 16 16)" cx="16" cy="3" r="0">\n    <animate attributeName="r" values="0;3;0;0" dur="1s" repeatCount="indefinite" begin="0.375s" keySplines="0.2 0.2 0.4 0.8;0.2 0.2 0.4 0.8;0.2 0.2 0.4 0.8" calcMode="spline" />\n  </circle>\n  <circle transform="rotate(180 16 16)" cx="16" cy="3" r="0">\n    <animate attributeName="r" values="0;3;0;0" dur="1s" repeatCount="indefinite" begin="0.5s" keySplines="0.2 0.2 0.4 0.8;0.2 0.2 0.4 0.8;0.2 0.2 0.4 0.8" calcMode="spline" />\n  </circle>\n  <circle transform="rotate(225 16 16)" cx="16" cy="3" r="0">\n    <animate attributeName="r" values="0;3;0;0" dur="1s" repeatCount="indefinite" begin="0.625s" keySplines="0.2 0.2 0.4 0.8;0.2 0.2 0.4 0.8;0.2 0.2 0.4 0.8" calcMode="spline" />\n  </circle>\n  <circle transform="rotate(270 16 16)" cx="16" cy="3" r="0">\n    <animate attributeName="r" values="0;3;0;0" dur="1s" repeatCount="indefinite" begin="0.75s" keySplines="0.2 0.2 0.4 0.8;0.2 0.2 0.4 0.8;0.2 0.2 0.4 0.8" calcMode="spline" />\n  </circle>\n  <circle transform="rotate(315 16 16)" cx="16" cy="3" r="0">\n    <animate attributeName="r" values="0;3;0;0" dur="1s" repeatCount="indefinite" begin="0.875s" keySplines="0.2 0.2 0.4 0.8;0.2 0.2 0.4 0.8;0.2 0.2 0.4 0.8" calcMode="spline" />\n  </circle>\n  <circle transform="rotate(180 16 16)" cx="16" cy="3" r="0">\n    <animate attributeName="r" values="0;3;0;0" dur="1s" repeatCount="indefinite" begin="0.5s" keySplines="0.2 0.2 0.4 0.8;0.2 0.2 0.4 0.8;0.2 0.2 0.4 0.8" calcMode="spline" />\n  </circle>\n</svg>\n'
+	
+				/***/;
+			},
+			/* 10 */
+			/***/function (module, exports) {
+	
+				module.exports = '<svg id="loading" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">\n  <path opacity=".1" d="M14 0 H18 V8 H14 z" transform="rotate(0 16 16)">\n    <animate attributeName="opacity" from="1" to=".1" dur="1s" repeatCount="indefinite" begin="0"/>\n  </path>\n  <path opacity=".1" d="M14 0 H18 V8 H14 z" transform="rotate(45 16 16)">\n    <animate attributeName="opacity" from="1" to=".1" dur="1s" repeatCount="indefinite" begin="0.125s"/>\n  </path>\n  <path opacity=".1" d="M14 0 H18 V8 H14 z" transform="rotate(90 16 16)">\n    <animate attributeName="opacity" from="1" to=".1" dur="1s" repeatCount="indefinite" begin="0.25s"/>\n  </path>\n  <path opacity=".1" d="M14 0 H18 V8 H14 z" transform="rotate(135 16 16)">\n    <animate attributeName="opacity" from="1" to=".1" dur="1s" repeatCount="indefinite" begin="0.375s"/>\n  </path>\n  <path opacity=".1" d="M14 0 H18 V8 H14 z" transform="rotate(180 16 16)">\n    <animate attributeName="opacity" from="1" to=".1" dur="1s" repeatCount="indefinite" begin="0.5s"/>\n  </path>\n  <path opacity=".1" d="M14 0 H18 V8 H14 z" transform="rotate(225 16 16)">\n    <animate attributeName="opacity" from="1" to=".1" dur="1s" repeatCount="indefinite" begin="0.675s"/>\n  </path>\n  <path opacity=".1" d="M14 0 H18 V8 H14 z" transform="rotate(270 16 16)">\n    <animate attributeName="opacity" from="1" to=".1" dur="1s" repeatCount="indefinite" begin="0.75s"/>\n  </path>\n  <path opacity=".1" d="M14 0 H18 V8 H14 z" transform="rotate(315 16 16)">\n    <animate attributeName="opacity" from="1" to=".1" dur="1s" repeatCount="indefinite" begin="0.875s"/>\n  </path>\n</svg>\n'
+	
+				/***/;
+			},
+			/* 11 */
+			/***/function (module, exports) {
+	
+				module.exports = '<svg class="icon-blank" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"></svg>\n'
+	
+				/***/;
+			}
+			/******/])
+		);
+	});
+	;
+	
+	/************************************************************************/
+	/******/
+
+/***/ },
+/* 215 */
 /*!*******************************************!*\
   !*** ./app/actions/PostActionCreators.js ***!
   \*******************************************/
@@ -22924,395 +23808,35 @@
 
 	'use strict';
 	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-	
-	var _utilsWebAPIUtils = __webpack_require__(/*! ../utils/WebAPIUtils */ 209);
-	
-	var _utilsWebAPIUtils2 = _interopRequireDefault(_utilsWebAPIUtils);
-	
-	var HearMeAppDispatcher = __webpack_require__(/*! ../dispatcher/HearMeAppDispatcher */ 200);
-	var Constants = __webpack_require__(/*! ../constants/Constants */ 205);
+	var AppDispatcher = __webpack_require__(/*! ../dispatcher/AppDispatcher */ 204);
+	var Constants = __webpack_require__(/*! ../constants/Constants */ 209);
 	var ActionTypes = Constants.ActionTypes;
 	
 	module.exports = {
 	
 	    getPosts: function getPosts() {
-	        // console.log('actions');
-	        _utilsWebAPIUtils2['default'].getPosts().then(function (data) {
-	            HearMeAppDispatcher.dispatch({
-	                type: ActionTypes.GET_POSTS,
-	                data: data
-	            });
-	        }, function (err) {
-	            console.log(err);
+	        AppDispatcher.dispatch({
+	            type: ActionTypes.GET_POSTS
 	        });
 	    },
 	
 	    getPost: function getPost(id) {
-	        _utilsWebAPIUtils2['default'].getPost(id).then(function (data) {
-	            // console.log(data);
-	            if (data.success == true) {
-	                data = data.data;
-	            } else {
-	                data = null;
-	            }
-	            HearMeAppDispatcher.dispatch({
-	                type: ActionTypes.GET_POST,
-	                data: data
-	            });
-	        }, function (err) {
-	            console.log(err);
+	        AppDispatcher.dispatch({
+	            type: ActionTypes.GET_POST,
+	            id: id
 	        });
 	    },
 	
 	    addPost: function addPost(post) {
-	        _utilsWebAPIUtils2['default'].addPost(post).then(function (data) {
-	            HearMeAppDispatcher.dispatch({
-	                type: ActionTypes.ADD_POST,
-	                data: data
-	            });
-	        }, function (err) {
-	            console.log(err);
+	        AppDispatcher.dispatch({
+	            type: ActionTypes.ADD_POST,
+	            data: post
 	        });
 	    }
 	};
 
 /***/ },
-/* 209 */
-/*!**********************************!*\
-  !*** ./app/utils/WebAPIUtils.js ***!
-  \**********************************/
-/***/ function(module, exports) {
-
-	"use strict";
-	
-	var API_URL = "/api/v2";
-	var TIMEOUT = 10000;
-	
-	var _pendingRequests = {};
-	
-	function abortPendingRequests(key) {
-	    if (_pendingRequests[key]) {
-	        _pendingRequests[key]._callback = function () {};
-	        _pendingRequests[key].abort();
-	        _pendingRequests[key] = null;
-	    }
-	}
-	
-	function token() {
-	    return UserStore.getState().token;
-	}
-	
-	function makeUrl(part) {
-	    return API_URL + part;
-	}
-	
-	function dispatch(key, response, params) {
-	    var payload = { actionType: key, response: response };
-	    if (params) {
-	        payload.queryParams = params;
-	    }
-	    AppDispatcher.handleRequestAction(payload);
-	}
-	
-	// return successful response, else return request Constants
-	function makeDigestFun(key, params) {
-	    return function (err, res) {
-	        if (err && err.timeout === TIMEOUT) {
-	            dispatch(key, Constants.request.TIMEOUT, params);
-	        } else if (res.status === 400) {
-	            UserActions.logout();
-	        } else if (!res.ok) {
-	            dispatch(key, Constants.request.ERROR, params);
-	        } else {
-	            dispatch(key, res, params);
-	        }
-	    };
-	}
-	
-	// a get request with an authtoken param
-	function get(url) {
-	    return request.get(url).timeout(TIMEOUT).query({ authtoken: token() });
-	}
-	
-	var Api = {
-	    getEntityData: function getEntityData(entityId) {
-	        var url = makeUrl("/entities/" + entityId);
-	        var key = Constants.api.GET_ENTITY_DATA;
-	        var params = { entityId: entityId };
-	        abortPendingRequests(key);
-	        dispatch(key, Constants.request.PENDING, params);
-	        _pendingRequests[key] = get(url).end(makeDigestFun(key, params));
-	    },
-	
-	    getPosts: function getPosts() {
-	        var promise = new Promise(function (resolve, reject) {
-	            $.ajax({
-	                url: "/api/posts",
-	                dataType: "json",
-	                success: (function (data) {
-	                    resolve(data);
-	                }).bind(this),
-	                error: (function (xhr, status, err) {
-	                    reject(err);
-	                    console.error("/posts", status, err.toString());
-	                }).bind(this)
-	            });
-	        });
-	        return promise;
-	    },
-	
-	    getPost: function getPost(id) {
-	        var promise = new Promise(function (resolve, reject) {
-	            $.ajax({
-	                type: "get",
-	                url: "/api/post/" + id,
-	                dataType: "json",
-	                success: (function (data) {
-	                    resolve(data);
-	                }).bind(this),
-	                error: (function (err) {
-	                    reject(err);
-	                    // console.error("/post", status, err.toString());
-	                }).bind(this)
-	            });
-	        });
-	        return promise;
-	    },
-	
-	    addPost: function addPost(post) {
-	        var promise = new Promise(function (resolve, reject) {
-	            $.ajax({
-	                type: "post",
-	                url: "/api/post",
-	                data: post,
-	                dataType: "json",
-	                success: (function (data) {
-	                    resolve(data);
-	                }).bind(this),
-	                error: (function (err) {
-	                    reject(err);
-	                }).bind(this)
-	            });
-	        });
-	        return promise;
-	    }
-	};
-	
-	module.exports = Api;
-
-/***/ },
-/* 210 */
-/*!*******************************************!*\
-  !*** ./app/components/HearMeApp.react.js ***!
-  \*******************************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	
-	// var React = require('react');
-	'use strict';
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-	
-	var _react = __webpack_require__(/*! react */ 2);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var Router = __webpack_require__(/*! react-router */ 158);
-	// var Route = Router.Route;
-	var RouteHandler = Router.RouteHandler;
-	var Header = __webpack_require__(/*! ./Header.react */ 211);
-	
-	var HearMeApp = _react2['default'].createClass({
-	    displayName: 'HearMeApp',
-	
-	    render: function render() {
-	        return _react2['default'].createElement(
-	            'div',
-	            null,
-	            _react2['default'].createElement(Header, null),
-	            _react2['default'].createElement(RouteHandler, null)
-	        );
-	    }
-	});
-	
-	module.exports = HearMeApp;
-
-/***/ },
-/* 211 */
-/*!****************************************!*\
-  !*** ./app/components/Header.react.js ***!
-  \****************************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	var React = __webpack_require__(/*! react */ 2);
-	var Router = __webpack_require__(/*! react-router */ 158);
-	var Link = Router.Link;
-	var Navigation = Router.Navigation;
-	
-	var Header = React.createClass({
-	    displayName: 'Header',
-	
-	    render: function render() {
-	        return React.createElement(
-	            'div',
-	            null,
-	            React.createElement(
-	                'header',
-	                null,
-	                React.createElement(
-	                    'div',
-	                    { className: 'logo' },
-	                    React.createElement(
-	                        Link,
-	                        { to: 'index' },
-	                        React.createElement(
-	                            'h1',
-	                            null,
-	                            'HearMe'
-	                        )
-	                    )
-	                ),
-	                React.createElement(
-	                    'nav',
-	                    null,
-	                    React.createElement(
-	                        'a',
-	                        { href: '#services' },
-	                        'Blog'
-	                    ),
-	                    React.createElement(
-	                        'span',
-	                        null,
-	                        '|'
-	                    ),
-	                    React.createElement(
-	                        'a',
-	                        { href: '#services' },
-	                        'Photo'
-	                    ),
-	                    React.createElement(
-	                        'span',
-	                        null,
-	                        '|'
-	                    ),
-	                    React.createElement(
-	                        'a',
-	                        { href: '#services' },
-	                        'Word'
-	                    ),
-	                    React.createElement(
-	                        'span',
-	                        null,
-	                        '|'
-	                    ),
-	                    React.createElement(
-	                        'a',
-	                        { href: '#services' },
-	                        'About'
-	                    ),
-	                    React.createElement(
-	                        'span',
-	                        null,
-	                        '|'
-	                    ),
-	                    React.createElement(
-	                        'a',
-	                        { href: '#services' },
-	                        'Chat'
-	                    ),
-	                    React.createElement(
-	                        'span',
-	                        null,
-	                        '|'
-	                    ),
-	                    React.createElement(
-	                        Link,
-	                        { to: 'addPost' },
-	                        'Add Post'
-	                    )
-	                )
-	            ),
-	            React.createElement('div', { className: 'page-divider' })
-	        );
-	    }
-	});
-	
-	module.exports = Header;
-
-/***/ },
-/* 212 */
-/*!**************************************!*\
-  !*** ./app/components/Post.react.js ***!
-  \**************************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	var React = __webpack_require__(/*! react */ 2);
-	var PostStore = __webpack_require__(/*! ../stores/PostStore */ 199);
-	var PostActionCreators = __webpack_require__(/*! ../actions/PostActionCreators */ 208);
-	var Router = __webpack_require__(/*! react-router */ 158);
-	var Navigation = Router.Navigation;
-	
-	var Post = React.createClass({
-	    displayName: 'Post',
-	
-	    mixins: [Navigation],
-	
-	    getInitialState: function getInitialState() {
-	        return { data: PostStore.getPost() };
-	    },
-	    loadPostById: function loadPostById(id) {
-	        PostActionCreators.getPost(id);
-	    },
-	    componentDidMount: function componentDidMount() {
-	        this.loadPostById(this.props.params.id);
-	        PostStore.addChangeListener(this._onChange);
-	    },
-	    componentWillUnmount: function componentWillUnmount() {
-	        PostStore.removeChangeListener(this._onChange);
-	    },
-	    render: function render() {
-	        var title = this.state.data.title == undefined ? '' : this.state.data.title;
-	        var content = this.state.data.content == undefined ? '' : this.state.data.content;
-	
-	        return React.createElement(
-	            'article',
-	            { id: 'post' },
-	            React.createElement(
-	                'div',
-	                { className: 'post-title' },
-	                React.createElement(
-	                    'h3',
-	                    null,
-	                    title
-	                )
-	            ),
-	            React.createElement(
-	                'div',
-	                { className: 'post-content' },
-	                React.createElement('span', { dangerouslySetInnerHTML: { __html: content } })
-	            )
-	        );
-	    },
-	    _onChange: function _onChange() {
-	        // console.log('_onChange');
-	        var data = PostStore.getPost();
-	        if (data) {
-	            this.setState({ data: data });
-	        } else {
-	            this.transitionTo('404');
-	        }
-	    }
-	});
-	
-	module.exports = Post;
-
-/***/ },
-/* 213 */
+/* 216 */
 /*!*****************************************!*\
   !*** ./app/components/AddPost.react.js ***!
   \*****************************************/
@@ -23323,8 +23847,8 @@
 	var React = __webpack_require__(/*! react */ 2);
 	var Router = __webpack_require__(/*! react-router */ 158);
 	var Navigation = Router.Navigation;
-	var PostStore = __webpack_require__(/*! ../stores/PostStore */ 199);
-	var PostActionCreators = __webpack_require__(/*! ../actions/PostActionCreators */ 208);
+	var PostStore = __webpack_require__(/*! ../stores/PostStore */ 202);
+	var PostActionCreators = __webpack_require__(/*! ../actions/PostActionCreators */ 215);
 	
 	var NewForm = React.createClass({
 	    displayName: 'NewForm',
@@ -23468,7 +23992,7 @@
 	module.exports = AddPost;
 
 /***/ },
-/* 214 */
+/* 217 */
 /*!**********************************************!*\
   !*** ./app/components/NotFoundPage.react.js ***!
   \**********************************************/

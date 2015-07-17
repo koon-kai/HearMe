@@ -75,7 +75,6 @@ var Api = {
                 }.bind(this),
                 error: function(xhr, status, err) {
                     reject(err);
-                    console.error("/posts", status, err.toString());
                 }.bind(this)
             });
         });

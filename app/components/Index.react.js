@@ -5,7 +5,7 @@ var Link = Router.Link;
 
 var PostStore = require('../stores/PostStore');
 var PostActionCreators = require('../actions/PostActionCreators');
-
+import Loading from 'react-loading'
 
 var Post = React.createClass({
     render: function() {
@@ -40,16 +40,29 @@ var PostList = React.createClass({
 
 var Index = React.createClass({
     getInitialState: function() {
-        return PostStore.getPosts();
+        return { 
+            data: PostStore.getPosts(),
+        };
     },
     loadPostsFromServer: function() {
-        PostActionCreators.getPosts();
+        PostActionCreators.getPosts(this.state.page);
+    },
+    loadData: function() {
+        // console.log('load data...');
+        var totalHeight = 0;
+        totalHeight = parseFloat($(window).height()) + parseFloat($(window).scrollTop());
+
+        if ($(document).height() <= totalHeight) {
+            console.log('bottom');       
+        }
     },
     componentDidMount: function() {
         this.loadPostsFromServer();
+        window.addEventListener('scroll',this.loadData);
         PostStore.addChangeListener(this._onChange);
     },
     componentWillUnmount: function() {
+        window.removeEventListener('scroll', this.loadData);
         PostStore.removeChangeListener(this._onChange);
     },
     render: function() {
@@ -59,7 +72,9 @@ var Index = React.createClass({
     },
     _onChange: function() { 
         // console.log('_onChange');
-        this.setState(PostStore.getPosts());
+        this.setState({
+            data: PostStore.getPosts(),
+        });
     }
 });
 

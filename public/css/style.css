@@ -1,5 +1,5 @@
 @charset "UTF-8";
--------------------------------------------------- */
+/*-------------------------------------------------- */
 html {
 	position: relative;
 	min-height: 100%;
@@ -31,7 +31,7 @@ header, footer, section, article {
 }
 
 .page-divider {
-    border-bottom: 1px solid #ddd;
+    border-bottom: 1px solid #eee;
 }
 
 /* header style setting */
@@ -58,7 +58,7 @@ header .logo h1 {
 }
 
 header nav {
-    margin-bottom: 20px;
+    margin-bottom: 10px;
     display: inline-block;
     color: #dde1e4;
     
@@ -226,7 +226,24 @@ footer {
     /*padding: 20px;*/
 }
 
+#post hr {
+    margin-top: 20px;
+    margin-bottom: 40px;
+    border: 1px #eee dashed;
+}
+
 #post .post-content {
     line-height: 28px;
     font-size: 16px;
+    margin-bottom: 50px;
+}
+
+.loading {
+    text-align: center;
+    margin: 50px auto;
+}
+
+.loading img {
+    width: 32px !important;
+    height: 32px !important;
 }

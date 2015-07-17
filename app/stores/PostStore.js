@@ -1,12 +1,14 @@
 
 
-var HearMeAppDispatcher = require('../dispatcher/HearMeAppDispatcher');
+var AppDispatcher = require('../dispatcher/AppDispatcher');
 var EventEmitter = require('events').EventEmitter;
 var Constants = require('../constants/Constants');
 var assign = require('object-assign');
 
 var ActionTypes = Constants.ActionTypes;
 var CHANGE_EVENT = 'change';
+
+import Api from '../utils/WebAPIUtils';
 
 var _posts = [];
 var _post = {};
@@ -26,7 +28,7 @@ var PostStore = assign({}, EventEmitter.prototype, {
     },
 
     getPosts: function() {
-        return {data: _posts};
+        return _posts;
     },
 
     emitChange: function() {
@@ -42,28 +44,40 @@ var PostStore = assign({}, EventEmitter.prototype, {
     }
 });
 
+var errHandler = function(err) {
+    console.log(err);
+}
 
-PostStore.dispatchToken = HearMeAppDispatcher.register(function(action){
+PostStore.dispatchToken = AppDispatcher.register(function(action){
 
-    // console.log(action);
     switch(action.type) {
         case ActionTypes.ADD_POST:
-            // console.log('add post');
-            _post = action.data;
-            PostStore.emitChange();
+            Api.addPost(action.data).then(function(data){
+                _post = action.data;
+                PostStore.emitChange();
+            }, errHandler);
             break;
+
         case ActionTypes.GET_POST:
-            // console.log('get post');
-            _post = action.data;
-            PostStore.emitChange();
+            Api.getPost(action.id).then(function(data){
+                if (data.success == true) {
+                    _post = data.data;
+                } else {
+                    _post = null;
+                }
+                PostStore.emitChange();
+            }, errHandler);
             break;
+
         case ActionTypes.GET_POSTS:
-            // console.log('get posts');
-            _posts = action.data;
-            PostStore.emitChange();
+            Api.getPosts().then(function(data){
+                _posts = data;
+                PostStore.emitChange();
+            }, errHandler);
             break;
+
         default:
-            console.log('else');
+            // do something common
     }
     
 });

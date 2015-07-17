@@ -22,6 +22,8 @@
     "object-assign": "^3.0.0",
     "qiniu": "^6.1.8",
     "react": "^0.13.3",
+    "react-disqus-thread": "^0.2.2",
+    "react-loading": "0.0.7",
     "react-router": "^0.13.3",
     "serve-favicon": "~2.2.0"
   },
