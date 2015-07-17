@@ -31,7 +31,7 @@ header, footer, section, article {
 }
 
 .page-divider {
-    border-bottom: 1px solid #eee;
+    /*border-bottom: 1px solid #eee;*/
 }
 
 /* header style setting */
@@ -246,4 +246,9 @@ footer {
 .loading img {
     width: 32px !important;
     height: 32px !important;
+}
+
+.footer {
+    margin-top: 100px;
+    text-align: center;
 }

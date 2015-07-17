@@ -22197,7 +22197,12 @@
 	var Post = React.createClass({
 	    displayName: 'Post',
 	
+	    propTypes: {
+	        post: React.PropTypes.object
+	    },
+	
 	    render: function render() {
+	        var post = this.props.post;
 	        return React.createElement(
 	            'section',
 	            { className: 'post' },
@@ -22206,14 +22211,14 @@
 	                { className: 'post-title' },
 	                React.createElement(
 	                    Link,
-	                    { to: 'post', params: { id: this.props.data._id } },
-	                    this.props.data.title
+	                    { to: 'post', params: { id: post._id } },
+	                    post.title
 	                )
 	            ),
 	            React.createElement(
 	                'div',
 	                { className: 'post-date' },
-	                this.props.data.createAt
+	                post.createAt
 	            )
 	        );
 	    }
@@ -22224,7 +22229,7 @@
 	
 	    render: function render() {
 	        var posts = this.props.data.map(function (post, i) {
-	            return React.createElement(Post, { data: post, key: i });
+	            return React.createElement(Post, { post: post, key: i });
 	        });
 	        return React.createElement(
 	            'div',
@@ -22234,19 +22239,22 @@
 	    }
 	});
 	
+	var getStateFromStores = function getStateFromStores() {
+	    return {
+	        posts: PostStore.getPosts()
+	    };
+	};
+	
 	var Index = React.createClass({
 	    displayName: 'Index',
 	
 	    getInitialState: function getInitialState() {
-	        return {
-	            data: PostStore.getPosts()
-	        };
+	        return getStateFromStores();
 	    },
 	    loadPostsFromServer: function loadPostsFromServer() {
-	        PostActionCreators.getPosts(this.state.page);
+	        PostActionCreators.getPosts();
 	    },
 	    loadData: function loadData() {
-	        // console.log('load data...');
 	        var totalHeight = 0;
 	        totalHeight = parseFloat($(window).height()) + parseFloat($(window).scrollTop());
 	
@@ -22256,21 +22264,18 @@
 	    },
 	    componentDidMount: function componentDidMount() {
 	        this.loadPostsFromServer();
-	        window.addEventListener('scroll', this.loadData);
+	        // window.addEventListener('scroll',this.loadData);
 	        PostStore.addChangeListener(this._onChange);
 	    },
 	    componentWillUnmount: function componentWillUnmount() {
-	        window.removeEventListener('scroll', this.loadData);
+	        // window.removeEventListener('scroll', this.loadData);
 	        PostStore.removeChangeListener(this._onChange);
 	    },
 	    render: function render() {
-	        return React.createElement(PostList, { data: this.state.data });
+	        return React.createElement(PostList, { data: this.state.posts });
 	    },
 	    _onChange: function _onChange() {
-	        // console.log('_onChange');
-	        this.setState({
-	            data: PostStore.getPosts()
-	        });
+	        this.setState(getStateFromStores());
 	    }
 	});
 	
@@ -22326,8 +22331,7 @@
 	        var title = this.state.data.title == undefined ? '' : this.state.data.title;
 	        var content = this.state.data.content == undefined ? '' : this.state.data.content;
 	        var id = this.state.data._id == undefined ? '' : this.state.data._id;
-	        console.log(window.location.href);
-	        var url = 'http://localhost:8888/post/' + id;
+	        var url = window.location.href;
 	
 	        var dom = this.state.isLoading ? React.createElement(
 	            'div',

@@ -7,6 +7,8 @@ var Navigation = Router.Navigation;
 import Disqus from 'react-disqus-thread';
 import Loading from 'react-loading'
 
+
+
 var Post = React.createClass({
     mixins: [Navigation],
 
@@ -30,8 +32,7 @@ var Post = React.createClass({
         var title = this.state.data.title == undefined ? '' : this.state.data.title ;
         var content = this.state.data.content == undefined ? '' : this.state.data.content ;
         var id = this.state.data._id == undefined ? '' : this.state.data._id;
-        console.log(window.location.href);
-        var url = "http://localhost:8888/post/" + id;
+        var url = window.location.href;
 
         var dom = this.state.isLoading ? (<div className="loading"><Loading type="spin" color="#e3e3e3" /></div>) :
             (<article id="post">

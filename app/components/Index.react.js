@@ -8,14 +8,20 @@ var PostActionCreators = require('../actions/PostActionCreators');
 import Loading from 'react-loading'
 
 var Post = React.createClass({
+
+    propTypes: {
+        post: React.PropTypes.object
+    },
+
     render: function() {
+        var post = this.props.post;
         return (
             <section className="post">
                 <div className="post-title">
-                    <Link to="post" params={{id:this.props.data._id}}>{this.props.data.title}</Link>
+                    <Link to="post" params={{id:post._id}}>{post.title}</Link>
                 </div>
                 <div className="post-date">
-                    {this.props.data.createAt}
+                    {post.createAt}
                 </div>
             </section>
         );
@@ -27,7 +33,7 @@ var PostList = React.createClass({
     render: function() {
         var posts = this.props.data.map(function(post,i){
             return (
-                <Post data={post} key={i}/>
+                <Post post={post} key={i}/>
             );
         });
         return (
@@ -38,17 +44,20 @@ var PostList = React.createClass({
     }
 });
 
+var getStateFromStores = function() {
+    return {
+        posts: PostStore.getPosts(),
+    }
+};
+
 var Index = React.createClass({
     getInitialState: function() {
-        return { 
-            data: PostStore.getPosts(),
-        };
+        return getStateFromStores();
     },
     loadPostsFromServer: function() {
-        PostActionCreators.getPosts(this.state.page);
+        PostActionCreators.getPosts();
     },
     loadData: function() {
-        // console.log('load data...');
         var totalHeight = 0;
         totalHeight = parseFloat($(window).height()) + parseFloat($(window).scrollTop());
 
@@ -58,23 +67,20 @@ var Index = React.createClass({
     },
     componentDidMount: function() {
         this.loadPostsFromServer();
-        window.addEventListener('scroll',this.loadData);
+        // window.addEventListener('scroll',this.loadData);
         PostStore.addChangeListener(this._onChange);
     },
     componentWillUnmount: function() {
-        window.removeEventListener('scroll', this.loadData);
+        // window.removeEventListener('scroll', this.loadData);
         PostStore.removeChangeListener(this._onChange);
     },
     render: function() {
         return (
-            <PostList data={this.state.data} />
+            <PostList data={this.state.posts} />
         )
     },
     _onChange: function() { 
-        // console.log('_onChange');
-        this.setState({
-            data: PostStore.getPosts(),
-        });
+        this.setState(getStateFromStores());
     }
 });
 
