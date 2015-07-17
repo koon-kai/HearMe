@@ -3,7 +3,7 @@ var router = express.Router();
 
 
 router.get('/signin', function(req,res) {  
-    res.render('admin/signin', {layout:'base'});   
+    res.render('admin');   
 });
 
 module.exports = router;

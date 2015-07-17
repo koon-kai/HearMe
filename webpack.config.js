@@ -1,20 +1,20 @@
 module.exports = {
-    entry:[
-        './app/main.js'
-        //post: './post.js'
-    ],
+    entry: {
+        'bundle': './app/main.js',
+        'admin': './app/admin.js'
+    },
     output: {
         path: __dirname + '/public/build/',
         publicPath: '/public/',
-        filename: 'bundle.js'
-        //filename: '[name].js'
+        // filename: 'bundle.js'
+        filename: '[name].js'
     },
     resolve: {
         extensions:['','.js','.jsx']
     },
     module: {
         loaders:[
-//          { test: /\.js$/, loaders: ['jsx?harmony'] }
+        //  { test: /\.js$/, loaders: ['jsx?harmony'] }
             { test: /\.js$/, loaders: ['babel-loader'] }
         ],
 

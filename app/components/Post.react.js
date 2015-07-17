@@ -37,7 +37,7 @@ var Post = React.createClass({
         var dom = this.state.isLoading ? (<div className="loading"><Loading type="spin" color="#e3e3e3" /></div>) :
             (<article id="post">
                 <div className="post-title">
-                    <h3>{title}</h3>
+                    <span>{title}</span>
                 </div>
                 <hr/>
                 <div className="post-content">
@@ -54,7 +54,7 @@ var Post = React.createClass({
         return (
             <article id="post">
                 <div className="post-title">
-                    <h3>{title}</h3>
+                    <span>{title}</span>
                 </div>
                 <hr/>
                 <div className="post-content">
