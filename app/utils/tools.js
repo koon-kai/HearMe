@@ -39,7 +39,8 @@ module.exports = {
 
     formatToDateTime: function(d) {
         var h, m, s;
-        if (d == null) {
+
+        if (!d) {
           return "";
         }
         if ('string' === typeof d) {
