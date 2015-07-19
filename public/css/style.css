@@ -236,6 +236,11 @@ footer {
     font-size: 22px;
 }
 
+#post .post-date {
+    margin-top: 10px;
+    color: #999;
+}
+
 #post .post-content {
     line-height: 27px;
     font-size: 15px;

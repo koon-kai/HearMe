@@ -1,13 +1,13 @@
 
-var React = require('react');
-var PostStore = require('../stores/PostStore');
-var PostActionCreators = require('../actions/PostActionCreators');
-var Router = require('react-router');
-var Navigation = Router.Navigation;
+import React from 'react';
+import PostStore from '../stores/PostStore';
+import PostActionCreators from '../actions/PostActionCreators';
+import Router from 'react-router';
 import Disqus from 'react-disqus-thread';
-import Loading from 'react-loading'
+import Loading from 'react-loading';
+import tools from '../utils/tools';
 
-
+var Navigation = Router.Navigation;
 
 var Post = React.createClass({
     mixins: [Navigation],
@@ -32,12 +32,16 @@ var Post = React.createClass({
         var title = this.state.data.title == undefined ? '' : this.state.data.title ;
         var content = this.state.data.content == undefined ? '' : this.state.data.content ;
         var id = this.state.data._id == undefined ? '' : this.state.data._id;
+        var createAt = this.state.data.createAt == undefined ? '' : this.state.data.createAt;
         var url = window.location.href;
 
         var dom = this.state.isLoading ? (<div className="loading"><Loading type="spin" color="#e3e3e3" /></div>) :
             (<article id="post">
                 <div className="post-title">
                     <span>{title}</span>
+                </div>
+                <div className="post-date">
+                    {createAt}
                 </div>
                 <hr/>
                 <div className="post-content">
@@ -55,6 +59,9 @@ var Post = React.createClass({
             <article id="post">
                 <div className="post-title">
                     <span>{title}</span>
+                </div>
+                <div className="post-date">
+                    {tools.formatToDateTime(createAt)}
                 </div>
                 <hr/>
                 <div className="post-content">

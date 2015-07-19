@@ -22141,7 +22141,7 @@
 	                    React.createElement(
 	                        'a',
 	                        { href: '#services' },
-	                        'BookMark'
+	                        'Blog'
 	                    ),
 	                    React.createElement(
 	                        'span',
@@ -22203,55 +22203,70 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 	
+	var _react = __webpack_require__(/*! react */ 2);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactRouter = __webpack_require__(/*! react-router */ 158);
+	
+	var _reactRouter2 = _interopRequireDefault(_reactRouter);
+	
+	var _storesPostStore = __webpack_require__(/*! ../stores/PostStore */ 203);
+	
+	var _storesPostStore2 = _interopRequireDefault(_storesPostStore);
+	
+	var _actionsPostActionCreators = __webpack_require__(/*! ../actions/PostActionCreators */ 213);
+	
+	var _actionsPostActionCreators2 = _interopRequireDefault(_actionsPostActionCreators);
+	
 	var _reactLoading = __webpack_require__(/*! react-loading */ 202);
 	
 	var _reactLoading2 = _interopRequireDefault(_reactLoading);
 	
-	var React = __webpack_require__(/*! react */ 2);
-	var Router = __webpack_require__(/*! react-router */ 158);
-	var Link = Router.Link;
+	var _utilsTools = __webpack_require__(/*! ../utils/tools */ 218);
 	
-	var PostStore = __webpack_require__(/*! ../stores/PostStore */ 203);
-	var PostActionCreators = __webpack_require__(/*! ../actions/PostActionCreators */ 213);
+	var _utilsTools2 = _interopRequireDefault(_utilsTools);
 	
-	var Post = React.createClass({
+	var Link = _reactRouter2['default'].Link;
+	
+	var Post = _react2['default'].createClass({
 	    displayName: 'Post',
 	
 	    propTypes: {
-	        post: React.PropTypes.object
+	        post: _react2['default'].PropTypes.object
 	    },
 	
 	    render: function render() {
 	        var post = this.props.post;
-	        return React.createElement(
+	        return _react2['default'].createElement(
 	            'section',
 	            { className: 'post' },
-	            React.createElement(
+	            _react2['default'].createElement(
 	                'div',
 	                { className: 'post-title' },
-	                React.createElement(
+	                _react2['default'].createElement(
 	                    Link,
 	                    { to: 'post', params: { id: post._id } },
 	                    post.title
 	                )
 	            ),
-	            React.createElement(
+	            _react2['default'].createElement(
 	                'div',
 	                { className: 'post-date' },
-	                post.createAt
+	                _utilsTools2['default'].formatToDate(post.createAt)
 	            )
 	        );
 	    }
 	});
 	
-	var PostList = React.createClass({
+	var PostList = _react2['default'].createClass({
 	    displayName: 'PostList',
 	
 	    render: function render() {
 	        var posts = this.props.data.map(function (post, i) {
-	            return React.createElement(Post, { post: post, key: i });
+	            return _react2['default'].createElement(Post, { post: post, key: i });
 	        });
-	        return React.createElement(
+	        return _react2['default'].createElement(
 	            'div',
 	            { className: 'post-list' },
 	            posts
@@ -22261,18 +22276,18 @@
 	
 	var getStateFromStores = function getStateFromStores() {
 	    return {
-	        posts: PostStore.getPosts()
+	        posts: _storesPostStore2['default'].getPosts()
 	    };
 	};
 	
-	var Index = React.createClass({
+	var Index = _react2['default'].createClass({
 	    displayName: 'Index',
 	
 	    getInitialState: function getInitialState() {
 	        return getStateFromStores();
 	    },
 	    loadPostsFromServer: function loadPostsFromServer() {
-	        PostActionCreators.getPosts();
+	        _actionsPostActionCreators2['default'].getPosts();
 	    },
 	    loadData: function loadData() {
 	        var totalHeight = 0;
@@ -22285,14 +22300,14 @@
 	    componentDidMount: function componentDidMount() {
 	        this.loadPostsFromServer();
 	        // window.addEventListener('scroll',this.loadData);
-	        PostStore.addChangeListener(this._onChange);
+	        _storesPostStore2['default'].addChangeListener(this._onChange);
 	    },
 	    componentWillUnmount: function componentWillUnmount() {
 	        // window.removeEventListener('scroll', this.loadData);
-	        PostStore.removeChangeListener(this._onChange);
+	        _storesPostStore2['default'].removeChangeListener(this._onChange);
 	    },
 	    render: function render() {
-	        return React.createElement(PostList, { data: this.state.posts });
+	        return _react2['default'].createElement(PostList, { data: this.state.posts });
 	    },
 	    _onChange: function _onChange() {
 	        this.setState(getStateFromStores());
@@ -23614,6 +23629,22 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 	
+	var _react = __webpack_require__(/*! react */ 2);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _storesPostStore = __webpack_require__(/*! ../stores/PostStore */ 203);
+	
+	var _storesPostStore2 = _interopRequireDefault(_storesPostStore);
+	
+	var _actionsPostActionCreators = __webpack_require__(/*! ../actions/PostActionCreators */ 213);
+	
+	var _actionsPostActionCreators2 = _interopRequireDefault(_actionsPostActionCreators);
+	
+	var _reactRouter = __webpack_require__(/*! react-router */ 158);
+	
+	var _reactRouter2 = _interopRequireDefault(_reactRouter);
+	
 	var _reactDisqusThread = __webpack_require__(/*! react-disqus-thread */ 215);
 	
 	var _reactDisqusThread2 = _interopRequireDefault(_reactDisqusThread);
@@ -23622,62 +23653,68 @@
 	
 	var _reactLoading2 = _interopRequireDefault(_reactLoading);
 	
-	var React = __webpack_require__(/*! react */ 2);
-	var PostStore = __webpack_require__(/*! ../stores/PostStore */ 203);
-	var PostActionCreators = __webpack_require__(/*! ../actions/PostActionCreators */ 213);
-	var Router = __webpack_require__(/*! react-router */ 158);
-	var Navigation = Router.Navigation;
+	var _utilsTools = __webpack_require__(/*! ../utils/tools */ 218);
 	
-	var Post = React.createClass({
+	var _utilsTools2 = _interopRequireDefault(_utilsTools);
+	
+	var Navigation = _reactRouter2['default'].Navigation;
+	
+	var Post = _react2['default'].createClass({
 	    displayName: 'Post',
 	
 	    mixins: [Navigation],
 	
 	    getInitialState: function getInitialState() {
 	        return {
-	            data: PostStore.getPost(),
+	            data: _storesPostStore2['default'].getPost(),
 	            isLoading: true
 	        };
 	    },
 	    loadPostById: function loadPostById(id) {
-	        PostActionCreators.getPost(id);
+	        _actionsPostActionCreators2['default'].getPost(id);
 	    },
 	    componentDidMount: function componentDidMount() {
 	        this.loadPostById(this.props.params.id);
-	        PostStore.addChangeListener(this._onChange);
+	        _storesPostStore2['default'].addChangeListener(this._onChange);
 	    },
 	    componentWillUnmount: function componentWillUnmount() {
-	        PostStore.removeChangeListener(this._onChange);
+	        _storesPostStore2['default'].removeChangeListener(this._onChange);
 	    },
 	    render: function render() {
 	        var title = this.state.data.title == undefined ? '' : this.state.data.title;
 	        var content = this.state.data.content == undefined ? '' : this.state.data.content;
 	        var id = this.state.data._id == undefined ? '' : this.state.data._id;
+	        var createAt = this.state.data.createAt == undefined ? '' : this.state.data.createAt;
 	        var url = window.location.href;
 	
-	        var dom = this.state.isLoading ? React.createElement(
+	        var dom = this.state.isLoading ? _react2['default'].createElement(
 	            'div',
 	            { className: 'loading' },
-	            React.createElement(_reactLoading2['default'], { type: 'spin', color: '#e3e3e3' })
-	        ) : React.createElement(
+	            _react2['default'].createElement(_reactLoading2['default'], { type: 'spin', color: '#e3e3e3' })
+	        ) : _react2['default'].createElement(
 	            'article',
 	            { id: 'post' },
-	            React.createElement(
+	            _react2['default'].createElement(
 	                'div',
 	                { className: 'post-title' },
-	                React.createElement(
+	                _react2['default'].createElement(
 	                    'span',
 	                    null,
 	                    title
 	                )
 	            ),
-	            React.createElement('hr', null),
-	            React.createElement(
+	            _react2['default'].createElement(
+	                'div',
+	                { className: 'post-date' },
+	                createAt
+	            ),
+	            _react2['default'].createElement('hr', null),
+	            _react2['default'].createElement(
 	                'div',
 	                { className: 'post-content' },
-	                React.createElement('span', { dangerouslySetInnerHTML: { __html: content } })
+	                _react2['default'].createElement('span', { dangerouslySetInnerHTML: { __html: content } })
 	            ),
-	            React.createElement(_reactDisqusThread2['default'], {
+	            _react2['default'].createElement(_reactDisqusThread2['default'], {
 	                shortname: 'koonkaisite',
 	                identifier: id,
 	                title: title,
@@ -23685,25 +23722,30 @@
 	                categoryId: id })
 	        );
 	
-	        return React.createElement(
+	        return _react2['default'].createElement(
 	            'article',
 	            { id: 'post' },
-	            React.createElement(
+	            _react2['default'].createElement(
 	                'div',
 	                { className: 'post-title' },
-	                React.createElement(
+	                _react2['default'].createElement(
 	                    'span',
 	                    null,
 	                    title
 	                )
 	            ),
-	            React.createElement('hr', null),
-	            React.createElement(
+	            _react2['default'].createElement(
+	                'div',
+	                { className: 'post-date' },
+	                _utilsTools2['default'].formatToDateTime(createAt)
+	            ),
+	            _react2['default'].createElement('hr', null),
+	            _react2['default'].createElement(
 	                'div',
 	                { className: 'post-content' },
-	                React.createElement('span', { dangerouslySetInnerHTML: { __html: content } })
+	                _react2['default'].createElement('span', { dangerouslySetInnerHTML: { __html: content } })
 	            ),
-	            React.createElement(_reactDisqusThread2['default'], {
+	            _react2['default'].createElement(_reactDisqusThread2['default'], {
 	                shortname: 'koonkaisite',
 	                identifier: id,
 	                title: title,
@@ -23713,7 +23755,7 @@
 	    },
 	    _onChange: function _onChange() {
 	        // console.log('_onChange');
-	        var data = PostStore.getPost();
+	        var data = _storesPostStore2['default'].getPost();
 	        if (data) {
 	            this.setState({
 	                data: data,
@@ -24014,6 +24056,69 @@
 	});
 	
 	module.exports = AddPost;
+
+/***/ },
+/* 218 */
+/*!****************************!*\
+  !*** ./app/utils/tools.js ***!
+  \****************************/
+/***/ function(module, exports) {
+
+	"use strict";
+	
+	module.exports = {
+	
+	  appendZero: function appendZero(s) {
+	    if (s == null) {
+	      return "";
+	    }
+	    return ("00" + s).substr((s + "").length);
+	  },
+	
+	  formatToDate: function formatToDate(d, cn) {
+	    var dd, mm, yyyy;
+	    if (cn == null) {
+	      cn = false;
+	    }
+	    if (d == null) {
+	      return "";
+	    }
+	    if ("string" === typeof d) {
+	      d = new Date(d);
+	    }
+	
+	    if (!(d instanceof Date)) {
+	      return "";
+	    }
+	
+	    yyyy = d.getFullYear();
+	    mm = d.getMonth() + 1;
+	    dd = d.getDate();
+	
+	    if (!cn) {
+	      return yyyy + "-" + mm + "-" + dd;
+	    } else {
+	      return yyyy + "年" + mm + "月" + dd + "日";
+	    }
+	  },
+	
+	  formatToDateTime: function formatToDateTime(d) {
+	    var h, m, s;
+	    if (d == null) {
+	      return "";
+	    }
+	    if ("string" === typeof d) {
+	      d = new Date(d);
+	    }
+	    if (!(d instanceof Date)) {
+	      return "";
+	    }
+	    h = d.getHours();
+	    m = d.getMinutes();
+	    // s = d.getSeconds();
+	    return this.formatToDate(d) + (" " + h + ":" + m);
+	  }
+	};
 
 /***/ }
 /******/ ]);

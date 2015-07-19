@@ -1,11 +1,12 @@
 
-var React = require('react');
-var Router = require('react-router');
-var Link = Router.Link;
+import React from 'react';
+import Router from 'react-router';
+import PostStore from '../stores/PostStore';
+import PostActionCreators from '../actions/PostActionCreators';
+import Loading from 'react-loading';
+import tools from '../utils/tools';
 
-var PostStore = require('../stores/PostStore');
-var PostActionCreators = require('../actions/PostActionCreators');
-import Loading from 'react-loading'
+var Link = Router.Link;
 
 var Post = React.createClass({
 
@@ -21,7 +22,7 @@ var Post = React.createClass({
                     <Link to="post" params={{id:post._id}}>{post.title}</Link>
                 </div>
                 <div className="post-date">
-                    {post.createAt}
+                    {tools.formatToDate(post.createAt)}
                 </div>
             </section>
         );
