@@ -29,7 +29,7 @@ router.get('/api/posts', function(req, res) {
     });
 });
 
-router.post('/api/post', function(req, res) {
+router.post('/api/posts', function(req, res) {
 
     var post = req.body;
     console.log(post);
@@ -40,7 +40,7 @@ router.post('/api/post', function(req, res) {
     })
 });
 
-router.get('/api/post/:id', function(req, res) {
+router.get('/api/posts/:id', function(req, res) {
     
     var _id = req.params.id;
     Post.find({'_id':_id}, function(err, doc) {

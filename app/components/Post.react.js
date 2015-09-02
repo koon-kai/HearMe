@@ -29,16 +29,16 @@ var Post = React.createClass({
         PostStore.removeChangeListener(this._onChange);
     },
     render: function() {
-        var title = this.state.data.title == undefined ? '' : this.state.data.title ;
-        var content = this.state.data.content == undefined ? '' : this.state.data.content ;
-        var id = this.state.data._id == undefined ? '' : this.state.data._id;
-        var createAt = this.state.data.createAt == undefined ? '' : this.state.data.createAt;
+        var title = this.state.data.title ? this.state.data.title : null;
+        var content = this.state.data.content ? this.state.data.content : null ;
+        var id = this.state.data._id ? this.state.data._id : null;
+        var createAt = this.state.data.createAt ? this.state.data.createAt : null;
         var url = window.location.href;
 
         var dom = this.state.isLoading ? (<div className="loading"><Loading type="spin" color="#e3e3e3" /></div>) :
             (<article id="post">
                 <div className="post-title">
-                    <span>{title}</span>
+                    <span>{title}</span>ou
                 </div>
                 <div className="post-date">
                     {createAt}
@@ -73,6 +73,7 @@ var Post = React.createClass({
                     title={title}
                     url={url}
                     categoryId={id} />
+                
             </article>
         )
     },
@@ -90,6 +91,10 @@ var Post = React.createClass({
     }
 });
 
+//<div className="ds-thread" data-thread-key={id} data-title={title} data-url={url}></div>
+//<div dangerouslySetInnerHTML={{__html: '<script src="/js/duoshuo.js"></script>'}} />
 module.exports = Post;
+
+
 
 

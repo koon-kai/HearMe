@@ -8,5 +8,8 @@ module.exports = {
         ADD_POST: null,
         GET_POST: null,
         GET_POSTS: null,
+
+        CREATE_MESSAGE: null,
+        
     })
 }

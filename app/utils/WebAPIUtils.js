@@ -85,7 +85,7 @@ var Api = {
         var promise = new Promise(function(resolve, reject) {
             $.ajax({
                 type: "get",
-                url: "/api/post/" + id,
+                url: "/api/posts/" + id,
                 dataType: 'json',
                 success: function(data) {
                     resolve(data);
@@ -103,7 +103,7 @@ var Api = {
         var promise = new Promise(function(resolve, reject) {
             $.ajax({
                 type: "post",
-                url: "/api/post",
+                url: "/api/posts",
                 data: post,
                 dataType: 'json',
                 success: function(data) {

@@ -25,8 +25,8 @@ module.exports = {
         }
 
         yyyy = d.getFullYear();
-        mm = d.getMonth() + 1;
-        dd = d.getDate();
+        mm = this.appendZero(d.getMonth() + 1);
+        dd = this.appendZero(d.getDate());
 
         if (!cn) {
           return yyyy + "-" + mm + "-" + dd;
@@ -34,8 +34,6 @@ module.exports = {
           return yyyy + "年" + mm + "月" + dd + "日";
         }
     },
-
-  
 
     formatToDateTime: function(d) {
         var h, m, s;
@@ -49,8 +47,8 @@ module.exports = {
         if (!(d instanceof Date)) {
           return "";
         }
-        h = d.getHours();
-        m = d.getMinutes();
+        h = this.appendZero(d.getHours());
+        m = this.appendZero(d.getMinutes());
         // s = d.getSeconds();
         return this.formatToDate(d) + (" " + h + ":" + m);
     }

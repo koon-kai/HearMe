@@ -105,6 +105,21 @@
 	var SignIn = _react2["default"].createClass({
 	    displayName: "SignIn",
 	
+	    handleSubmit: function handleSubmit(e) {
+	        e.preventDefault();
+	        var email = _react2["default"].findDOMNode(this.refs.email);
+	        var password = _react2["default"].findDOMNode(this.refs.password);
+	        if (!email.value.trim()) {
+	            email.focus();
+	            return;
+	        }
+	        if (!password.value.trim()) {
+	            password.focus();
+	            return;
+	        }
+	        console.log(email.value);
+	        console.log(password.value);
+	    },
 	    render: function render() {
 	        return _react2["default"].createElement(
 	            "div",
@@ -137,14 +152,14 @@
 	                    { className: "form" },
 	                    _react2["default"].createElement(
 	                        "form",
-	                        { className: "form-horizontal" },
+	                        { className: "form-horizontal", onSubmit: this.handleSubmit },
 	                        _react2["default"].createElement(
 	                            "div",
 	                            { className: "form-group" },
 	                            _react2["default"].createElement(
 	                                "div",
 	                                { className: "col-sm-12" },
-	                                _react2["default"].createElement("input", { type: "email", className: "form-control", placeholder: "Email" })
+	                                _react2["default"].createElement("input", { type: "email", className: "form-control", placeholder: "Email", ref: "email" })
 	                            )
 	                        ),
 	                        _react2["default"].createElement(
@@ -153,7 +168,7 @@
 	                            _react2["default"].createElement(
 	                                "div",
 	                                { className: "col-sm-12" },
-	                                _react2["default"].createElement("input", { type: "password", className: "form-control", placeholder: "Password" })
+	                                _react2["default"].createElement("input", { type: "password", className: "form-control", placeholder: "Password", ref: "password" })
 	                            )
 	                        ),
 	                        _react2["default"].createElement(

@@ -22037,6 +22037,7 @@
 	var Post = __webpack_require__(/*! ./components/Post.react */ 214);
 	var AddPost = __webpack_require__(/*! ./components/AddPost.react */ 217);
 	var NotFoundPage = __webpack_require__(/*! ./components/NotFoundPage.react */ 197);
+	var Chat = __webpack_require__(/*! ./components/Chat.react */ 219);
 	
 	var routes = React.createElement(
 	    Route,
@@ -22045,6 +22046,7 @@
 	    React.createElement(Route, { name: 'index', path: '/', handler: Index }),
 	    React.createElement(Route, { name: 'addPost', path: '/post/add', handler: AddPost }),
 	    React.createElement(Route, { name: 'post', path: '/post/:id', handler: Post }),
+	    React.createElement(Route, { name: 'chat', path: '/chat', handler: Chat }),
 	    React.createElement(Route, { name: '404', handler: NotFoundPage }),
 	    React.createElement(NotFoundRoute, { handler: NotFoundPage })
 	);
@@ -22169,8 +22171,8 @@
 	                        '|'
 	                    ),
 	                    React.createElement(
-	                        'a',
-	                        { href: '#services' },
+	                        Link,
+	                        { to: 'chat' },
 	                        'Chat'
 	                    ),
 	                    React.createElement(
@@ -22311,6 +22313,8 @@
 	    },
 	    _onChange: function _onChange() {
 	        this.setState(getStateFromStores());
+	
+	        //this.forceUpdate();
 	    }
 	});
 	
@@ -22821,7 +22825,7 @@
 	        var promise = new Promise(function (resolve, reject) {
 	            $.ajax({
 	                type: "get",
-	                url: "/api/post/" + id,
+	                url: "/api/posts/" + id,
 	                dataType: "json",
 	                success: (function (data) {
 	                    resolve(data);
@@ -22839,7 +22843,7 @@
 	        var promise = new Promise(function (resolve, reject) {
 	            $.ajax({
 	                type: "post",
-	                url: "/api/post",
+	                url: "/api/posts",
 	                data: post,
 	                dataType: "json",
 	                success: (function (data) {
@@ -23470,7 +23474,10 @@
 	    ActionTypes: keyMirror({
 	        ADD_POST: null,
 	        GET_POST: null,
-	        GET_POSTS: null
+	        GET_POSTS: null,
+	
+	        CREATE_MESSAGE: null
+	
 	    })
 	};
 
@@ -23681,10 +23688,10 @@
 	        _storesPostStore2['default'].removeChangeListener(this._onChange);
 	    },
 	    render: function render() {
-	        var title = this.state.data.title == undefined ? '' : this.state.data.title;
-	        var content = this.state.data.content == undefined ? '' : this.state.data.content;
-	        var id = this.state.data._id == undefined ? '' : this.state.data._id;
-	        var createAt = this.state.data.createAt == undefined ? '' : this.state.data.createAt;
+	        var title = this.state.data.title ? this.state.data.title : null;
+	        var content = this.state.data.content ? this.state.data.content : null;
+	        var id = this.state.data._id ? this.state.data._id : null;
+	        var createAt = this.state.data.createAt ? this.state.data.createAt : null;
 	        var url = window.location.href;
 	
 	        var dom = this.state.isLoading ? _react2['default'].createElement(
@@ -23701,7 +23708,8 @@
 	                    'span',
 	                    null,
 	                    title
-	                )
+	                ),
+	                'ou'
 	            ),
 	            _react2['default'].createElement(
 	                'div',
@@ -23767,6 +23775,8 @@
 	    }
 	});
 	
+	//<div className="ds-thread" data-thread-key={id} data-title={title} data-url={url}></div>
+	//<div dangerouslySetInnerHTML={{__html: '<script src="/js/duoshuo.js"></script>'}} />
 	module.exports = Post;
 
 /***/ },
@@ -24092,8 +24102,8 @@
 	    }
 	
 	    yyyy = d.getFullYear();
-	    mm = d.getMonth() + 1;
-	    dd = d.getDate();
+	    mm = this.appendZero(d.getMonth() + 1);
+	    dd = this.appendZero(d.getDate());
 	
 	    if (!cn) {
 	      return yyyy + "-" + mm + "-" + dd;
@@ -24114,12 +24124,229 @@
 	    if (!(d instanceof Date)) {
 	      return "";
 	    }
-	    h = d.getHours();
-	    m = d.getMinutes();
+	    h = this.appendZero(d.getHours());
+	    m = this.appendZero(d.getMinutes());
 	    // s = d.getSeconds();
 	    return this.formatToDate(d) + (" " + h + ":" + m);
 	  }
 	};
+
+/***/ },
+/* 219 */
+/*!**************************************!*\
+  !*** ./app/components/Chat.react.js ***!
+  \**************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+	
+	var _react = __webpack_require__(/*! react */ 2);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _storesChatMessageStore = __webpack_require__(/*! ../stores/ChatMessageStore */ 220);
+	
+	var _storesChatMessageStore2 = _interopRequireDefault(_storesChatMessageStore);
+	
+	var _utilsTools = __webpack_require__(/*! ../utils/tools */ 218);
+	
+	var _utilsTools2 = _interopRequireDefault(_utilsTools);
+	
+	var ReactPropTypes = _react2['default'].PropTypes;
+	var ENTER_KEY_CODE = 13;
+	
+	var MessageComposer = _react2['default'].createClass({
+	    displayName: 'MessageComposer',
+	
+	    getInitialState: function getInitialState() {
+	        return { text: '' };
+	    },
+	    render: function render() {
+	        return _react2['default'].createElement(
+	            'div',
+	            null,
+	            _react2['default'].createElement('input', { type: 'text', placeholder: 'Nick Name', className: 'message-name' }),
+	            _react2['default'].createElement('input', { type: 'email', placeholder: 'Your Email', className: 'message-email' }),
+	            _react2['default'].createElement('textarea', {
+	                className: 'message-composer',
+	                name: 'message',
+	                placeholder: 'Say Something.',
+	                value: this.state.text,
+	                onChange: this._onChange,
+	                onKeyDown: this._onKeyDown })
+	        );
+	    },
+	    _onChange: function _onChange(event, value) {
+	        this.setState({ text: event.target.value });
+	    },
+	    _onKeyDown: function _onKeyDown(event) {
+	        if (event.keyCode === ENTER_KEY_CODE) {
+	            event.preventDefault();
+	            var text = this.state.text.trim();
+	            if (text) {}
+	            this.setState({ text: '' });
+	        }
+	    }
+	});
+	
+	var MessageListItem = _react2['default'].createClass({
+	    displayName: 'MessageListItem',
+	
+	    PropTypes: {
+	        message: ReactPropTypes.object
+	    },
+	    render: function render() {
+	        var message = this.props.message;
+	        return _react2['default'].createElement(
+	            'li',
+	            { className: 'message-list-item' },
+	            _react2['default'].createElement(
+	                'h5',
+	                { className: 'message-author-name' },
+	                message.authorName
+	            ),
+	            _react2['default'].createElement(
+	                'div',
+	                { className: 'message-time' },
+	                message.timestamp
+	            ),
+	            _react2['default'].createElement(
+	                'div',
+	                { className: 'message-text' },
+	                message.text
+	            )
+	        );
+	    }
+	});
+	
+	var getStateFromStores = function getStateFromStores() {
+	    return {
+	        messages: _storesChatMessageStore2['default'].getAllMessages()
+	    };
+	};
+	
+	var MessageSection = _react2['default'].createClass({
+	    displayName: 'MessageSection',
+	
+	    getInitialState: function getInitialState() {
+	        return getStateFromStores();
+	    },
+	
+	    render: function render() {
+	        var messageListItems = this.state.messages.map(function (message) {
+	            return _react2['default'].createElement(MessageListItem, { key: message.id, message: message });
+	        });
+	        return _react2['default'].createElement(
+	            'div',
+	            { className: 'message-section' },
+	            _react2['default'].createElement(
+	                'ul',
+	                { className: 'message-list', ref: 'messageList' },
+	                messageListItems
+	            ),
+	            _react2['default'].createElement(MessageComposer, null)
+	        );
+	    }
+	});
+	
+	module.exports = MessageSection;
+
+/***/ },
+/* 220 */
+/*!****************************************!*\
+  !*** ./app/stores/ChatMessageStore.js ***!
+  \****************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+	
+	var _utilsWebAPIUtils = __webpack_require__(/*! ../utils/WebAPIUtils */ 204);
+	
+	var _utilsWebAPIUtils2 = _interopRequireDefault(_utilsWebAPIUtils);
+	
+	var AppDispatcher = __webpack_require__(/*! ../dispatcher/AppDispatcher */ 205);
+	var EventEmitter = __webpack_require__(/*! events */ 209).EventEmitter;
+	var Constants = __webpack_require__(/*! ../constants/Constants */ 210);
+	var assign = __webpack_require__(/*! object-assign */ 212);
+	
+	var ActionTypes = Constants.ActionTypes;
+	var CHANGE_EVENT = 'change';
+	
+	var _messages = [{
+	  id: 'm_1',
+	  threadID: 't_1',
+	  threadName: 'Jing and Bill',
+	  authorName: 'Bill',
+	  text: 'Hey Jing, want to give a Flux talk at ForwardJS?',
+	  timestamp: Date.now() - 99999
+	}, {
+	  id: 'm_2',
+	  threadID: 't_1',
+	  threadName: 'Jing and Bill',
+	  authorName: 'Bill',
+	  text: 'Seems like a pretty cool conference.',
+	  timestamp: Date.now() - 89999
+	}, {
+	  id: 'm_3',
+	  threadID: 't_1',
+	  threadName: 'Jing and Bill',
+	  authorName: 'Jing',
+	  text: 'Sounds good.  Will they be serving dessert?',
+	  timestamp: Date.now() - 79999
+	}, {
+	  id: 'm_4',
+	  threadID: 't_2',
+	  threadName: 'Dave and Bill',
+	  authorName: 'Bill',
+	  text: 'Hey Dave, want to get a beer after the conference?',
+	  timestamp: Date.now() - 69999
+	}, {
+	  id: 'm_5',
+	  threadID: 't_2',
+	  threadName: 'Dave and Bill',
+	  authorName: 'Dave',
+	  text: 'Totally!  Meet you at the hotel bar.',
+	  timestamp: Date.now() - 59999
+	}, {
+	  id: 'm_6',
+	  threadID: 't_3',
+	  threadName: 'Functional Heads',
+	  authorName: 'Bill',
+	  text: 'Hey Brian, are you going to be talking about functional stuff?',
+	  timestamp: Date.now() - 49999
+	}, {
+	  id: 'm_7',
+	  threadID: 't_3',
+	  threadName: 'Bill and Brian',
+	  authorName: 'Brian',
+	  text: 'At ForwardJS?  Yeah, of course.  See you there!',
+	  timestamp: Date.now() - 39999
+	}];
+	
+	var MessageStore = assign({}, EventEmitter.prototype, {
+	
+	  emitChange: function emitChange() {
+	    this.emit(CHANGE_EVENT);
+	  },
+	
+	  addChangeListener: function addChangeListener(callback) {
+	    this.on(CHANGE_EVENT, callback);
+	  },
+	
+	  removeChangeListener: function removeChangeListener(callback) {
+	    this.removeListener(CHANGE_EVENT, callback);
+	  },
+	
+	  getAllMessages: function getAllMessages() {
+	    return _messages;
+	  }
+	});
+	
+	module.exports = MessageStore;
 
 /***/ }
 /******/ ]);

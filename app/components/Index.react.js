@@ -82,6 +82,8 @@ var Index = React.createClass({
     },
     _onChange: function() { 
         this.setState(getStateFromStores());
+
+        //this.forceUpdate();
     }
 });
 
