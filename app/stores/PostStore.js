@@ -60,11 +60,7 @@ PostStore.dispatchToken = AppDispatcher.register(function(action){
 
         case ActionTypes.GET_POST:
             Api.getPost(action.id).then(function(data){
-                if (data.success == true) {
-                    _post = data.data;
-                } else {
-                    _post = null;
-                }
+                _post = data.success ? data.data : null ;
                 PostStore.emitChange();
             }, errHandler);
             break;
