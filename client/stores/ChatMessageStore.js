@@ -1,6 +1,6 @@
 var AppDispatcher = require('../dispatcher/AppDispatcher');
 var EventEmitter = require('events').EventEmitter;
-var Constants = require('../constants/Constants');
+var Constants = require('../constants/ActionTypes');
 var assign = require('object-assign');
 
 var ActionTypes = Constants.ActionTypes;

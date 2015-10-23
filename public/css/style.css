@@ -194,7 +194,7 @@ footer {
 }
 
 .post-list {
-    margin-top: 50px;
+    margin: 50px 100px 0 100px;
     /*padding: 0 30px;*/
 }
 
@@ -327,4 +327,10 @@ footer {
     width: 100%;
     margin: 15px 0 0;
     padding: 10px;
+}
+
+
+.loading {
+    margin: 100px 0;
+    text-align: center;
 }

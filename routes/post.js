@@ -25,7 +25,7 @@ router.get('/api/posts', function(req, res) {
         if (err) console.log(err);
         // console.log(docs);
         // res.end(JSON.stringify(docs.slice(begin,end)));
-        res.end(JSON.stringify(docs));
+        res.json(docs);
     });
 });
 
@@ -36,7 +36,7 @@ router.post('/api/posts', function(req, res) {
     post.content = marked(post.content);
     Post.create(post, function(err, doc) {
         console.log(doc);
-        res.end(JSON.stringify(doc));
+        res.json(doc);
     })
 });
 
@@ -45,16 +45,10 @@ router.get('/api/posts/:id', function(req, res) {
     var _id = req.params.id;
     Post.find({'_id':_id}, function(err, doc) {
         // console.log(doc);
-        var result = {};
-        if (doc) {
-            result['success'] = true;
-            result['data'] = doc[0]; 
-        } else {
-            result['success'] = false;
-            result['data'] = {};
-        }
-        // console.log(result);
-        res.end(JSON.stringify(result));
+        setTimeout(function() {
+            res.json(doc);
+        }, 500);
+        
     })
 });
 
