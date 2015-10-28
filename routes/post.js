@@ -9,23 +9,11 @@ var setting = require('../setting.js');
 
 router.get('/api/posts', function(req, res) {
 
-    var page = req.params.page;
-    var pageNumber = 5;
-    var begin = 0;
-    var end = 0;
-
-    if (page == 1) {
-        end = pageNumber -1;
-    } else if (page > 1) {
-        // begin = (page-1) * pageNumber;
-        end = pageNumber * page - 1;
-    }
-
     Post.find({}).sort({createAt:-1}).exec(function(err,docs) {
         if (err) console.log(err);
-        // console.log(docs);
-        // res.end(JSON.stringify(docs.slice(begin,end)));
-        res.json(docs);
+        setTimeout(function() {
+            res.json(docs);
+        }, 1000);
     });
 });
 
@@ -43,10 +31,10 @@ router.post('/api/posts', function(req, res) {
 router.get('/api/posts/:id', function(req, res) {
     
     var _id = req.params.id;
-    Post.find({'_id':_id}, function(err, doc) {
+    Post.find({'_id':_id}, function(err, docs) {
         // console.log(doc);
         setTimeout(function() {
-            res.json(doc);
+            res.json(docs);
         }, 500);
         
     })

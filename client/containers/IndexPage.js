@@ -21,10 +21,10 @@ class IndexPage extends Component {
     // console.log(posts);
     return (
       <div>
-        {isFetching && posts.length === 0 &&
+        {isFetching &&
           <h4 className="loading">Loading...</h4>
         }
-        {posts.length > 0 &&
+        {!isFetching &&
           <PostList posts={posts} />
         }
       </div>
@@ -48,11 +48,11 @@ function mapStateToProps(state) {
 }
 
 //right?
-function mapDispatchToProps(dispatch) {
-  return {
-    posts: () => dispatch(getPosts())
-  }
-}
+// function mapDispatchToProps(dispatch) {
+//   return {
+//     posts: () => dispatch(getPosts())
+//   }
+// }
 
 
 export default connect(mapStateToProps)(IndexPage);

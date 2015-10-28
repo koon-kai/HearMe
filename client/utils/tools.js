@@ -36,7 +36,7 @@ module.exports = {
     },
 
     formatToDateTime: function(d) {
-        var h, m, s;
+        var h, m;//, s;
 
         if (!d) {
           return "";

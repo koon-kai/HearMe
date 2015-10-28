@@ -1,9 +1,9 @@
 
 var React = require('react');
-var Router = require('react-router');
-var Navigation = Router.Navigation;
-var PostStore = require('../stores/PostStore');
-var PostActionCreators = require('../actions/PostActionCreators');
+// var Router = require('react-router');
+// var Navigation = Router.Navigation;
+// var PostStore = require('../stores/PostStore');
+// var PostActionCreators = require('../actions/PostActionCreators');
 
 var NewForm = React.createClass({
     handleSubmit: function(e) {

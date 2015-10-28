@@ -207,6 +207,9 @@ footer {
 
 .post-list .post .post-date {
     color: #999;
+    /*color: #777;*/
+    /*color: inherit;*/
+    /*font-family: Georgia, "Times New Roman", Times, serif;*/
     margin: 5px 0 ;
 }
 
@@ -265,15 +268,19 @@ footer {
 
 .message-section {
   width: 65%;
-  margin: 0 auto;
+  margin: 30px auto;
+}
+
+.message-form {
+  padding: 0 10px;
 }
 
 .message-list {
-    border: 1px solid #ccf;
+    /*border: 1px solid #ccf;*/
     font-size: 16px;
-    height: 400px;
+    /*height: 400px;*/
     margin: 0;
-    overflow-y: auto;
+    /*overflow-y: auto;*/
     padding: 0;
 }
 
@@ -323,7 +330,7 @@ footer {
     box-sizing: border-box;
     font-family: inherit;
     font-size: 14px;
-    height: 5em;
+    height: 4em;
     width: 100%;
     margin: 15px 0 0;
     padding: 10px;
