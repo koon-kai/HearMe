@@ -8,7 +8,7 @@ var chat = require('./routes/chat');
 
 const routes = [
   { path: '/', route: post },
-  { path: '/', route: admin },
+  { path: '/admin', route: admin },
   { path: '/', route: weixin },
   { path: '/', route: chat },
 ]

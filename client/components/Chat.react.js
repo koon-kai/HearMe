@@ -37,11 +37,11 @@ export class MessageComposer extends Component {
         <textarea 
           className="message-composer"
           ref="text"
-          placeholder="Say Something." 
+          placeholder="Say something." 
           onKeyDown={this.handeKeyDown} />
           <input 
             type="text" 
-            placeholder="Nick Name" 
+            placeholder="Nick name" 
             className="message-name" 
             ref="name"
             onKeyDown={this.handeKeyDown} />
