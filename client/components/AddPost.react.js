@@ -85,7 +85,7 @@ var UploadImage = React.createClass({
 });
 
 var AddPost = React.createClass({
-    mixins: [Navigation],
+    // mixins: [Navigation],
 
     handleFormSubmit: function(post) {
         PostActionCreators.addPost(post);
