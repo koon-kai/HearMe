@@ -18,7 +18,7 @@ import NotFoundPage from '../components/NotFoundPage.react';
 
 const routes = (
   <Route component={Admin}>
-    <Route path="/signin" component={SignIn} />
+    <Route path="/admin/signin" component={SignIn} />
     <Route path="*" component={NotFoundPage} />
   </Route>
 );

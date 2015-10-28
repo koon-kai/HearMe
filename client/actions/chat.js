@@ -37,29 +37,17 @@ export function getMessages() {
   return dispatch => dispatch(fetchMessages());
 }
 
-
 export function createMessage(name, text) {
-  const formData = new FormData();
-  formData.append('name', name);
-  formData.append('text', text);
+  const message = new FormData();
+  message.append('name', name);
+  message.append('text', text);
   const options = {
-    method: 'post',
-    body: formData
+    method: 'POST',
+    body: message
   }
   return dispatch => {
     return fetch('/api/messages', options)
       .then(response => response.json())
       .then(json => dispatch(addMessage(json)));
-    // $.ajax({
-    //   url: '/api/messages',
-    //   type: 'post',
-    //   data: {name:name, text:text},
-    //   success: function(data) {
-    //     dispatch(addMessage(data));
-    //   },
-    //   error: function(err) {
-    //     alert(err);
-    //   }
-    // })
   }
 }
