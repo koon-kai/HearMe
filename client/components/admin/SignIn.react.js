@@ -4,8 +4,8 @@ import React from 'react';
 var SignIn = React.createClass({
   handleSubmit: function(e) {
     e.preventDefault();
-    var email = this.refs.email;
-    var password = this.refs.password;
+    let email = this.refs.email;
+    let password = this.refs.password;
     if (!email.value.trim()) {
       email.focus();
       return;

@@ -17,8 +17,8 @@ export class MessageComposer extends Component {
   }
 
   handeSubmit() {
-    const text = this.refs.text;
-    const name = this.refs.name;
+    let text = this.refs.text;
+    let name = this.refs.name;
     if(!text.value.trim()) {
       text.focus();
       return;

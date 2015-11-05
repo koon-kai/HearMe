@@ -38,10 +38,10 @@ export function getMessages() {
 }
 
 export function createMessage(name, text) {
-  const message = new FormData();
+  let message = new FormData();
   message.append('name', name);
   message.append('text', text);
-  const options = {
+  let options = {
     method: 'POST',
     body: message
   }

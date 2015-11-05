@@ -1,0 +1,194 @@
+
+
+$backgroundColor: #333333;
+
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: 'Avenir Next',Avenir,'Helvetica Neue',Helvetica,'Lantinghei SC','Hiragino Sans GB','Microsoft YaHei',"微软雅黑",STHeiti,'WenQuanYi Micro Hei',SimSun,sans-serif;
+  font-size: 14px;
+  line-height: 20px;
+  color: $backgroundColor;
+}
+
+a {
+  outline: none !important;
+}
+
+.container {
+  max-width: 960px;
+  padding: 0 60px;
+}
+
+header, footer, section, article {
+  display: block;
+}
+
+header {
+  text-align: center;
+
+  .logo {
+    margin: 38px 0;
+
+    a {
+      text-decoration: none;
+    }
+
+    h1 {
+      font-family: 'FuturaStdMediumTrItalic';
+      font-size: 34px;
+      font-weight: normal;
+      line-height: 38px;
+      color: #DBD4D4;
+    }
+  }
+
+  nav {
+    margin-bottom: 10px;
+    display: inline-block;
+    color: #dde1e4;
+
+    a {
+      float: left;
+      display: block;
+      margin: 0 10px 0 10px;
+      font-size: 16px;
+      text-decoration: none;
+      color: #aaa;
+    }
+
+    span {
+      float: left;
+      display: block;
+      font-family: 'FuturaStdLightTrRegular';
+      font-size: 24px;
+    }
+  }
+}
+
+.post-list {
+  margin: 50px 100px 0 100px;
+
+  .post {
+    margin: 30px 0;
+    border-bottom: 1px #eee dashed;
+
+    .post-title {
+      font-size: 18px;
+      margin-bottom: 10px;
+      a { color: #444; }
+    }
+
+    .post-date {
+      color: #999;
+      margin: 5px 0;  
+    }
+  }
+}
+
+#post {
+  margin-top: 60px;
+
+  hr {
+    margin-top: 20px;
+    margin-bottom: 30px;
+    border: 1px #eee dashed;
+  }
+
+  .post-title {
+    font-size: 24px;
+  }
+
+  .post-date {
+    margin-top: 10px;
+    color: #999;
+  }
+
+  .post-content {
+    line-height: 27px;
+    font-size: 15px;
+    margin-bottom: 50px;
+  }
+}
+
+.message-section {
+  width: 65%;
+  margin: 30px auto;
+}
+
+.message-form {
+  padding: 0 10px;
+}
+
+.message-list {
+    font-size: 16px;
+    margin: 0;
+    padding: 0;
+}
+
+.message-list-item {
+    list-style: none;
+    padding: 12px 14px 14px;
+}
+
+.message-list-item:hover {
+    background-color: #efefff;
+}
+
+.message-author-name {
+    color: #66c;
+    float: left;
+    font-size: 13px;
+    margin: 0;
+}
+
+.message-time {
+    color: #aad;
+    float: right;
+    font-size: 12px;
+}
+
+.message-text {
+    clear: both;
+    font-size: 14px;
+    padding-top: 10px;
+}
+
+.message-name {
+    margin-top: 15px;
+    margin-right: 10px;
+    height: 2.5em;
+    padding: 5px;
+}
+
+
+.message-composer {
+    box-sizing: border-box;
+    font-family: inherit;
+    font-size: 14px;
+    height: 4em;
+    width: 100%;
+    margin: 15px 0 0;
+    padding: 10px;
+}
+
+
+
+.loading {
+  margin: 100px 0;
+  text-align: center;
+}
+
+footer {
+  margin: 50px auto;
+  text-align: center;
+
+  a {
+    &:hover { text-decoration: none; }
+  }
+}

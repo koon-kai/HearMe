@@ -45,7 +45,7 @@ class Post extends Component {
     return (
         <article id="post">
             <div className="post-title">
-                <span>{title}</span>
+                {title}
             </div>
             <div className="post-date">
                 {tools.formatToDateTime(createAt)}
