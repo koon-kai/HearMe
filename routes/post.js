@@ -9,7 +9,9 @@ var setting = require('../setting.js');
 router.get('/api/posts', function(req, res) {
   Post.find({},{'content':0}).sort({createAt:-1}).exec(function(err,docs) {
     if (err) console.log(err);
-    res.json(docs);
+     setTimeout(function() {
+        res.json(docs);
+      }, 3000)
   });
 });
 
@@ -27,7 +29,9 @@ router.get('/api/posts/:id', function(req, res) {
   var _id = req.params.id;
   Post.find({'_id':_id}, function(err, docs) {
       // console.log(doc);
-    res.json(docs);
+    setTimeout(function() {
+      res.json(docs);
+    }, 3000)
   })
 });
 

@@ -253,15 +253,6 @@ footer {
     margin-bottom: 50px;
 }
 
-.loading {
-    text-align: center;
-    margin: 50px auto;
-}
-
-.loading img {
-    width: 32px !important;
-    height: 32px !important;
-}
 
 .footer {
     margin-top: 100px;
@@ -343,4 +334,35 @@ footer {
 .loading {
     margin: 100px 0;
     text-align: center;
+    position:relative;
+}
+
+.not-found {
+  margin-top: 50px;
+  text-align: center;
+}
+
+nav .brand-logo {
+  color: #444;
+}
+
+.hide-on-med-and-down a {
+  color: #444;
+}
+
+.mui-table-wrapper {
+  margin-top: 9px;
+}
+
+.left-nav {
+  margin-top: 9px;
+  display: inline-block;
+}
+
+svg {
+  box-sizing: initial;
+}
+
+.content {
+  margin-top: 20px;
 }

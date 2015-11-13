@@ -10,15 +10,14 @@ import thunk from 'redux-thunk';
 import createLogger from 'redux-logger';
 import rootReducer from '../reducers/root';
 import Admin from '../containers/admin/AdminPage';
-import SignIn from '../components/admin/SignIn.react';
 import NotFoundPage from '../components/NotFoundPage.react';
-
+import WorkbenchPage from '../containers/admin/WorkbenchPage';
 
 
 
 const routes = (
   <Route component={Admin}>
-    <Route path="/admin/signin" component={SignIn} />
+    <Route path="/admin/workbench" component={WorkbenchPage} />
     <Route path="*" component={NotFoundPage} />
   </Route>
 );

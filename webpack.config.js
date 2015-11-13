@@ -1,11 +1,11 @@
 var webpack = require('webpack');
-var path = require('path');
 
 module.exports = {
 
   entry: {
-    'bundle': './client/main.js',
-    'admin': './client/admin.js'
+    'main': './client/main.js',
+    'admin': './client/admin.js',
+    'signin': './client/signin.js'
   },
   output: {
     path: __dirname + '/public/build/',
@@ -31,9 +31,6 @@ module.exports = {
     // ],
 
 
-  },
-  sassLoader: {
-    includePaths: [path.resolve(__dirname, "./public/scss")]
   },
   plugins: [
     new webpack.optimize.CommonsChunkPlugin('common.js')

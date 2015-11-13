@@ -2,6 +2,7 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import Header from '../components/Header.react';
+import Footer from '../Components/Footer.react';
 
 class HearMeApp extends Component {
   constructor(props) {
@@ -12,8 +13,9 @@ class HearMeApp extends Component {
     const { children } = this.props;
     return (
       <div>
-        <Header />
+        <Header/>
         {children}
+        <Footer/>
       </div>
     );
   }

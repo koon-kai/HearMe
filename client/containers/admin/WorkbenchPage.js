@@ -1,12 +1,14 @@
 
 import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
-import PostList from '../components/PostList.react';
-import { getPosts } from '../actions/posts';
+import { getPosts } from '../../actions/posts';
+import HeaderMui from '../../components/admin/Header.mui.js';
+import EditBox from '../../components/admin/EditBox';
+import DataTable from '../../components/admin/DataTable';
 const RefreshIndicator = require('material-ui/lib/refresh-indicator');
 
 
-class IndexPage extends Component {
+class WorkbenchPage extends Component {
   constructor(props) {
     super(props);
   }
@@ -21,21 +23,23 @@ class IndexPage extends Component {
     // console.log(posts);
     return (
       <div>
+        <HeaderMui/>
         {isFetching &&
           <div className="loading">
             <RefreshIndicator size={40} style={{left: '50%', top: '100px', marginLeft: '-20px'}} status="loading" />
           </div>
         }
         {!isFetching &&
-          <PostList posts={posts} />
+          <DataTable data={posts} />
         }
+        <EditBox/>
       </div>
     )
   }
 }
 
 
-IndexPage.propsTypes = {
+WorkbenchPage.propsTypes = {
   posts: PropTypes.array.isRequired,
   isFetching: PropTypes.bool.isRequired
 }
@@ -49,12 +53,4 @@ function mapStateToProps(state) {
   }
 }
 
-//right?
-// function mapDispatchToProps(dispatch) {
-//   return {
-//     posts: () => dispatch(getPosts())
-//   }
-// }
-
-
-export default connect(mapStateToProps)(IndexPage);
+export default connect(mapStateToProps)(WorkbenchPage);

@@ -11,6 +11,7 @@ html {
 body {
   margin: 0;
   font-family: 'Avenir Next',Avenir,'Helvetica Neue',Helvetica,'Lantinghei SC','Hiragino Sans GB','Microsoft YaHei',"微软雅黑",STHeiti,'WenQuanYi Micro Hei',SimSun,sans-serif;
+  // font-family: Exo, 'Hiragino Sans GB','Microsoft YaHei',微软雅黑,STHeiti,'WenQuanYi Micro Hei',Helvetica,Arial, sans-serif;
   font-size: 14px;
   line-height: 20px;
   color: $backgroundColor;
@@ -113,6 +114,7 @@ header {
     line-height: 27px;
     font-size: 15px;
     margin-bottom: 50px;
+    // font-family: Exo, 'Hiragino Sans GB','Microsoft YaHei',微软雅黑,STHeiti,'WenQuanYi Micro Hei',Helvetica,Arial, sans-serif
   }
 }
 
@@ -141,47 +143,47 @@ header {
 }
 
 .message-author-name {
-    color: #66c;
-    float: left;
-    font-size: 13px;
-    margin: 0;
+  color: #66c;
+  float: left;
+  font-size: 13px;
+  margin: 0;
 }
 
 .message-time {
-    color: #aad;
-    float: right;
-    font-size: 12px;
+  color: #aad;
+  float: right;
+  font-size: 12px;
 }
 
 .message-text {
-    clear: both;
-    font-size: 14px;
-    padding-top: 10px;
+  clear: both;
+  font-size: 14px;
+  padding-top: 10px;
 }
 
 .message-name {
-    margin-top: 15px;
-    margin-right: 10px;
-    height: 2.5em;
-    padding: 5px;
+  margin-top: 15px;
+  margin-right: 10px;
+  height: 2.5em;
+  padding: 5px;
 }
 
 
 .message-composer {
-    box-sizing: border-box;
-    font-family: inherit;
-    font-size: 14px;
-    height: 4em;
-    width: 100%;
-    margin: 15px 0 0;
-    padding: 10px;
+  box-sizing: border-box;
+  font-family: inherit;
+  font-size: 14px;
+  height: 4em;
+  width: 100%;
+  margin: 15px 0 0;
+  padding: 10px;
 }
 
 
 
 .loading {
-  margin: 100px 0;
-  text-align: center;
+  position: relative;
+  height: 200px;
 }
 
 footer {
@@ -192,3 +194,4 @@ footer {
     &:hover { text-decoration: none; }
   }
 }
+

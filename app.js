@@ -30,7 +30,10 @@ routes.forEach(route => {
   app.use(route.path, route.route);
 });
 
+
 app.use('*', function(req, res) {
+  console.log(req.path);
+  console.log(req.url);
   res.render('index');
 });
 

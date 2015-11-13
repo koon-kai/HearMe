@@ -1,7 +1,11 @@
 import React from 'react';
-
+// import history from '../../utils/history';
+import { History } from 'react-router';
 
 var SignIn = React.createClass({
+
+  mixins: [History],
+
   handleSubmit: function(e) {
     e.preventDefault();
     let email = this.refs.email;
@@ -16,6 +20,21 @@ var SignIn = React.createClass({
     }
     console.log(email.value);
     console.log(password.value);
+    $.ajax({
+      url: '/admin/signin',
+      type: 'POST',
+      data: {email: email.value, password: password.value},
+      dataType: 'json',
+      success: (res) => {
+        console.log(res);
+        // this.history.pushState(null, '/admin/workbench');
+        window.location.href = '/admin/workbench';
+      },
+      error: (err) => {
+        alert(err);
+      }
+
+    })
     // $('form').submit();
   },
   render: function() {
