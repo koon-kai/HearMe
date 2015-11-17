@@ -22,6 +22,9 @@ export default function postsReducer(state = initialState, action) {
       return state;
 
     case ADD_POST:
+      return Object.assign({}, state, {
+        posts: [action.post, ...state.posts]
+      })
 
     default:
       return state;

@@ -18,7 +18,10 @@ router.get('/api/posts', function(req, res) {
 router.post('/api/posts', function(req, res) {
 
   var post = req.body;
-  post.content = marked(post.content);
+  console.log(req.params);
+  console.log(req.query);
+  console.log(post);
+  // post.content = marked(post.content);
   Post.create(post, function(err, doc) {
     res.json(doc);
   })

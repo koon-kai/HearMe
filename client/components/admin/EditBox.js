@@ -1,6 +1,6 @@
 
 import React, { Component } from 'react';
-
+import { Link } from 'react-router';
 
 
 class EditBox extends Component {
@@ -11,7 +11,7 @@ class EditBox extends Component {
           <i className="large material-icons">mode_edit</i>
         </a>
         <ul>
-          <li><a className="btn-floating red" href="/admin/posts/add"><i className="material-icons">queue</i></a></li>
+          <li><Link className="btn-floating red" to="/admin/posts/add"><i className="material-icons">queue</i></Link></li>
           <li><a className="btn-floating yellow darken-1"><i className="material-icons">speaker_notes</i></a></li>
           <li><a className="btn-floating green"><i className="material-icons">picture_in_picture</i></a></li>
           <li><a className="btn-floating blue"><i className="material-icons">chat</i></a></li>

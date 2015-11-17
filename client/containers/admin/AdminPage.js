@@ -2,7 +2,8 @@
 
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-
+import HeaderMui from '../../components/admin/Header.mui.js';
+import EditBox from '../../components/admin/EditBox';
 
 class AdminPage extends Component {
   constructor(props) {
@@ -13,7 +14,9 @@ class AdminPage extends Component {
     const { children } = this.props;
     return (
       <div>
+        <HeaderMui/>
         {children}
+        <EditBox/>
       </div>
     );
   }

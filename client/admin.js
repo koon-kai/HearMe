@@ -14,27 +14,3 @@ render(
   </Provider>,
   document.getElementById('admin')
 )
-
-
-// var Admin = React.createClass({
-//   render: function() {
-//     return (
-//       <div>{this.props.children}</div>
-//     );
-//   }
-// });
-
-// const routes = (
-//   <Route component={Admin}>
-//     <Route path="/signin" component={SignIn} />
-//     <Route path="*" component={NotFoundPage} />
-//   </Route>
-// );
-
-// ReactDOM.render(
-//   <Router history={history}>{routes}</Router>, document.getElementById('admin')
-// );
-
-
-
-

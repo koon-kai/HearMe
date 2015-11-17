@@ -89,7 +89,7 @@ header nav span {
 }
 
 #add-post form {
-    padding: 0 10px;
+    padding: 0 30px;
 }
 /* new style end*/
 
@@ -364,5 +364,42 @@ svg {
 }
 
 .content {
+  margin-top: 20px;
+}
+
+
+textarea, #editor .translated  {
+  display: inline-block;
+  width: 49%;
+  height: 100%;
+  vertical-align: top;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  padding: 0 20px;
+}
+
+#editor {
+  border: 1px solid #eee;
+}
+
+#editor .translated {
+  /*border-right: 1px solid #ccc;*/
+}
+
+textarea {
+  min-height: 450px;
+  border: none;
+  border-right: 1px solid #ccc;
+  resize: vertical;
+  outline: none;
+  background-color: #f6f6f6;
+  font-size: 14px;
+  font-family: 'Monaco', courier, monospace;
+  padding: 20px;
+}
+
+
+.post-submit {
   margin-top: 20px;
 }

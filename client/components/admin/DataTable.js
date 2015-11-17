@@ -33,10 +33,10 @@ class DataTable extends Component {
         onRowSelection={this._onRowSelection}>
         <TableHeader enableSelectAll={this.state.enableSelectAll}>
           <TableRow>
-            <TableHeaderColumn tooltip='The ID'>ID</TableHeaderColumn>
-            <TableHeaderColumn tooltip='The Title'>Title</TableHeaderColumn>
-            <TableHeaderColumn tooltip='The Create date'>Create date</TableHeaderColumn>
-            <TableHeaderColumn tooltip=''></TableHeaderColumn>
+            <TableHeaderColumn >ID</TableHeaderColumn>
+            <TableHeaderColumn >Title</TableHeaderColumn>
+            <TableHeaderColumn >Create date</TableHeaderColumn>
+            <TableHeaderColumn ></TableHeaderColumn>
           </TableRow>
         </TableHeader>
         <TableBody

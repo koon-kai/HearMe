@@ -34,7 +34,7 @@ routes.forEach(route => {
 app.use('*', function(req, res) {
   console.log(req.path);
   console.log(req.url);
-  res.render('index');
+  res.render('admin');
 });
 
 // catch 404 and forward to error handler

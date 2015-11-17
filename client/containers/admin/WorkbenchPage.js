@@ -2,8 +2,6 @@
 import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
 import { getPosts } from '../../actions/posts';
-import HeaderMui from '../../components/admin/Header.mui.js';
-import EditBox from '../../components/admin/EditBox';
 import DataTable from '../../components/admin/DataTable';
 const RefreshIndicator = require('material-ui/lib/refresh-indicator');
 
@@ -23,7 +21,6 @@ class WorkbenchPage extends Component {
     // console.log(posts);
     return (
       <div>
-        <HeaderMui/>
         {isFetching &&
           <div className="loading">
             <RefreshIndicator size={40} style={{left: '50%', top: '100px', marginLeft: '-20px'}} status="loading" />
@@ -32,7 +29,6 @@ class WorkbenchPage extends Component {
         {!isFetching &&
           <DataTable data={posts} />
         }
-        <EditBox/>
       </div>
     )
   }

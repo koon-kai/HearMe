@@ -35,6 +35,24 @@ function fetchPost(id) {
   }
 }
 
+function savePost(newPost) {
+  return dispatch => {
+    let formData = new FormData(newPost);
+    formData.append('title', newPost.title);
+    formData.append('content', newPost.content);
+    formData.append('public', newPost.public);
+    formData.append('createAt', newPost.createAt);
+    return fetch('/api/posts',{
+      method: 'POST',
+      body: formData
+    }).then(response => response.json())
+      .then(json => dispatch(savePostReturn(json)));
+  }
+}
+
+function savePostReturn(newPost) {
+  return { type: types.ADD_POST, post: newPost};
+}
 
 export function getPosts() {
   return dispatch => dispatch(fetchPosts());
@@ -45,6 +63,6 @@ export function getPost(id) {
   return dispatch => dispatch(fetchPost(id));
 }
 
-export function addPost(title, content) {
-  return { type: types.ADD_POST, title, content };
+export function addPost(newPost) {
+  return dispatch => dispatch(savePost(newPost));  
 }

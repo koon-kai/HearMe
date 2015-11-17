@@ -12,12 +12,13 @@ import rootReducer from '../reducers/root';
 import Admin from '../containers/admin/AdminPage';
 import NotFoundPage from '../components/NotFoundPage.react';
 import WorkbenchPage from '../containers/admin/WorkbenchPage';
-
+import AddPostPage from '../containers/admin/AddPostPage';
 
 
 const routes = (
   <Route component={Admin}>
     <Route path="/admin/workbench" component={WorkbenchPage} />
+    <Route path="/admin/posts/add" component={AddPostPage} />
     <Route path="*" component={NotFoundPage} />
   </Route>
 );
