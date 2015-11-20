@@ -6,17 +6,16 @@ import { addPost } from '../../actions/posts';
 const Mui = require('material-ui');
 const { RaisedButton } = Mui;
 import { History } from 'react-router';
+import LinkedStateMixin from 'react-addons-linked-state-mixin';
 
 var NewForm = React.createClass({
+
+  mixins: [LinkedStateMixin],
 
   getInitialState: function() {
     return {
       content: '',
     }
-  },
-
-  componentDidMount: function() {
-    $('select').material_select();
   },
 
   handleSubmit: function(e) {
@@ -44,13 +43,6 @@ var NewForm = React.createClass({
       content: content.value,
       createAt: createAt.value,
       public: !status
-    })
-  },
-
-  _onChange: function() {
-    let content = this.refs.content;
-    this.setState({
-      content: marked(content.value),
     })
   },
 
@@ -84,9 +76,9 @@ var NewForm = React.createClass({
           </div>
         </div>
         <div className="input-field col s12" id="editor">
-          <textarea className="" ref="content" id="content" onChange={this._onChange}></textarea>
+          <textarea className="" ref="content" id="content" valueLink={this.linkState('content')}></textarea>
           <label htmlFor="content">content</label>
-          <div className="translated" dangerouslySetInnerHTML={{__html: this.state.content}} ></div>
+          <div className="translated" dangerouslySetInnerHTML={{__html: marked(this.state.content)}} ></div>
         </div>
       </form>
     );
