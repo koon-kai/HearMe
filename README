@@ -1,11 +1,14 @@
-#### HearMe
+HearMe
 
-关键词
-- blog
-- react
-- redux
-- nodejs
-- express
-- mongodb
-- material desgin
+关键词:
+blog
+react
+redux
+nodejs
+express
+mongodb
+material desgin
 
+use:
+npm install
+bower install
